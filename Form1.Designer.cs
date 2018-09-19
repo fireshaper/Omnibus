@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.lbComics = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tbComicSearch = new System.Windows.Forms.TextBox();
@@ -210,6 +211,7 @@
             this.Controls.Add(this.tbComicSearch);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lbComics);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Omnibus";
             this.Load += new System.EventHandler(this.Form1_Load);

@@ -124,6 +124,9 @@
   <data name="downloads_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\downloads-32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="omnibus_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\omnibus-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="omnibus_preview_image" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\omnibus-preview-image.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

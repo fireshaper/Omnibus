@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>omnibus-icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="HtmlAgilityPack, Version=1.8.7.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.8.7\lib\Net45\HtmlAgilityPack.dll</HintPath>
@@ -117,6 +120,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\settings-32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\omnibus-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="omnibus-icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
