@@ -1,0 +1,14 @@
+C:\Users\rory5\source\repos\Comic Search\Comic Search\obj\Debug\Comic_Search.Form1.resources
+C:\Users\rory5\source\repos\Comic Search\Comic Search\obj\Debug\Comic_Search.Properties.Resources.resources
+C:\Users\rory5\source\repos\Comic Search\Comic Search\obj\Debug\Comic Search.csproj.GenerateResource.cache
+C:\Users\rory5\source\repos\Comic Search\Comic Search\obj\Debug\Comic Search.csproj.CoreCompileInputs.cache
+C:\Users\rory5\source\repos\Comic Search\Comic Search\bin\Debug\Comic Search.exe.config
+C:\Users\rory5\source\repos\Comic Search\Comic Search\bin\Debug\Comic Search.exe
+C:\Users\rory5\source\repos\Comic Search\Comic Search\bin\Debug\Comic Search.pdb
+C:\Users\rory5\source\repos\Comic Search\Comic Search\bin\Debug\HtmlAgilityPack.dll
+C:\Users\rory5\source\repos\Comic Search\Comic Search\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\rory5\source\repos\Comic Search\Comic Search\bin\Debug\HtmlAgilityPack.xml
+C:\Users\rory5\source\repos\Comic Search\Comic Search\obj\Debug\Comic Search.csproj.CopyComplete
+C:\Users\rory5\source\repos\Comic Search\Comic Search\obj\Debug\Comic Search.exe
+C:\Users\rory5\source\repos\Comic Search\Comic Search\obj\Debug\Comic Search.pdb
+C:\Users\rory5\source\repos\Comic Search\Comic Search\obj\Debug\Comic Search.csprojAssemblyReference.cache
