@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.lbComics = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -36,15 +37,21 @@
             this.btnOpenLink = new System.Windows.Forms.Button();
             this.btnDownload = new System.Windows.Forms.Button();
             this.tbDesc = new System.Windows.Forms.RichTextBox();
-            this.tbStatus = new System.Windows.Forms.TextBox();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.lbDownloads = new System.Windows.Forms.ListBox();
             this.btnClear = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.pbCover = new System.Windows.Forms.PictureBox();
+            this.lvDownloads = new System.Windows.Forms.ListView();
+            this.Title = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Status = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Progress = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.Cancel = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.clearDownloads = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pbCover)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbComics
@@ -112,22 +119,6 @@
             this.tbDesc.TabIndex = 6;
             this.tbDesc.Text = "";
             // 
-            // tbStatus
-            // 
-            this.tbStatus.Location = new System.Drawing.Point(12, 659);
-            this.tbStatus.Name = "tbStatus";
-            this.tbStatus.ReadOnly = true;
-            this.tbStatus.Size = new System.Drawing.Size(535, 22);
-            this.tbStatus.TabIndex = 7;
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar1.Location = new System.Drawing.Point(553, 659);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(285, 22);
-            this.progressBar1.TabIndex = 8;
-            // 
             // btnCancel
             // 
             this.btnCancel.Enabled = false;
@@ -138,15 +129,6 @@
             this.btnCancel.Text = "Cancel Download";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // lbDownloads
-            // 
-            this.lbDownloads.FormattingEnabled = true;
-            this.lbDownloads.ItemHeight = 16;
-            this.lbDownloads.Location = new System.Drawing.Point(12, 505);
-            this.lbDownloads.Name = "lbDownloads";
-            this.lbDownloads.Size = new System.Drawing.Size(826, 148);
-            this.lbDownloads.TabIndex = 10;
             // 
             // btnClear
             // 
@@ -191,18 +173,75 @@
             this.pbCover.TabIndex = 3;
             this.pbCover.TabStop = false;
             // 
+            // lvDownloads
+            // 
+            this.lvDownloads.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Title,
+            this.Status,
+            this.Progress});
+            this.lvDownloads.Location = new System.Drawing.Point(12, 505);
+            this.lvDownloads.Name = "lvDownloads";
+            this.lvDownloads.Scrollable = false;
+            this.lvDownloads.Size = new System.Drawing.Size(826, 202);
+            this.lvDownloads.TabIndex = 14;
+            this.lvDownloads.UseCompatibleStateImageBehavior = false;
+            this.lvDownloads.View = System.Windows.Forms.View.Details;
+            this.lvDownloads.ColumnWidthChanging += new System.Windows.Forms.ColumnWidthChangingEventHandler(this.lvDownloads_ColumnWidthChanging);
+            this.lvDownloads.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lvDownloads_MouseClick);
+            // 
+            // Title
+            // 
+            this.Title.Text = "Title";
+            this.Title.Width = 306;
+            // 
+            // Status
+            // 
+            this.Status.Text = "Status";
+            this.Status.Width = 151;
+            // 
+            // Progress
+            // 
+            this.Progress.Text = "Progress";
+            this.Progress.Width = 233;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Cancel,
+            this.toolStripSeparator1,
+            this.clearDownloads});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(192, 58);
+            this.contextMenuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip1_ItemClicked);
+            // 
+            // Cancel
+            // 
+            this.Cancel.Name = "Cancel";
+            this.Cancel.Size = new System.Drawing.Size(191, 24);
+            this.Cancel.Text = "Cancel";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(188, 6);
+            // 
+            // clearDownloads
+            // 
+            this.clearDownloads.Name = "clearDownloads";
+            this.clearDownloads.Size = new System.Drawing.Size(191, 24);
+            this.clearDownloads.Text = "Clear Downloads";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(849, 695);
+            this.ClientSize = new System.Drawing.Size(849, 716);
+            this.Controls.Add(this.lvDownloads);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnClear);
-            this.Controls.Add(this.lbDownloads);
             this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.tbStatus);
             this.Controls.Add(this.tbDesc);
             this.Controls.Add(this.btnDownload);
             this.Controls.Add(this.btnOpenLink);
@@ -216,6 +255,7 @@
             this.Text = "Omnibus";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbCover)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -231,13 +271,18 @@
         private System.Windows.Forms.Button btnOpenLink;
         private System.Windows.Forms.Button btnDownload;
         private System.Windows.Forms.RichTextBox tbDesc;
-        private System.Windows.Forms.TextBox tbStatus;
-        private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.ListBox lbDownloads;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ListView lvDownloads;
+        private System.Windows.Forms.ColumnHeader Title;
+        private System.Windows.Forms.ColumnHeader Status;
+        private System.Windows.Forms.ColumnHeader Progress;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem Cancel;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem clearDownloads;
     }
 }
 

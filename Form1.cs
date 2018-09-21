@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -19,6 +20,8 @@ namespace Omnibus
     {
         private string url = "https://getcomics.info/?s=";
         private int cancelled = 0;
+        private int complete;
+        private int idCount = 0;
 
         private IEnumerable<HtmlNode> nodes, descNodes, ulNodes;
 
@@ -30,6 +33,8 @@ namespace Omnibus
         private List<String> titleList = new List<String>();
 
         private CancellationTokenSource cts;
+
+        string downloadPath = "";
 
 
         public Form1()
@@ -152,6 +157,11 @@ namespace Omnibus
 
         private void btnDownload_Click(object sender, EventArgs e)
         {
+            for (int i = 0; i < lvDownloads.Items.Count; i++)
+            {
+                lvDownloads.Items[i].Remove();
+            }
+
             if (lbComics.Items.Count > 0)
             {
                 HtmlNode n = nodes.ElementAt(lbComics.SelectedIndex);
@@ -188,7 +198,6 @@ namespace Omnibus
 
                     for (match = regex.Match(data); match.Success; match = match.NextMatch())
                     {
-                        Console.WriteLine("Found a href. Groups: ");
                         foreach (Group group in match.Groups)
                         {
                             string[] g1 = group.ToString().Split('"');
@@ -202,12 +211,16 @@ namespace Omnibus
                                 string[] ta = node.Split('"');
 
                                 string title = ta[5];
-                                lbDownloads.Items.Add(title);
+
+                                //add item to listview
+                                AddLVItem("0", title);
+
                                 titleList.Add(title);
                             }
                             else
                             {
                                 ulNodes = doc.DocumentNode.Descendants("ul");
+                                int id = 0;
 
                                 foreach (HtmlNode u in ulNodes)
                                 {
@@ -235,10 +248,14 @@ namespace Omnibus
                                                 foreach (Group iGroup in iMatch.Groups)
                                                 {
                                                     downloadList.Add(iGroup);
-                                                    lbDownloads.Items.Add(title);
+
+                                                    //add item to listview
+                                                    AddLVItem(id.ToString(),title);
+                                                    id++;
+
                                                     titleList.Add(title);
 
-                                                    Console.WriteLine(iGroup);
+                                                    Console.WriteLine(title);
                                                 }
                                             }
                                         }
@@ -251,7 +268,7 @@ namespace Omnibus
 
                     if (downloadList.Count > 0)
                     {
-                        DownloadComic();
+                        DownloadComic(idCount);
                     }
                 }
             }
@@ -262,9 +279,30 @@ namespace Omnibus
             
         }
 
-        async private void DownloadComic()
+        private void AddLVItem(string id, string title)
         {
-            
+            ListViewItem lvi = new ListViewItem();
+            ProgressBar pb = new ProgressBar();
+
+            lvi.SubItems[0].Text = title;
+            lvi.SubItems.Add("Pending");
+            lvi.SubItems.Add("");
+            lvi.SubItems.Add(id);
+            lvDownloads.Items.Add(lvi);
+
+            Rectangle r = lvi.SubItems[2].Bounds;
+            pb.SetBounds(r.X, r.Y, r.Width, r.Height);
+            pb.Minimum = 0;
+            pb.Maximum = 100;
+            pb.Value = 0;
+            pb.Name = id;
+            lvDownloads.Controls.Add(pb);
+        }
+
+        async private void DownloadComic(int idCount)
+        {
+            complete = 1;
+            String id = idCount.ToString();
             Group group = downloadList[0];
             string[] g1 = group.ToString().Split('"');
 
@@ -272,15 +310,13 @@ namespace Omnibus
             string filename = title + ".cbr";
 
             Uri myStringWebResource = new Uri(g1[1]);
-
-            tbStatus.Text = "Preparing file for download";
-            
+         
             INodeInfo node = mClient.GetNodeFromLink(myStringWebResource);
-            string downloadPath = Properties.Settings.Default.DownloadLocation + filename;
+            downloadPath = Properties.Settings.Default.DownloadLocation + filename;
 
-            IProgress<double> progressHandler = new Progress<double>(x => progressBar1.Value = (int)x);
+            IProgress<double> progressHandler = new Progress<double>(x => UpdateItemValue(id, (int)x));
 
-            tbStatus.Text = "Downloading " + filename + "...";
+            Console.WriteLine("Downloading " + filename);
             btnCancel.Enabled = true;
 
             cts = new CancellationTokenSource();
@@ -291,7 +327,8 @@ namespace Omnibus
             }
             catch (OperationCanceledException ex)
             {
-                DownloadCancel(downloadPath);
+                complete = 0;
+                CancelDownload(downloadPath);
             }
             catch (IOException io)
             {
@@ -307,40 +344,64 @@ namespace Omnibus
                     }
                     catch (OperationCanceledException ex)
                     {
-                        DownloadCancel(downloadPath);
+                        complete = 0;
+                        CancelDownload(downloadPath);
                     }
                 }
                 else
                 {
-                    DownloadCancel(downloadPath);
+                    complete = 0;
+                    CancelDownload(downloadPath);
                 }
             }
 
-            DownloadComplete();                       
+            if (complete == 1)
+            {
+                DownloadComplete();
+            }
+                                  
 
         }
 
-        private void DownloadCancel(string path)
+        private void UpdateItemValue(string id, int value)
+        {
+            ListViewItem lvi = GetLVItemById(id);
+            ProgressBar pb = GetPBById(id);
+
+            if (lvi != null && pb != null)
+            {
+                pb.Value = value;
+
+                if (value == 1)
+                {
+                    lvi.SubItems[1].Text = "Downloading";
+                }
+                else if (value >= 100)
+                {
+                    lvi.SubItems[1].Text = "Complete";
+                    complete = 1;
+                }
+                
+            }
+            
+        }
+
+        private void CancelDownload(string path)
         {
             if (File.Exists(path))
             {
                 File.Delete(path);
             }
 
-            MessageBox.Show("Download Cancelled");
-            tbStatus.Text = "Download cancelled.";
-            downloadList.Clear();
-            lbDownloads.Items.Clear();
             cancelled = 1;
+            idCount++;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
             cts.Cancel();
             
-            tbStatus.Text = "Download cancelled.";
             downloadList.Clear();
-            lbDownloads.Items.Clear();
             cts.Dispose();
         }
 
@@ -358,37 +419,108 @@ namespace Omnibus
             form.Show();
         }
 
+        private void lvDownloads_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (lvDownloads.FocusedItem.Bounds.Contains(e.Location))
+                {
+                    contextMenuStrip1.Show(Cursor.Position);
+                }
+            }
+        }
+
+        private void contextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            
+            if (e.ClickedItem.Name == "Cancel")
+            {
+                cts.Cancel();
+
+                for (int i = 0; i < lvDownloads.Items.Count; i++)
+                {
+                    if (lvDownloads.Items[i].Selected)
+                    {
+                        String lvId = lvDownloads.Items[i].SubItems[3].ToString();
+                        String[] lvIdArray = lvId.Split('{');
+                        String id = lvIdArray[1].Substring(0,1);
+
+                        ListViewItem lvi = GetLVItemById(id);
+                        ProgressBar pb = GetPBById(id);
+
+                        lvi.SubItems[1].Text = "Cancelled";
+                        lvDownloads.Controls.Remove(pb);
+
+                    }
+
+                }
+
+                DownloadCancelled();
+
+            }
+            else if (e.ClickedItem.Name == "clearDownloads")
+            {
+                for (int i = 0; i < lvDownloads.Items.Count; i++)
+                {
+                    lvDownloads.Items[i].Remove();
+                }
+            }
+        }
+
+        private void lvDownloads_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
+        {
+            
+        }
+
+
         private void button2_Click(object sender, EventArgs e)
         {
             String path = Properties.Settings.Default.DownloadLocation;
             Process.Start("explorer.exe", path);
         }
 
+        private ListViewItem GetLVItemById(string id)
+        {
+            ListViewItem lvi = lvDownloads.Items.Cast<ListViewItem>().FirstOrDefault(q => q.SubItems[3].Text == id);
+
+            return lvi;
+        }
+
+        private ProgressBar GetPBById(string id)
+        {
+            ProgressBar pb = lvDownloads.Controls.OfType<ProgressBar>().FirstOrDefault(q => q.Name == id);
+
+            return pb;
+        }
+
+        private void DownloadCancelled()
+        {
+            downloadList.RemoveAt(0);
+            titleList.RemoveAt(0);
+            idCount++;
+
+            if (downloadList.Count > 0)
+            {
+                DownloadComic(idCount);
+            }
+
+        }
         
         private void DownloadComplete()
         {
-            progressBar1.Value = 0;
-            btnCancel.Enabled = false;
-
-            if (cancelled == 1)
+            
+            downloadList.RemoveAt(0);
+            titleList.RemoveAt(0);
+            idCount++;
+                
+            if (downloadList.Count > 0)
             {
-                cancelled = 0;
-                return;
+                DownloadComic(idCount);
             }
             else
             {
-                downloadList.RemoveAt(0);
-                lbDownloads.Items.RemoveAt(0);
-
-                titleList.RemoveAt(0);
-
-                tbStatus.Text = "File(s) downloaded successfully!";
-                if (downloadList.Count > 0)
-                {
-                    DownloadComic();
-                }
+                btnCancel.Enabled = false;
             }
-                        
         }
     }
 }
