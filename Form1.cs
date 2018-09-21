@@ -18,9 +18,11 @@ namespace Omnibus
 {
     public partial class Form1 : Form
     {
-        private string url = "https://getcomics.info/?s=";
+        private String url = "https://getcomics.info/?s=";
         private int cancelled = 0;
         private int complete;
+        private bool status;
+        private String pbID;
         private int idCount = 0;
 
         private IEnumerable<HtmlNode> nodes, descNodes, ulNodes;
@@ -106,7 +108,10 @@ namespace Omnibus
                     string node = n.InnerHtml;
                     string[] a = node.Split('"');
 
-                    lbComics.Items.Add(a[5]);
+                    string aTitle = a[5];
+                    string title = aTitle.Replace("&#8211;", "-");
+
+                    lbComics.Items.Add(title);
                 }
 
                 descNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("post-info"));
@@ -210,7 +215,9 @@ namespace Omnibus
                                 string tnode = n.InnerHtml;
                                 string[] ta = node.Split('"');
 
-                                string title = ta[5];
+                                string aTitle = ta[5];
+                                string title = aTitle.Replace("&#8211;", "-");
+                                
 
                                 //add item to listview
                                 AddLVItem("0", title);
@@ -238,7 +245,9 @@ namespace Omnibus
                                             int fIndex = t0[0].LastIndexOf('(');
                                             int length = fIndex - index;
 
-                                            string title = t0[0].Substring(index, length - 1);
+                                            string titleSub = t0[0].Substring(index, length - 1);
+
+                                            string title = titleSub.Replace("&#8211;", "-");
 
                                             Regex iRegex = new Regex("href=\"https://mega.nz/.+\"", RegexOptions.IgnoreCase);
                                             Match iMatch;
@@ -302,18 +311,20 @@ namespace Omnibus
         async private void DownloadComic(int idCount)
         {
             complete = 1;
+            status = true;
             String id = idCount.ToString();
             Group group = downloadList[0];
             string[] g1 = group.ToString().Split('"');
 
             string title = titleList[0];
-            string filename = title + ".cbr";
+            //string filename = title + ".cbr";
 
             Uri myStringWebResource = new Uri(g1[1]);
          
             INodeInfo node = mClient.GetNodeFromLink(myStringWebResource);
+            string filename = node.Name;
             downloadPath = Properties.Settings.Default.DownloadLocation + filename;
-
+         
             IProgress<double> progressHandler = new Progress<double>(x => UpdateItemValue(id, (int)x));
 
             Console.WriteLine("Downloading " + filename);
@@ -372,13 +383,15 @@ namespace Omnibus
             {
                 pb.Value = value;
 
-                if (value == 1)
+                if (value == 1 && status == true)
                 {
                     lvi.SubItems[1].Text = "Downloading";
+                    status = false;
                 }
                 else if (value >= 100)
                 {
                     lvi.SubItems[1].Text = "Complete";
+                    lvDownloads.Controls.Remove(pb);
                     complete = 1;
                 }
                 
@@ -511,10 +524,10 @@ namespace Omnibus
             
             downloadList.RemoveAt(0);
             titleList.RemoveAt(0);
-            idCount++;
                 
             if (downloadList.Count > 0)
             {
+                idCount++;
                 DownloadComic(idCount);
             }
             else

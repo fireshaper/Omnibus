@@ -56,6 +56,8 @@
             // 
             // lbComics
             // 
+            this.lbComics.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbComics.FormattingEnabled = true;
             this.lbComics.ItemHeight = 16;
             this.lbComics.Location = new System.Drawing.Point(12, 139);
@@ -112,6 +114,8 @@
             // 
             // tbDesc
             // 
+            this.tbDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbDesc.Location = new System.Drawing.Point(12, 373);
             this.tbDesc.Name = "tbDesc";
             this.tbDesc.ReadOnly = true;
@@ -175,6 +179,9 @@
             // 
             // lvDownloads
             // 
+            this.lvDownloads.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDownloads.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Title,
             this.Status,
@@ -197,12 +204,12 @@
             // Status
             // 
             this.Status.Text = "Status";
-            this.Status.Width = 151;
+            this.Status.Width = 131;
             // 
             // Progress
             // 
             this.Progress.Text = "Progress";
-            this.Progress.Width = 233;
+            this.Progress.Width = 177;
             // 
             // contextMenuStrip1
             // 
