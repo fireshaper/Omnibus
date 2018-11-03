@@ -31,7 +31,8 @@ namespace Omnibus
 
         private MegaApiClient mClient = new MegaApiClient();
 
-        private List<Group> downloadList = new List<Group>();
+        //private List<Group> downloadList = new List<Group>();
+        private List<String> downloadList = new List<String>();
         private List<String> titleList = new List<String>();
 
         private CancellationTokenSource cts;
@@ -108,9 +109,8 @@ namespace Omnibus
                     string node = n.InnerHtml;
                     string[] a = node.Split('"');
 
-                    string aTitle = a[5];
-                    string title = aTitle.Replace("&#8211;", "-");
-
+                    string title = replaceASCII(a[5]);
+                                     
                     lbComics.Items.Add(title);
                 }
 
@@ -130,7 +130,8 @@ namespace Omnibus
             string descNode = d.InnerHtml;
             string[] b = descNode.Split('"');
             string[] c = b[16].Split('\n');
-            string[] desc = c[1].Split('<');
+            string[] preDesc = c[0].Split('>');
+            string[] desc = preDesc[6].Split('<');
 
             tbDesc.Text = desc[0];
         }
@@ -156,8 +157,6 @@ namespace Omnibus
             {
                 MessageBox.Show("You must search for a comic first.");
             }
-
-            
         }
 
         private void btnDownload_Click(object sender, EventArgs e)
@@ -198,82 +197,130 @@ namespace Omnibus
                     HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
                     doc.LoadHtml(data);
 
-                    Regex regex = new Regex("href=\"https://mega.nz/.+\"", RegexOptions.IgnoreCase);
+                    //Regex regex = new Regex("href=\"https://mega.nz/.+\"", RegexOptions.IgnoreCase);
+                    Regex regex = new Regex("(?<=go.php-url=)(.*)Mega", RegexOptions.IgnoreCase);
                     Match match;
 
-                    for (match = regex.Match(data); match.Success; match = match.NextMatch())
+                    if (regex.Match(data).Success != false)
                     {
-                        foreach (Group group in match.Groups)
+                        for (match = regex.Match(data); match.Success; match = match.NextMatch())
                         {
-                            string[] g1 = group.ToString().Split('"');
+                            string lastEV = "";
 
-                            if (g1[3] == "aio-purple")
+                            foreach (Group group in match.Groups)
                             {
-                                downloadList.Add(group);
-
-                                HtmlNode tn = nodes.ElementAt(lbComics.SelectedIndex);
-                                string tnode = n.InnerHtml;
-                                string[] ta = node.Split('"');
-
-                                string aTitle = ta[5];
-                                string title = aTitle.Replace("&#8211;", "-");
-                                
-
-                                //add item to listview
-                                AddLVItem("0", title);
-
-                                titleList.Add(title);
-                            }
-                            else
-                            {
-                                ulNodes = doc.DocumentNode.Descendants("ul");
-                                int id = 0;
-
-                                foreach (HtmlNode u in ulNodes)
+                                string[] g1 = group.ToString().Split(new string[] { "<a" }, StringSplitOptions.None);
+                                int lastURL = g1.Length - 1;
+                                string[] g2 = g1[lastURL].Split('"');
+                                                                
+                                if (g2[7] == "aio-purple")
                                 {
-                                    string ulNode = u.InnerHtml;
-                                    string[] b = ulNode.Split(new[] { "<li>" }, StringSplitOptions.None);
+                                    string gcURL = g2[5];
+                                    string[] gcURLArray = gcURL.Split('/');
 
-                                    for (int i = 1; i < b.Count(); i++)
+                                    string encodedValue = gcURLArray[4];
+
+                                    if (lastEV != encodedValue)
                                     {
-                                        String[] c = b[i].Split('"');
+                                        byte[] urlData = Convert.FromBase64String(encodedValue);
+                                        string decodedURL = Encoding.UTF8.GetString(urlData);
 
-                                        if (c[3] == "_blank&quot;")
+                                        downloadList.Add(decodedURL);
+
+                                        HtmlNode tn = nodes.ElementAt(lbComics.SelectedIndex);
+                                        string tnode = n.InnerHtml;
+                                        string[] ta = node.Split('"');
+
+                                        string title = replaceASCII(ta[5]);
+
+                                        //add item to listview
+                                        AddLVItem("0", title);
+
+                                        titleList.Add(title);
+
+                                        lastEV = encodedValue;
+                                    }
+
+                                }
+                                else
+                                {
+                                    ulNodes = doc.DocumentNode.Descendants("ul");
+                                    int id = 0;
+
+                                    foreach (HtmlNode u in ulNodes)
+                                    {
+                                        string ulNode = u.InnerHtml;
+                                        string[] b = ulNode.Split(new[] { "<li>" }, StringSplitOptions.None);
+
+                                        for (int i = 1; i < b.Count(); i++)
                                         {
-                                            string[] t0 = b[i].Split('>');
-                                            int index = 0;
-                                            int fIndex = t0[0].LastIndexOf('(');
-                                            int length = fIndex - index;
+                                            String[] c = b[i].Split('"');
 
-                                            string titleSub = t0[0].Substring(index, length - 1);
-
-                                            string title = titleSub.Replace("&#8211;", "-");
-
-                                            Regex iRegex = new Regex("href=\"https://mega.nz/.+\"", RegexOptions.IgnoreCase);
-                                            Match iMatch;
-
-                                            for (iMatch = iRegex.Match(b[i]); iMatch.Success; iMatch = iMatch.NextMatch())
+                                            if (c[7] == "_blank&quot;")
                                             {
-                                                foreach (Group iGroup in iMatch.Groups)
+                                                string[] t0 = b[i].Split('>');
+                                                int index = 0;
+                                                int fIndex = t0[0].LastIndexOf('(');
+                                                int length = fIndex - index;
+
+                                                string titleSub = t0[0].Substring(index, length - 1);
+
+                                                string title = replaceASCII(titleSub);
+
+                                                Regex iRegex = new Regex("(?<=go.php-url=)(.*)Mega", RegexOptions.IgnoreCase);
+                                                Match iMatch;
+
+                                                if (regex.Match(data).Success != false)
                                                 {
-                                                    downloadList.Add(iGroup);
+                                                    for (iMatch = iRegex.Match(b[i]); iMatch.Success; iMatch = iMatch.NextMatch())
+                                                    {
+                                                        foreach (Group iGroup in iMatch.Groups)
+                                                        {
+                                                            string[] g01 = iGroup.ToString().Split(new string[] { "<a" }, StringSplitOptions.None);
+                                                            int lastURLa = g01.Length - 1;
+                                                            string[] g02 = g01[lastURLa].Split('"');
 
-                                                    //add item to listview
-                                                    AddLVItem(id.ToString(),title);
-                                                    id++;
+                                                            string gcURL = g02[5];
+                                                            string[] gcURLArray = gcURL.Split('/');
 
-                                                    titleList.Add(title);
+                                                            string encodedValue = gcURLArray[4];
 
-                                                    Console.WriteLine(title);
+                                                            if (lastEV != encodedValue)
+                                                            {
+                                                                byte[] urlData = Convert.FromBase64String(encodedValue);
+                                                                string decodedURL = Encoding.UTF8.GetString(urlData);
+
+                                                                downloadList.Add(decodedURL);
+
+                                                                //add item to listview
+                                                                AddLVItem(id.ToString(), title);
+                                                                id++;
+
+                                                                titleList.Add(title);
+
+                                                                Console.WriteLine(title);
+
+                                                                lastEV = encodedValue;
+                                                            }
+
+                                                            
+                                                        }
+                                                    }
                                                 }
+                                                else
+                                                    MessageBox.Show("No downloads available, go to the comic's page to download.");
+
                                             }
                                         }
                                     }
                                 }
                             }
+                            break;
                         }
-                        break;
                     }
+                    else
+                        MessageBox.Show("No download link available. Go to comic's page and download manually.");
+                    
 
                     if (downloadList.Count > 0)
                     {
@@ -285,7 +332,6 @@ namespace Omnibus
             {
                 MessageBox.Show("You must search for a comic first.");
             }
-            
         }
 
         private void AddLVItem(string id, string title)
@@ -313,21 +359,17 @@ namespace Omnibus
             complete = 1;
             status = true;
             String id = idCount.ToString();
-            Group group = downloadList[0];
-            string[] g1 = group.ToString().Split('"');
-
-            string title = titleList[0];
-            //string filename = title + ".cbr";
-
-            Uri myStringWebResource = new Uri(g1[1]);
+            String url = downloadList[0];
+            
+            Uri myStringWebResource = new Uri(url);
          
             INodeInfo node = mClient.GetNodeFromLink(myStringWebResource);
             string filename = node.Name;
-            downloadPath = Properties.Settings.Default.DownloadLocation + filename;
+            downloadPath = Properties.Settings.Default.DownloadLocation + "\\" + filename;
          
             IProgress<double> progressHandler = new Progress<double>(x => UpdateItemValue(id, (int)x));
 
-            Console.WriteLine("Downloading " + filename);
+            Console.WriteLine("Downloading: " + downloadPath);
             btnCancel.Enabled = true;
 
             cts = new CancellationTokenSource();
@@ -370,8 +412,6 @@ namespace Omnibus
             {
                 DownloadComplete();
             }
-                                  
-
         }
 
         private void UpdateItemValue(string id, int value)
@@ -394,9 +434,7 @@ namespace Omnibus
                     lvDownloads.Controls.Remove(pb);
                     complete = 1;
                 }
-                
             }
-            
         }
 
         private void CancelDownload(string path)
@@ -516,7 +554,6 @@ namespace Omnibus
             {
                 DownloadComic(idCount);
             }
-
         }
         
         private void DownloadComplete()
@@ -534,6 +571,20 @@ namespace Omnibus
             {
                 btnCancel.Enabled = false;
             }
+        }
+
+        private string replaceASCII(string title)
+        {
+            if (title.Contains("&#8211;"))
+                title = title.Replace("&#8211;", "-");
+
+            if (title.Contains("&#8217;"))
+                title = title.Replace("&#8217;", "'");
+
+            if (title.Contains("&#038;"))
+                title = title.Replace("&#038;", "&");
+
+            return title;
         }
     }
 }
