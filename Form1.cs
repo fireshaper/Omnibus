@@ -25,7 +25,7 @@ namespace Omnibus
         private String pbID;
         private int idCount = 0;
 
-        private IEnumerable<HtmlNode> nodes, descNodes, ulNodes;
+        private IEnumerable<HtmlNode> nodes, descNodes, ulNodes, liNodes;
 
         private System.Net.WebClient client = new System.Net.WebClient();
 
@@ -206,6 +206,7 @@ namespace Omnibus
                         for (match = regex.Match(data); match.Success; match = match.NextMatch())
                         {
                             string lastEV = "";
+                            List<string> EVs = new List<string>();
 
                             foreach (Group group in match.Groups)
                             {
@@ -245,7 +246,9 @@ namespace Omnibus
                                 else
                                 {
                                     ulNodes = doc.DocumentNode.Descendants("ul");
+                                    //liNodes = doc.DocumentNode.Descendants("li");
                                     int id = 0;
+                                    
 
                                     foreach (HtmlNode u in ulNodes)
                                     {
@@ -256,7 +259,7 @@ namespace Omnibus
                                         {
                                             String[] c = b[i].Split('"');
 
-                                            if (c[7] == "_blank&quot;")
+                                            if (c.Length > 7 && c[7] == "_blank&quot;")
                                             {
                                                 string[] t0 = b[i].Split('>');
                                                 int index = 0;
@@ -285,7 +288,7 @@ namespace Omnibus
 
                                                             string encodedValue = gcURLArray[4];
 
-                                                            if (lastEV != encodedValue)
+                                                            if (!EVs.Contains(encodedValue))
                                                             {
                                                                 byte[] urlData = Convert.FromBase64String(encodedValue);
                                                                 string decodedURL = Encoding.UTF8.GetString(urlData);
@@ -300,7 +303,7 @@ namespace Omnibus
 
                                                                 Console.WriteLine(title);
 
-                                                                lastEV = encodedValue;
+                                                                EVs.Add(encodedValue);
                                                             }
 
                                                             
