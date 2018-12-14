@@ -24,14 +24,14 @@ namespace Omnibus
         private bool status;
         private String pbID;
         private int idCount = 0;
+        private int page = 1;
 
-        private IEnumerable<HtmlNode> nodes, descNodes, ulNodes, liNodes;
+        private IEnumerable<HtmlNode> nodes, descNodes, ulNodes, newpageNodes, oldpageNodes;
 
         private System.Net.WebClient client = new System.Net.WebClient();
 
         private MegaApiClient mClient = new MegaApiClient();
 
-        //private List<Group> downloadList = new List<Group>();
         private List<String> downloadList = new List<String>();
         private List<String> titleList = new List<String>();
 
@@ -102,6 +102,19 @@ namespace Omnibus
                 HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
                 doc.LoadHtml(data);
 
+                var npNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("pagination-newer"));
+                var opNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("pagination-older"));
+
+                if (opNodes.Count() > 0)
+                {
+                    btnNextPage.Enabled = true;
+                }
+
+                if (npNodes.Count() > 0)
+                {
+                    btnLastPage.Enabled = true;
+                }
+                
                 nodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("post-header-image"));
 
                 foreach (HtmlNode n in nodes)
@@ -197,7 +210,6 @@ namespace Omnibus
                     HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
                     doc.LoadHtml(data);
 
-                    //Regex regex = new Regex("href=\"https://mega.nz/.+\"", RegexOptions.IgnoreCase);
                     Regex regex = new Regex("(?<=go.php-url=)(.*)Mega", RegexOptions.IgnoreCase);
                     Match match;
 
@@ -246,7 +258,6 @@ namespace Omnibus
                                 else
                                 {
                                     ulNodes = doc.DocumentNode.Descendants("ul");
-                                    //liNodes = doc.DocumentNode.Descendants("li");
                                     int id = 0;
                                     
 
@@ -465,6 +476,8 @@ namespace Omnibus
             lbComics.Items.Clear();
             tbDesc.Text = "";
             pbCover.Image = Properties.Resources.omnibus_preview_image;
+            btnLastPage.Enabled = false;
+            btnNextPage.Enabled = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -538,6 +551,150 @@ namespace Omnibus
             ListViewItem lvi = lvDownloads.Items.Cast<ListViewItem>().FirstOrDefault(q => q.SubItems[3].Text == id);
 
             return lvi;
+        }
+
+        private void btnNextPage_Click(object sender, EventArgs e)
+        {
+            page++;
+
+            lbComics.Items.Clear();
+            pbCover.Image = Properties.Resources.omnibus_preview_image;
+
+            string search = tbComicSearch.Text;
+            string searchURL = "https://getcomics.info/page/" + page + "/?s=" + search;
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(searchURL);
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                Stream receiveStream = response.GetResponseStream();
+                StreamReader readStream = null;
+
+                if (response.CharacterSet == null)
+                {
+                    readStream = new StreamReader(receiveStream);
+                }
+                else
+                {
+                    readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
+                }
+
+                string data = readStream.ReadToEnd();
+
+                response.Close();
+                readStream.Close();
+
+                HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+                doc.LoadHtml(data);
+
+                var npNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("pagination-newer"));
+                var opNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("pagination-older"));
+
+                if (opNodes.Count() > 0)
+                {
+                    btnNextPage.Enabled = true;
+                }
+                else
+                {
+                    btnNextPage.Enabled = false;
+                }
+
+                if (npNodes.Count() > 0)
+                {
+                    btnLastPage.Enabled = true;
+                }
+                else
+                {
+                    btnLastPage.Enabled = false;
+                }
+
+                nodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("post-header-image"));
+
+                foreach (HtmlNode n in nodes)
+                {
+                    string node = n.InnerHtml;
+                    string[] a = node.Split('"');
+
+                    string title = replaceASCII(a[5]);
+
+                    lbComics.Items.Add(title);
+                }
+
+                descNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("post-info"));
+            }
+        }
+
+        private void btnLastPage_Click(object sender, EventArgs e)
+        {
+            page--;
+
+            lbComics.Items.Clear();
+            pbCover.Image = Properties.Resources.omnibus_preview_image;
+
+            string search = tbComicSearch.Text;
+            string searchURL = "https://getcomics.info/page/" + page + "/?s=" + search;
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(searchURL);
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                Stream receiveStream = response.GetResponseStream();
+                StreamReader readStream = null;
+
+                if (response.CharacterSet == null)
+                {
+                    readStream = new StreamReader(receiveStream);
+                }
+                else
+                {
+                    readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
+                }
+
+                string data = readStream.ReadToEnd();
+
+                response.Close();
+                readStream.Close();
+
+                HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+                doc.LoadHtml(data);
+
+                var npNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("pagination-newer"));
+                var opNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("pagination-older"));
+
+                if (opNodes.Count() > 0)
+                {
+                    btnNextPage.Enabled = true;
+                }
+                else
+                {
+                    btnNextPage.Enabled = false;
+                }
+
+                if (npNodes.Count() > 0)
+                {
+                    btnLastPage.Enabled = true;
+                }
+                else
+                {
+                    btnLastPage.Enabled = false;
+                }
+
+                nodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("post-header-image"));
+
+                foreach (HtmlNode n in nodes)
+                {
+                    string node = n.InnerHtml;
+                    string[] a = node.Split('"');
+
+                    string title = replaceASCII(a[5]);
+
+                    lbComics.Items.Add(title);
+                }
+
+                descNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("post-info"));
+            }
         }
 
         private ProgressBar GetPBById(string id)

@@ -50,6 +50,8 @@
             this.Cancel = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.clearDownloads = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnLastPage = new System.Windows.Forms.Button();
+            this.btnNextPage = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbCover)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -239,11 +241,35 @@
             this.clearDownloads.Size = new System.Drawing.Size(191, 24);
             this.clearDownloads.Text = "Clear Downloads";
             // 
+            // btnLastPage
+            // 
+            this.btnLastPage.Enabled = false;
+            this.btnLastPage.Location = new System.Drawing.Point(478, 105);
+            this.btnLastPage.Name = "btnLastPage";
+            this.btnLastPage.Size = new System.Drawing.Size(31, 28);
+            this.btnLastPage.TabIndex = 15;
+            this.btnLastPage.Text = "<";
+            this.btnLastPage.UseVisualStyleBackColor = true;
+            this.btnLastPage.Click += new System.EventHandler(this.btnLastPage_Click);
+            // 
+            // btnNextPage
+            // 
+            this.btnNextPage.Enabled = false;
+            this.btnNextPage.Location = new System.Drawing.Point(515, 105);
+            this.btnNextPage.Name = "btnNextPage";
+            this.btnNextPage.Size = new System.Drawing.Size(31, 28);
+            this.btnNextPage.TabIndex = 16;
+            this.btnNextPage.Text = ">";
+            this.btnNextPage.UseVisualStyleBackColor = true;
+            this.btnNextPage.Click += new System.EventHandler(this.btnNextPage_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(849, 716);
+            this.Controls.Add(this.btnNextPage);
+            this.Controls.Add(this.btnLastPage);
             this.Controls.Add(this.lvDownloads);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -259,7 +285,7 @@
             this.Controls.Add(this.lbComics);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Omnibus";
+            this.Text = "Omnibus v1.3.0";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbCover)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
@@ -290,6 +316,8 @@
         private System.Windows.Forms.ToolStripMenuItem Cancel;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem clearDownloads;
+        private System.Windows.Forms.Button btnLastPage;
+        private System.Windows.Forms.Button btnNextPage;
     }
 }
 
