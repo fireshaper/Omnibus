@@ -18,6 +18,8 @@ namespace Omnibus
 {
     public partial class Form1 : Form
     {
+
+        private String version = "1.4.0";
         private String url = "https://getcomics.info/?s=";
         private int cancelled = 0;
         private int complete;
@@ -25,6 +27,8 @@ namespace Omnibus
         private String pbID;
         private int idCount = 0;
         private int page = 1;
+
+        private object comicIndex;
 
         private IEnumerable<HtmlNode> nodes, descNodes, ulNodes, newpageNodes, oldpageNodes;
 
@@ -47,6 +51,8 @@ namespace Omnibus
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.Text = "Omnibus - v" + version;
+            
             //Create Tooltips for settings and download location button
             ToolTip toolTip1 = new ToolTip();
 
@@ -72,63 +78,8 @@ namespace Omnibus
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            lbComics.Items.Clear();
+            searchComics("");
 
-            string search = tbComicSearch.Text;
-            string searchURL = url + search;
-
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(searchURL);
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                Stream receiveStream = response.GetResponseStream();
-                StreamReader readStream = null;
-
-                if (response.CharacterSet == null)
-                {
-                    readStream = new StreamReader(receiveStream);
-                }
-                else
-                {
-                    readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
-                }
-
-                string data = readStream.ReadToEnd();
-
-                response.Close();
-                readStream.Close();
-
-                HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
-                doc.LoadHtml(data);
-
-                var npNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("pagination-newer"));
-                var opNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("pagination-older"));
-
-                if (opNodes.Count() > 0)
-                {
-                    btnNextPage.Enabled = true;
-                }
-
-                if (npNodes.Count() > 0)
-                {
-                    btnLastPage.Enabled = true;
-                }
-                
-                nodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("post-header-image"));
-
-                foreach (HtmlNode n in nodes)
-                {
-                    string node = n.InnerHtml;
-                    string[] a = node.Split('"');
-
-                    string title = replaceASCII(a[5]);
-                                     
-                    lbComics.Items.Add(title);
-                }
-
-                descNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("post-info"));
-            }
         }
 
         private void lbComics_SelectedIndexChanged(object sender, EventArgs e)
@@ -384,7 +335,6 @@ namespace Omnibus
             IProgress<double> progressHandler = new Progress<double>(x => UpdateItemValue(id, (int)x));
 
             Console.WriteLine("Downloading: " + downloadPath);
-            btnCancel.Enabled = true;
 
             cts = new CancellationTokenSource();
 
@@ -462,14 +412,7 @@ namespace Omnibus
             idCount++;
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            cts.Cancel();
-            
-            downloadList.Clear();
-            cts.Dispose();
-        }
-
+        
         private void btnClear_Click(object sender, EventArgs e)
         {
             tbComicSearch.Text = "";
@@ -494,6 +437,22 @@ namespace Omnibus
                 {
                     contextMenuStrip1.Show(Cursor.Position);
                 }
+            }
+        }
+
+        private void lbComics_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                int index = lbComics.IndexFromPoint(e.Location);
+                if (index != ListBox.NoMatches)
+                {
+                    comicIndex = lbComics.Items[index];
+                    lbComics.SelectedIndex = index;
+                    cmsComics.Show(Cursor.Position);
+                }
+                lbComics.SelectedItem = lbComics.IndexFromPoint(e.X, e.Y);
+                
             }
         }
 
@@ -534,10 +493,15 @@ namespace Omnibus
             }
         }
 
-        private void lvDownloads_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
+        private void cmsComics_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            
+            if (e.ClickedItem.Name == "search")
+            {
+                searchComics("listBox");
+
+            }
         }
+
 
 
         private void button2_Click(object sender, EventArgs e)
@@ -555,146 +519,14 @@ namespace Omnibus
 
         private void btnNextPage_Click(object sender, EventArgs e)
         {
-            page++;
+            searchComics("nextPage");
 
-            lbComics.Items.Clear();
-            pbCover.Image = Properties.Resources.omnibus_preview_image;
-
-            string search = tbComicSearch.Text;
-            string searchURL = "https://getcomics.info/page/" + page + "/?s=" + search;
-
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(searchURL);
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                Stream receiveStream = response.GetResponseStream();
-                StreamReader readStream = null;
-
-                if (response.CharacterSet == null)
-                {
-                    readStream = new StreamReader(receiveStream);
-                }
-                else
-                {
-                    readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
-                }
-
-                string data = readStream.ReadToEnd();
-
-                response.Close();
-                readStream.Close();
-
-                HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
-                doc.LoadHtml(data);
-
-                var npNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("pagination-newer"));
-                var opNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("pagination-older"));
-
-                if (opNodes.Count() > 0)
-                {
-                    btnNextPage.Enabled = true;
-                }
-                else
-                {
-                    btnNextPage.Enabled = false;
-                }
-
-                if (npNodes.Count() > 0)
-                {
-                    btnLastPage.Enabled = true;
-                }
-                else
-                {
-                    btnLastPage.Enabled = false;
-                }
-
-                nodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("post-header-image"));
-
-                foreach (HtmlNode n in nodes)
-                {
-                    string node = n.InnerHtml;
-                    string[] a = node.Split('"');
-
-                    string title = replaceASCII(a[5]);
-
-                    lbComics.Items.Add(title);
-                }
-
-                descNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("post-info"));
-            }
         }
 
         private void btnLastPage_Click(object sender, EventArgs e)
         {
-            page--;
+            searchComics("lastPage");
 
-            lbComics.Items.Clear();
-            pbCover.Image = Properties.Resources.omnibus_preview_image;
-
-            string search = tbComicSearch.Text;
-            string searchURL = "https://getcomics.info/page/" + page + "/?s=" + search;
-
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(searchURL);
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                Stream receiveStream = response.GetResponseStream();
-                StreamReader readStream = null;
-
-                if (response.CharacterSet == null)
-                {
-                    readStream = new StreamReader(receiveStream);
-                }
-                else
-                {
-                    readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
-                }
-
-                string data = readStream.ReadToEnd();
-
-                response.Close();
-                readStream.Close();
-
-                HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
-                doc.LoadHtml(data);
-
-                var npNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("pagination-newer"));
-                var opNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("pagination-older"));
-
-                if (opNodes.Count() > 0)
-                {
-                    btnNextPage.Enabled = true;
-                }
-                else
-                {
-                    btnNextPage.Enabled = false;
-                }
-
-                if (npNodes.Count() > 0)
-                {
-                    btnLastPage.Enabled = true;
-                }
-                else
-                {
-                    btnLastPage.Enabled = false;
-                }
-
-                nodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("post-header-image"));
-
-                foreach (HtmlNode n in nodes)
-                {
-                    string node = n.InnerHtml;
-                    string[] a = node.Split('"');
-
-                    string title = replaceASCII(a[5]);
-
-                    lbComics.Items.Add(title);
-                }
-
-                descNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("post-info"));
-            }
         }
 
         private ProgressBar GetPBById(string id)
@@ -727,10 +559,7 @@ namespace Omnibus
                 idCount++;
                 DownloadComic(idCount);
             }
-            else
-            {
-                btnCancel.Enabled = false;
-            }
+
         }
 
         private string replaceASCII(string title)
@@ -745,6 +574,106 @@ namespace Omnibus
                 title = title.Replace("&#038;", "&");
 
             return title;
+        }
+
+        private void searchComics(string function)
+        {
+            string search = "";
+
+            if (function == "nextPage")
+            {
+                page++;
+
+                search = tbComicSearch.Text;
+            }
+            else if (function == "lastPage")
+            {
+                page--;
+
+                search = tbComicSearch.Text;
+            }
+            else if (function == "listBox")
+            {
+                search = lbComics.GetItemText(comicIndex);
+                string[] sArray = search.Split('(');
+                search = sArray[0];
+
+                tbComicSearch.Text = search;
+            }
+            else
+            {
+                search = tbComicSearch.Text;
+            }
+
+            lbComics.Items.Clear();
+            pbCover.Image = Properties.Resources.omnibus_preview_image;
+
+            string searchURL = "https://getcomics.info/page/" + page + "/?s=" + search;
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(searchURL);
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                Stream receiveStream = response.GetResponseStream();
+                StreamReader readStream = null;
+
+                if (response.CharacterSet == null)
+                {
+                    readStream = new StreamReader(receiveStream);
+                }
+                else
+                {
+                    readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
+                }
+
+                string data = readStream.ReadToEnd();
+
+                response.Close();
+                readStream.Close();
+
+                HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+                doc.LoadHtml(data);
+
+                var npNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("pagination-newer"));
+                var opNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("pagination-older"));
+
+                if (opNodes.Count() > 0)
+                {
+                    btnNextPage.Enabled = true;
+                }
+                else
+                {
+                    btnNextPage.Enabled = false;
+                }
+
+                if (npNodes.Count() > 0)
+                {
+                    btnLastPage.Enabled = true;
+                }
+                else
+                {
+                    btnLastPage.Enabled = false;
+                }
+
+                nodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("post-header-image"));
+
+                foreach (HtmlNode n in nodes)
+                {
+                    string node = n.InnerHtml;
+                    string[] a = node.Split('"');
+
+                    string title = replaceASCII(a[5]);
+
+                    lbComics.Items.Add(title);
+                }
+
+                descNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("post-info"));
+            }
+            else
+            {
+                MessageBox.Show("There was an error. Try again in a couple of minnutes.");
+            }
         }
     }
 }
