@@ -161,7 +161,8 @@ namespace Omnibus
                     HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
                     doc.LoadHtml(data);
 
-                    Regex regex = new Regex("(?<=go.php-url=)(.*)Mega", RegexOptions.IgnoreCase);
+                    //Regex regex = new Regex("(?<=go.php-url=)(.*)Mega", RegexOptions.IgnoreCase); //old regex string
+                    Regex regex = new Regex("(?<=go.php-urls/)(.*)Mega", RegexOptions.IgnoreCase); //updated regex string to match new paths
                     Match match;
 
                     if (regex.Match(data).Success != false)
@@ -176,7 +177,46 @@ namespace Omnibus
                                 string[] g1 = group.ToString().Split(new string[] { "<a" }, StringSplitOptions.None);
                                 int lastURL = g1.Length - 1;
                                 string[] g2 = g1[lastURL].Split('"');
-                                                                
+
+                                for(int i = 0; i < g1.Count(); i++)
+                                {
+                                    if(g1[i].Contains("aio-purple"))
+                                    {
+                                        //MessageBox.Show("Found in:" + i);
+                                        string[] g3 = g1[i].Split('"');
+
+                                        //string gcURL = g3[5];
+                                        //string[] gcURLArray = gcURL.Split('/');
+
+                                        //string encodedValue = gcURLArray[4];      //old code had hash in another location
+
+                                        string gcURL = g3[0];                       //updated location of hash
+                                        string encodedValue = gcURL;
+
+                                        if (lastEV != encodedValue)
+                                        {
+                                            byte[] urlData = Convert.FromBase64String(encodedValue);
+                                            string decodedURL = Encoding.UTF8.GetString(urlData);
+
+                                            downloadList.Add(decodedURL);
+
+                                            HtmlNode tn = nodes.ElementAt(lbComics.SelectedIndex);
+                                            string tnode = n.InnerHtml;
+                                            string[] ta = node.Split('"');
+
+                                            string title = replaceASCII(ta[5]);
+
+                                            //add item to listview
+                                            AddLVItem("0", title);
+
+                                            titleList.Add(title);
+
+                                            lastEV = encodedValue;
+                                        }
+                                        break;
+                                    }
+                                }
+                                /*                                
                                 if (g2[7] == "aio-purple")
                                 {
                                     string gcURL = g2[5];
@@ -278,7 +318,7 @@ namespace Omnibus
                                             }
                                         }
                                     }
-                                }
+                                }*/
                             }
                             break;
                         }
@@ -421,6 +461,7 @@ namespace Omnibus
             pbCover.Image = Properties.Resources.omnibus_preview_image;
             btnLastPage.Enabled = false;
             btnNextPage.Enabled = false;
+            page = 1;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -596,12 +637,16 @@ namespace Omnibus
             {
                 search = lbComics.GetItemText(comicIndex);
                 string[] sArray = search.Split('(');
-                search = sArray[0];
+                string[] sArray2 = sArray[0].Split('#');
+                search = sArray2[0];
+
+                page = 1;
 
                 tbComicSearch.Text = search;
             }
             else
             {
+                page = 1;
                 search = tbComicSearch.Text;
             }
 
@@ -611,69 +656,99 @@ namespace Omnibus
             string searchURL = "https://getcomics.info/page/" + page + "/?s=" + search;
 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(searchURL);
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            HttpWebResponse response = null;
 
-            if (response.StatusCode == HttpStatusCode.OK)
+            try
             {
-                Stream receiveStream = response.GetResponseStream();
-                StreamReader readStream = null;
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (Exception ex)
+            {
+                LogWriter("Searching for " + searchURL + " failed.");
+                LogWriter(ex.ToString());
+            }
+            
+            if (response == null)
+            {
+                MessageBox.Show("Comic does not exist. Try again.");
 
-                if (response.CharacterSet == null)
-                {
-                    readStream = new StreamReader(receiveStream);
-                }
-                else
-                {
-                    readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
-                }
-
-                string data = readStream.ReadToEnd();
-
-                response.Close();
-                readStream.Close();
-
-                HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
-                doc.LoadHtml(data);
-
-                var npNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("pagination-newer"));
-                var opNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("pagination-older"));
-
-                if (opNodes.Count() > 0)
-                {
-                    btnNextPage.Enabled = true;
-                }
-                else
-                {
-                    btnNextPage.Enabled = false;
-                }
-
-                if (npNodes.Count() > 0)
-                {
-                    btnLastPage.Enabled = true;
-                }
-                else
-                {
-                    btnLastPage.Enabled = false;
-                }
-
-                nodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("post-header-image"));
-
-                foreach (HtmlNode n in nodes)
-                {
-                    string node = n.InnerHtml;
-                    string[] a = node.Split('"');
-
-                    string title = replaceASCII(a[5]);
-
-                    lbComics.Items.Add(title);
-                }
-
-                descNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("post-info"));
+                tbComicSearch.Text = "";
+                lbComics.Items.Clear();
+                tbDesc.Text = "";
+                pbCover.Image = Properties.Resources.omnibus_preview_image;
+                btnLastPage.Enabled = false;
+                btnNextPage.Enabled = false;
             }
             else
             {
-                MessageBox.Show("There was an error. Try again in a couple of minnutes.");
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    Stream receiveStream = response.GetResponseStream();
+                    StreamReader readStream = null;
+
+                    if (response.CharacterSet == null)
+                    {
+                        readStream = new StreamReader(receiveStream);
+                    }
+                    else
+                    {
+                        readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
+                    }
+
+                    string data = readStream.ReadToEnd();
+
+                    response.Close();
+                    readStream.Close();
+
+                    HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+                    doc.LoadHtml(data);
+
+                    var npNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("pagination-newer"));
+                    var opNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("pagination-older"));
+
+                    if (opNodes.Count() > 0)
+                    {
+                        btnNextPage.Enabled = true;
+                    }
+                    else
+                    {
+                        btnNextPage.Enabled = false;
+                    }
+
+                    if (npNodes.Count() > 0)
+                    {
+                        btnLastPage.Enabled = true;
+                    }
+                    else
+                    {
+                        btnLastPage.Enabled = false;
+                    }
+
+                    nodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("post-header-image"));
+
+                    foreach (HtmlNode n in nodes)
+                    {
+                        string node = n.InnerHtml;
+                        string[] a = node.Split('"');
+
+                        string title = replaceASCII(a[5]);
+
+                        lbComics.Items.Add(title);
+                    }
+
+                    descNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("post-info"));
+                }
+                else
+                {
+                    MessageBox.Show("There was an error. Try again in a couple of minnutes.");
+                }
             }
+        }
+
+        private void LogWriter(string line)
+        {
+            string datetime = DateTime.Now.ToString("MM-dd-yy HH:mm:ss");
+            File.AppendAllText(@"log.txt", "(" + datetime + ") - " + line + Environment.NewLine);
         }
     }
 }

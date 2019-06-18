@@ -1,0 +1,18 @@
+(12-17-18 15:30:33)System.Net.WebException: The request was aborted: The connection was closed unexpectedly.
+   at System.Net.HttpWebRequest.GetResponse()
+   at Omnibus.Form1.searchComics(String function) in C:\Users\rory5\source\repos\Omnibus\Comic Search\Form1.cs:line 618
+(12-17-18 15:31:28) - System.Net.WebException: The request was aborted: The connection was closed unexpectedly.
+   at System.Net.HttpWebRequest.GetResponse()
+   at Omnibus.Form1.searchComics(String function) in C:\Users\rory5\source\repos\Omnibus\Comic Search\Form1.cs:line 618
+(12-17-18 15:33:57) - Searching for https://getcomics.info/page/4/?s=Adventure Time Season 11 #2  failed.
+(12-17-18 15:33:57) - System.Net.WebException: The request was aborted: The connection was closed unexpectedly.
+   at System.Net.HttpWebRequest.GetResponse()
+   at Omnibus.Form1.searchComics(String function) in C:\Users\rory5\source\repos\Omnibus\Comic Search\Form1.cs:line 618
+(12-17-18 15:34:16) - Searching for https://getcomics.info/page/4/?s=Head Lopper #10  failed.
+(12-17-18 15:34:16) - System.Net.WebException: The request was aborted: The connection was closed unexpectedly.
+   at System.Net.HttpWebRequest.GetResponse()
+   at Omnibus.Form1.searchComics(String function) in C:\Users\rory5\source\repos\Omnibus\Comic Search\Form1.cs:line 618
+(12-17-18 15:35:43) - Searching for https://getcomics.info/page/4/?s=Head Lopper  failed.
+(12-17-18 15:35:43) - System.Net.WebException: The request was aborted: The connection was closed unexpectedly.
+   at System.Net.HttpWebRequest.GetResponse()
+   at Omnibus.Form1.searchComics(String function) in C:\Users\rory5\source\repos\Omnibus\Comic Search\Form1.cs:line 619
