@@ -1,3 +1,8 @@
+C:\Users\rory5\source\repos\Omnibus\Comic Search\obj\Debug\Omnibus.Form1.resources
+C:\Users\rory5\source\repos\Omnibus\Comic Search\obj\Debug\Omnibus.Properties.Resources.resources
+C:\Users\rory5\source\repos\Omnibus\Comic Search\obj\Debug\Omnibus.Settings.resources
+C:\Users\rory5\source\repos\Omnibus\Comic Search\obj\Debug\Omnibus.csproj.GenerateResource.cache
+C:\Users\rory5\source\repos\Omnibus\Comic Search\obj\Debug\Omnibus.csproj.CoreCompileInputs.cache
 C:\Users\rory5\source\repos\Omnibus\Comic Search\bin\Debug\Omnibus.exe.config
 C:\Users\rory5\source\repos\Omnibus\Comic Search\bin\Debug\Omnibus.exe
 C:\Users\rory5\source\repos\Omnibus\Comic Search\bin\Debug\Omnibus.pdb
@@ -8,12 +13,6 @@ C:\Users\rory5\source\repos\Omnibus\Comic Search\bin\Debug\HtmlAgilityPack.pdb
 C:\Users\rory5\source\repos\Omnibus\Comic Search\bin\Debug\HtmlAgilityPack.xml
 C:\Users\rory5\source\repos\Omnibus\Comic Search\bin\Debug\MegaApiClient.xml
 C:\Users\rory5\source\repos\Omnibus\Comic Search\bin\Debug\Newtonsoft.Json.xml
-C:\Users\rory5\source\repos\Omnibus\Comic Search\obj\Debug\Omnibus.Form1.resources
-C:\Users\rory5\source\repos\Omnibus\Comic Search\obj\Debug\Omnibus.Properties.Resources.resources
-C:\Users\rory5\source\repos\Omnibus\Comic Search\obj\Debug\Omnibus.Settings.resources
-C:\Users\rory5\source\repos\Omnibus\Comic Search\obj\Debug\Omnibus.csproj.GenerateResource.cache
-C:\Users\rory5\source\repos\Omnibus\Comic Search\obj\Debug\Omnibus.csproj.CoreCompileInputs.cache
 C:\Users\rory5\source\repos\Omnibus\Comic Search\obj\Debug\Omnibus.csproj.CopyComplete
 C:\Users\rory5\source\repos\Omnibus\Comic Search\obj\Debug\Omnibus.exe
 C:\Users\rory5\source\repos\Omnibus\Comic Search\obj\Debug\Omnibus.pdb
-C:\Users\rory5\source\repos\Omnibus\Comic Search\obj\Debug\Omnibus.csprojAssemblyReference.cache

@@ -19,7 +19,7 @@ namespace Omnibus
     public partial class Form1 : Form
     {
 
-        private String version = "1.4.0";
+        private String version = "1.4.2";
         private String url = "https://getcomics.info/?s=";
         private int cancelled = 0;
         private int complete;
@@ -185,13 +185,28 @@ namespace Omnibus
                                         //MessageBox.Show("Found in:" + i);
                                         string[] g3 = g1[i].Split('"');
 
-                                        //string gcURL = g3[5];
-                                        //string[] gcURLArray = gcURL.Split('/');
+                                        string gcURL = g3[5];
+                                        string[] gcURLArray = gcURL.Split('/');
 
-                                        //string encodedValue = gcURLArray[4];      //old code had hash in another location
+                                        string encodedValue1 = gcURLArray[4];      //first hash location
 
-                                        string gcURL = g3[0];                       //updated location of hash
-                                        string encodedValue = gcURL;
+                                        gcURL = g3[0];                       
+                                        string encodedValue2 = gcURL;               //second hash location
+
+                                        string encodedValue = "";
+
+                                        if (IsBase64(encodedValue1) == true)
+                                        {
+                                            encodedValue = encodedValue1;
+                                        }
+                                        else if (IsBase64(encodedValue2) == true)
+                                        {
+                                            encodedValue = encodedValue2;
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("No downloads available, go to the comic's page to download.");
+                                        }
 
                                         if (lastEV != encodedValue)
                                         {
@@ -749,6 +764,24 @@ namespace Omnibus
         {
             string datetime = DateTime.Now.ToString("MM-dd-yy HH:mm:ss");
             File.AppendAllText(@"log.txt", "(" + datetime + ") - " + line + Environment.NewLine);
+        }
+
+        public static bool IsBase64(string base64String)
+        {
+            if (string.IsNullOrEmpty(base64String) || base64String.Length % 4 != 0
+               || base64String.Contains(" ") || base64String.Contains("\t") || base64String.Contains("\r") || base64String.Contains("\n"))
+                return false;
+
+            try
+            {
+                Convert.FromBase64String(base64String);
+                return true;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine("Exception caught: {0}", e);
+            }
+            return false;
         }
     }
 }
