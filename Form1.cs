@@ -777,7 +777,7 @@ namespace Omnibus
                 Convert.FromBase64String(base64String);
                 return true;
             }
-            catch (Exception exception)
+            catch (Exception e)
             {
                 Console.WriteLine("Exception caught: {0}", e);
             }
