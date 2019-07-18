@@ -16,3 +16,4 @@ C:\Users\rory5\source\repos\Omnibus\Comic Search\bin\Debug\Newtonsoft.Json.xml
 C:\Users\rory5\source\repos\Omnibus\Comic Search\obj\Debug\Omnibus.csproj.CopyComplete
 C:\Users\rory5\source\repos\Omnibus\Comic Search\obj\Debug\Omnibus.exe
 C:\Users\rory5\source\repos\Omnibus\Comic Search\obj\Debug\Omnibus.pdb
+C:\Users\rory5\source\repos\Omnibus\Comic Search\obj\Debug\Omnibus.csprojAssemblyReference.cache

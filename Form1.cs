@@ -188,22 +188,19 @@ namespace Omnibus
                                         string gcURL = g3[5];
                                         string[] gcURLArray = gcURL.Split('/');
 
-                                        string encodedValue1 = gcURLArray[4];      //first hash location
-
-                                        gcURL = g3[0];                       
-                                        string encodedValue2 = gcURL;               //second hash location
-
                                         string encodedValue = "";
 
-                                        if (IsBase64(encodedValue1) == true)
+                                        if (gcURLArray.Length >= 4)
                                         {
-                                            encodedValue = encodedValue1;
-                                        }
-                                        else if (IsBase64(encodedValue2) == true)
-                                        {
-                                            encodedValue = encodedValue2;
+                                            encodedValue = gcURLArray[4];      //first hash location
                                         }
                                         else
+                                        {
+                                            gcURL = g3[0];
+                                            encodedValue = gcURL;               //second hash location
+                                        }
+                                        
+                                        if (IsBase64(encodedValue) != true)
                                         {
                                             MessageBox.Show("No downloads available, go to the comic's page to download.");
                                         }
@@ -231,109 +228,6 @@ namespace Omnibus
                                         break;
                                     }
                                 }
-                                /*                                
-                                if (g2[7] == "aio-purple")
-                                {
-                                    string gcURL = g2[5];
-                                    string[] gcURLArray = gcURL.Split('/');
-
-                                    string encodedValue = gcURLArray[4];
-
-                                    if (lastEV != encodedValue)
-                                    {
-                                        byte[] urlData = Convert.FromBase64String(encodedValue);
-                                        string decodedURL = Encoding.UTF8.GetString(urlData);
-
-                                        downloadList.Add(decodedURL);
-
-                                        HtmlNode tn = nodes.ElementAt(lbComics.SelectedIndex);
-                                        string tnode = n.InnerHtml;
-                                        string[] ta = node.Split('"');
-
-                                        string title = replaceASCII(ta[5]);
-
-                                        //add item to listview
-                                        AddLVItem("0", title);
-
-                                        titleList.Add(title);
-
-                                        lastEV = encodedValue;
-                                    }
-
-                                }
-                                else
-                                {
-                                    ulNodes = doc.DocumentNode.Descendants("ul");
-                                    int id = 0;
-                                    
-
-                                    foreach (HtmlNode u in ulNodes)
-                                    {
-                                        string ulNode = u.InnerHtml;
-                                        string[] b = ulNode.Split(new[] { "<li>" }, StringSplitOptions.None);
-
-                                        for (int i = 1; i < b.Count(); i++)
-                                        {
-                                            String[] c = b[i].Split('"');
-
-                                            if (c.Length > 7 && c[7] == "_blank&quot;")
-                                            {
-                                                string[] t0 = b[i].Split('>');
-                                                int index = 0;
-                                                int fIndex = t0[0].LastIndexOf('(');
-                                                int length = fIndex - index;
-
-                                                string titleSub = t0[0].Substring(index, length - 1);
-
-                                                string title = replaceASCII(titleSub);
-
-                                                Regex iRegex = new Regex("(?<=go.php-url=)(.*)Mega", RegexOptions.IgnoreCase);
-                                                Match iMatch;
-
-                                                if (regex.Match(data).Success != false)
-                                                {
-                                                    for (iMatch = iRegex.Match(b[i]); iMatch.Success; iMatch = iMatch.NextMatch())
-                                                    {
-                                                        foreach (Group iGroup in iMatch.Groups)
-                                                        {
-                                                            string[] g01 = iGroup.ToString().Split(new string[] { "<a" }, StringSplitOptions.None);
-                                                            int lastURLa = g01.Length - 1;
-                                                            string[] g02 = g01[lastURLa].Split('"');
-
-                                                            string gcURL = g02[5];
-                                                            string[] gcURLArray = gcURL.Split('/');
-
-                                                            string encodedValue = gcURLArray[4];
-
-                                                            if (!EVs.Contains(encodedValue))
-                                                            {
-                                                                byte[] urlData = Convert.FromBase64String(encodedValue);
-                                                                string decodedURL = Encoding.UTF8.GetString(urlData);
-
-                                                                downloadList.Add(decodedURL);
-
-                                                                //add item to listview
-                                                                AddLVItem(id.ToString(), title);
-                                                                id++;
-
-                                                                titleList.Add(title);
-
-                                                                Console.WriteLine(title);
-
-                                                                EVs.Add(encodedValue);
-                                                            }
-
-                                                            
-                                                        }
-                                                    }
-                                                }
-                                                else
-                                                    MessageBox.Show("No downloads available, go to the comic's page to download.");
-
-                                            }
-                                        }
-                                    }
-                                }*/
                             }
                             break;
                         }
