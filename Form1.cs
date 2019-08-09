@@ -9,17 +9,19 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
+using WebClient = System.Net.WebClient;
 
 namespace Omnibus
 {
     public partial class Form1 : Form
     {
 
-        private String version = "1.4.2.1";
+        private String version = "1.4.3";
         private String url = "https://getcomics.info/?s=";
         private int cancelled = 0;
         private int complete;
@@ -42,6 +44,8 @@ namespace Omnibus
         private CancellationTokenSource cts;
 
         string downloadPath = "";
+
+        string megaURL = "";
 
 
         public Form1()
@@ -167,76 +171,49 @@ namespace Omnibus
                         HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
                         doc.LoadHtml(data);
 
-                        //Regex regex = new Regex("(?<=go.php-url=)(.*)Mega", RegexOptions.IgnoreCase); //old regex string
-                        Regex regex = new Regex("(?<=go.php-urls/)(.*)Mega", RegexOptions.IgnoreCase); //updated regex string to match new paths
-                        Match match;
+                        var htmlNodes = doc.DocumentNode.SelectSingleNode("//a[@title='Mega Link']");
+                        
+                        string comicDLLink = htmlNodes.Attributes["href"].Value;
+                        
 
-                        if (regex.Match(data).Success != false)
+                        if (comicDLLink != "")
                         {
-                            for (match = regex.Match(data); match.Success; match = match.NextMatch())
+                            string lastEV = "";
+                            string lastURL = "";
+                            List<string> EVs = new List<string>();
+
+                            using (var client = new HttpClient(new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip }))
                             {
-                                string lastEV = "";
-                                List<string> EVs = new List<string>();
-
-                                foreach (Group group in match.Groups)
+                                var hrequest = new HttpRequestMessage()
                                 {
-                                    string[] g1 = group.ToString().Split(new string[] { "<a" }, StringSplitOptions.None);
-                                    int lastURL = g1.Length - 1;
-                                    string[] g2 = g1[lastURL].Split('"');
+                                    RequestUri = new Uri(comicDLLink),
+                                    Method = HttpMethod.Get
+                                };
 
-                                    for (int i = 0; i < g1.Count(); i++)
-                                    {
-                                        if (g1[i].Contains("aio-purple"))
-                                        {
-                                            //MessageBox.Show("Found in:" + i);
-                                            string[] g3 = g1[i].Split('"');
+                                HttpResponseMessage hresponse = client.SendAsync(hrequest).Result;
+                                var statusCode = (int)hresponse.StatusCode;
 
-                                            string gcURL = g3[5];
-                                            string[] gcURLArray = gcURL.Split('/');
-
-                                            string encodedValue = "";
-
-                                            if (gcURLArray.Length >= 4)
-                                            {
-                                                encodedValue = gcURLArray[4];      //first hash location
-                                            }
-                                            else
-                                            {
-                                                gcURL = g3[0];
-                                                encodedValue = gcURL;               //second hash location
-                                            }
-
-                                            if (IsBase64(encodedValue) != true)
-                                            {
-                                                MessageBox.Show("No downloads available, go to the comic's page to download.");
-                                            }
-
-                                            if (lastEV != encodedValue)
-                                            {
-                                                byte[] urlData = Convert.FromBase64String(encodedValue);
-                                                string decodedURL = Encoding.UTF8.GetString(urlData);
-
-                                                downloadList.Add(decodedURL);
-
-                                                HtmlNode tn = nodes.ElementAt(lbComics.SelectedIndex);
-                                                string tnode = n.InnerHtml;
-                                                string[] ta = node.Split('"');
-
-                                                string title = replaceASCII(ta[5]);
-
-                                                //add item to listview
-                                                AddLVItem("0", title);
-
-                                                titleList.Add(title);
-
-                                                lastEV = encodedValue;
-                                            }
-                                            break;
-                                        }
-                                    }
-                                }
-                                break;
+                                megaURL = hrequest.RequestUri.ToString();
                             }
+
+                            if (lastURL != megaURL)
+                            {
+                                downloadList.Add(megaURL);
+
+                                HtmlNode tn = nodes.ElementAt(lbComics.SelectedIndex);
+                                string tnode = n.InnerHtml;
+                                string[] ta = node.Split('"');
+
+                                string title = replaceASCII(ta[5]);
+
+                                //add item to listview
+                                AddLVItem("0", title);
+
+                                titleList.Add(title);
+
+                                lastURL = megaURL;
+                            }
+                                        
                         }
                         else
                             MessageBox.Show("No download link available. Go to comic's page and download manually.");
@@ -285,8 +262,8 @@ namespace Omnibus
             Uri myStringWebResource = new Uri(url);
          
             INodeInfo node = mClient.GetNodeFromLink(myStringWebResource);
-            string filename = node.Name;
-            downloadPath = Properties.Settings.Default.DownloadLocation + "\\" + filename;
+            string filename = titleList[0];
+            downloadPath = Properties.Settings.Default.DownloadLocation + "\\" + filename + ".cbr";
          
             IProgress<double> progressHandler = new Progress<double>(x => UpdateItemValue(id, (int)x));
 
@@ -298,6 +275,7 @@ namespace Omnibus
             {
                 await mClient.DownloadFileAsync(myStringWebResource, downloadPath, progressHandler, cts.Token);
             }
+
             catch (OperationCanceledException ex)
             {
                 complete = 0;
@@ -656,7 +634,7 @@ namespace Omnibus
                 }
                 else
                 {
-                    MessageBox.Show("There was an error. Try again in a couple of minnutes.");
+                    MessageBox.Show("There was an error. Try again in a couple of minutes.");
                 }
             }
         }
