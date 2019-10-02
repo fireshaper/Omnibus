@@ -21,7 +21,7 @@ namespace Omnibus
     public partial class Form1 : Form
     {
 
-        private String version = "1.4.3";
+        private String version = "1.4.4";
         private String url = "https://getcomics.info/?s=";
         private int cancelled = 0;
         private int complete;
