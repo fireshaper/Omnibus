@@ -168,17 +168,39 @@ namespace Omnibus
                         response.Close();
                         readStream.Close();
 
+                        string comicDLLink = "";
+
                         HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
                         doc.LoadHtml(data);
 
                         var htmlNodes = doc.DocumentNode.SelectSingleNode("//a[@title='Mega Link']");
-                        
-                        string comicDLLink = htmlNodes.Attributes["href"].Value;
-                        
+
+                        if (htmlNodes == null)
+                        {
+                            foreach(HtmlNode node1 in doc.DocumentNode.SelectNodes("//a"))
+                            {
+                                if (node1.SelectNodes(".//span") != null)
+                                {
+                                    foreach (HtmlNode node2 in node1.SelectNodes(".//span"))
+                                    {
+                                        string value = node2.InnerText;
+                                        if (value == "Mega")
+                                        {
+                                            comicDLLink = node1.Attributes["href"].Value;
+                                        }
+
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            comicDLLink = htmlNodes.Attributes["href"].Value;
+                        }                       
 
                         if (comicDLLink != "")
                         {
-                            string lastEV = "";
+                            //string lastEV = "";
                             string lastURL = "";
                             List<string> EVs = new List<string>();
 
@@ -643,24 +665,6 @@ namespace Omnibus
         {
             string datetime = DateTime.Now.ToString("MM-dd-yy HH:mm:ss");
             File.AppendAllText(@"log.txt", "(" + datetime + ") - " + line + Environment.NewLine);
-        }
-
-        public static bool IsBase64(string base64String)
-        {
-            if (string.IsNullOrEmpty(base64String) || base64String.Length % 4 != 0
-               || base64String.Contains(" ") || base64String.Contains("\t") || base64String.Contains("\r") || base64String.Contains("\n"))
-                return false;
-
-            try
-            {
-                Convert.FromBase64String(base64String);
-                return true;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Exception caught: {0}", e);
-            }
-            return false;
         }
     }
 }
