@@ -88,6 +88,7 @@
             this.tbComicSearch.Name = "tbComicSearch";
             this.tbComicSearch.Size = new System.Drawing.Size(287, 22);
             this.tbComicSearch.TabIndex = 0;
+            this.tbComicSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbComicSearch_KeyDown);
             // 
             // btnSearch
             // 
@@ -273,13 +274,13 @@
             this.cmsComics.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.search});
             this.cmsComics.Name = "cmsComics";
-            this.cmsComics.Size = new System.Drawing.Size(211, 56);
+            this.cmsComics.Size = new System.Drawing.Size(200, 28);
             this.cmsComics.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.cmsComics_ItemClicked);
             // 
             // search
             // 
             this.search.Name = "search";
-            this.search.Size = new System.Drawing.Size(210, 24);
+            this.search.Size = new System.Drawing.Size(199, 24);
             this.search.Text = "Find more like this";
             // 
             // Form1

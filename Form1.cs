@@ -21,7 +21,7 @@ namespace Omnibus
     public partial class Form1 : Form
     {
 
-        private String version = "1.4.4";
+        private String version = "1.4.5";
         private String url = "https://getcomics.info/?s=";
         private int cancelled = 0;
         private int complete;
@@ -504,7 +504,17 @@ namespace Omnibus
                 DownloadComic(idCount);
             }
         }
-        
+
+        private void tbComicSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnSearch_Click(this, new EventArgs());
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+
         private void DownloadComplete()
         {
             
@@ -666,5 +676,6 @@ namespace Omnibus
             string datetime = DateTime.Now.ToString("MM-dd-yy HH:mm:ss");
             File.AppendAllText(@"log.txt", "(" + datetime + ") - " + line + Environment.NewLine);
         }
+
     }
 }
