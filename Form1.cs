@@ -21,7 +21,7 @@ namespace Omnibus
     public partial class Form1 : Form
     {
 
-        private String version = "1.4.5";
+        private String version = "1.4.6";
         private String url = "https://getcomics.info/?s=";
         private int cancelled = 0;
         private int complete;
@@ -75,6 +75,13 @@ namespace Omnibus
                 Properties.Settings.Default.DownloadLocation = path;
                 Properties.Settings.Default.Save();
             }
+            if (Properties.Settings.Default.LogLocation == "")
+            {
+                string path = AppDomain.CurrentDomain.BaseDirectory;
+                Properties.Settings.Default.LogLocation = path;
+                Properties.Settings.Default.Save();
+            }
+
 
             //Log in to the MEGA client Anonymously
             mClient.LoginAnonymous();
@@ -83,7 +90,7 @@ namespace Omnibus
         private void btnSearch_Click(object sender, EventArgs e)
         {
             searchComics("");
-
+            LogWriter("Searched for new comics.");
         }
 
         private void lbComics_SelectedIndexChanged(object sender, EventArgs e)
@@ -92,7 +99,16 @@ namespace Omnibus
             string node = n.InnerHtml;
             string[] a = node.Split('"');
 
-            pbCover.Load(a[3]);
+            try
+            {
+                pbCover.Load(a[3]);
+            }
+            catch (WebException we)
+            {
+                LogWriter("Error loading cover image.");
+                pbCover.Image = Omnibus.Properties.Resources.omnibus_preview_image;
+            }
+            
 
             HtmlNode d = descNodes.ElementAt(lbComics.SelectedIndex);
             string descNode = d.InnerHtml;
@@ -119,6 +135,7 @@ namespace Omnibus
                 }
                 catch (Win32Exception)
                 {
+                    LogWriter("Caught an exception when trying to open the link in your browser: " + a[1]);
                 }
             }
             else
@@ -282,14 +299,23 @@ namespace Omnibus
             String url = downloadList[0];
             
             Uri myStringWebResource = new Uri(url);
-         
-            INodeInfo node = mClient.GetNodeFromLink(myStringWebResource);
+
+            try
+            {
+                INodeInfo node = mClient.GetNodeFromLink(myStringWebResource);
+            }
+            catch (Exception e)
+            {
+                LogWriter("Exception from mega client: " + e);
+            }
+
             string filename = titleList[0];
             downloadPath = Properties.Settings.Default.DownloadLocation + "\\" + filename + ".cbr";
-         
+
             IProgress<double> progressHandler = new Progress<double>(x => UpdateItemValue(id, (int)x));
 
             Console.WriteLine("Downloading: " + downloadPath);
+            LogWriter("Downloading new comic: " + downloadPath);
 
             cts = new CancellationTokenSource();
 
@@ -302,6 +328,7 @@ namespace Omnibus
             {
                 complete = 0;
                 CancelDownload(downloadPath);
+                LogWriter("Download Canceled: " + downloadPath);
             }
             catch (IOException io)
             {
@@ -674,7 +701,9 @@ namespace Omnibus
         private void LogWriter(string line)
         {
             string datetime = DateTime.Now.ToString("MM-dd-yy HH:mm:ss");
-            File.AppendAllText(@"log.txt", "(" + datetime + ") - " + line + Environment.NewLine);
+            string logPath = Properties.Settings.Default.LogLocation;
+
+            File.AppendAllText(logPath + "\\log.txt", "(" + datetime + ") - " + line + Environment.NewLine);
         }
 
     }

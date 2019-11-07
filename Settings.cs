@@ -20,11 +20,15 @@ namespace Omnibus
         private void Settings_Load(object sender, EventArgs e)
         {
             tbDLocation.Text = Properties.Settings.Default.DownloadLocation;
+            tbLLocation.Text = Properties.Settings.Default.LogLocation;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.DownloadLocation = tbDLocation.Text;
+            Properties.Settings.Default.Save();
+
+            Properties.Settings.Default.LogLocation = tbLLocation.Text;
             Properties.Settings.Default.Save();
 
             this.Close();
@@ -40,6 +44,14 @@ namespace Omnibus
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
                 tbDLocation.Text = folderBrowserDialog1.SelectedPath;
+            }
+        }
+
+        private void btnBrowseLog_Click(object sender, EventArgs e)
+        {
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            {
+                tbLLocation.Text = folderBrowserDialog1.SelectedPath;
             }
         }
     }
