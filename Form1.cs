@@ -21,7 +21,7 @@ namespace Omnibus
     public partial class Form1 : Form
     {
 
-        private String version = "1.4.6";
+        private String version = "1.4.6.1";
         private String url = "https://getcomics.info/?s=";
         private int cancelled = 0;
         private int complete;
@@ -221,6 +221,8 @@ namespace Omnibus
                             string lastURL = "";
                             List<string> EVs = new List<string>();
 
+                            //Get the MEGA link by getting response of download link
+                            /*
                             using (var client = new HttpClient(new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip }))
                             {
                                 var hrequest = new HttpRequestMessage()
@@ -234,6 +236,14 @@ namespace Omnibus
 
                                 megaURL = hrequest.RequestUri.ToString();
                             }
+                            */
+
+                            //Get MEGA link by decrypting Base64 string in the address
+                            string[] comicLinkArray = comicDLLink.Split('/');
+                            string comicLinkEnc = comicLinkArray[4];
+                            byte[] comicLinkConverted = System.Convert.FromBase64String(comicLinkEnc);
+                            megaURL = System.Text.ASCIIEncoding.ASCII.GetString(comicLinkConverted);
+
 
                             if (lastURL != megaURL)
                             {
@@ -353,6 +363,14 @@ namespace Omnibus
                     complete = 0;
                     CancelDownload(downloadPath);
                 }
+            }
+            catch (ArgumentException aex)
+            {
+                complete = 0;
+                CancelDownload(downloadPath);
+                LogWriter(aex.ToString());
+
+                MessageBox.Show("There was a problem downloading the comic. Try again later or download manually by clicking the Open Link button.\n\nIf this continues to happen try the following:\n1: Close Omnibus\n2: Go to https://getcomics.info in your browser\n3: Search for any comic and click the Mega button\n4: Open Omnibus and attempt the download again.");
             }
 
             if (complete == 1)
@@ -483,6 +501,83 @@ namespace Omnibus
             {
                 searchComics("listBox");
 
+            }
+            if (e.ClickedItem.Name == "validate")
+            {
+                HtmlNode n = nodes.ElementAt(lbComics.SelectedIndex);
+                string node = n.InnerHtml;
+                string[] a = node.Split('"');
+
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(a[1]);
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    Stream receiveStream = response.GetResponseStream();
+                    StreamReader readStream = null;
+
+                    if (response.CharacterSet == null)
+                    {
+                        readStream = new StreamReader(receiveStream);
+                    }
+                    else
+                    {
+                        readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
+                    }
+
+                    string data = readStream.ReadToEnd();
+
+                    response.Close();
+                    readStream.Close();
+
+                    string comicDLLink = "";
+
+                    HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+                    doc.LoadHtml(data);
+
+                    var htmlNodes = doc.DocumentNode.SelectSingleNode("//a[@title='Mega Link']");
+
+                    if (htmlNodes == null)
+                    {
+                        foreach (HtmlNode node1 in doc.DocumentNode.SelectNodes("//a"))
+                        {
+                            if (node1.SelectNodes(".//span") != null)
+                            {
+                                foreach (HtmlNode node2 in node1.SelectNodes(".//span"))
+                                {
+                                    string value = node2.InnerText;
+                                    if (value == "Mega")
+                                    {
+                                        comicDLLink = node1.Attributes["href"].Value;
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        comicDLLink = htmlNodes.Attributes["href"].Value;
+                    }
+
+                    if (comicDLLink != "")
+                    {
+                        //string lastEV = "";
+                        string lastURL = "";
+                        List<string> EVs = new List<string>();
+
+                        //Get MEGA link by decrypting Base64 string in the address
+                        string[] comicLinkArray = comicDLLink.Split('/');
+                        string comicLinkEnc = comicLinkArray[4];
+                        byte[] comicLinkConverted = System.Convert.FromBase64String(comicLinkEnc);
+                        megaURL = System.Text.ASCIIEncoding.ASCII.GetString(comicLinkConverted);
+
+                        MessageBox.Show("MEGA URL: " + megaURL);
+
+                    }
+                    else
+                        MessageBox.Show("No download link available. Go to comic's page and download manually.");
+                }
             }
         }
 

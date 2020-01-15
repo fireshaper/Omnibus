@@ -1,2 +1,210 @@
 (11-07-19 10:15:02) - Searched for new comics.
 (11-07-19 10:24:10) - Searched for new comics.
+(11-07-19 13:27:04) - Searched for new comics.
+(11-07-19 13:27:06) - Exception from mega client: System.ArgumentException: Invalid uri. Unable to extract Id and Key from the uri https://getcomics.info/run.php-urls/aHR0cHM6Ly9tZWdhLm56LyMhbW1ZaFVJakkhT3k5bUpRd0g3VTNwUFdsM0tZOUV0bFlpbFZZRnQxOHVuNXZwa1YxOVN6cw==
+   at CG.Web.MegaApiClient.MegaApiClient.GetPartsFromUri(Uri uri, String& id, Byte[]& iv, Byte[]& metaMac, Byte[]& key)
+   at CG.Web.MegaApiClient.MegaApiClient.GetNodeFromLink(Uri uri)
+   at Omnibus.Form1.<DownloadComic>d__28.MoveNext() in C:\Users\rory5\source\repos\Omnibus\Comic Search\Form1.cs:line 305
+(11-07-19 13:27:06) - Downloading new comic: C:\Users\rory5\\Asgardians Of The Galaxy #1 (2018).cbr
+(11-07-19 13:28:46) - Searched for new comics.
+(11-07-19 13:28:51) - Exception from mega client: System.ArgumentException: Invalid uri. Unable to extract Id and Key from the uri https://getcomics.info/run.php-urls/aHR0cHM6Ly9tZWdhLm56LyMhbW1ZaFVJakkhT3k5bUpRd0g3VTNwUFdsM0tZOUV0bFlpbFZZRnQxOHVuNXZwa1YxOVN6cw==
+   at CG.Web.MegaApiClient.MegaApiClient.GetPartsFromUri(Uri uri, String& id, Byte[]& iv, Byte[]& metaMac, Byte[]& key)
+   at CG.Web.MegaApiClient.MegaApiClient.GetNodeFromLink(Uri uri)
+   at Omnibus.Form1.<DownloadComic>d__28.MoveNext() in C:\Users\rory5\source\repos\Omnibus\Comic Search\Form1.cs:line 305
+(11-07-19 13:28:51) - Downloading new comic: C:\Users\rory5\\Asgardians Of The Galaxy #1 (2018).cbr
+(11-07-19 13:28:51) - System.ArgumentException: Invalid uri. Unable to extract Id and Key from the uri https://getcomics.info/run.php-urls/aHR0cHM6Ly9tZWdhLm56LyMhbW1ZaFVJakkhT3k5bUpRd0g3VTNwUFdsM0tZOUV0bFlpbFZZRnQxOHVuNXZwa1YxOVN6cw==
+   at CG.Web.MegaApiClient.MegaApiClient.GetPartsFromUri(Uri uri, String& id, Byte[]& iv, Byte[]& metaMac, Byte[]& key)
+   at CG.Web.MegaApiClient.MegaApiClient.Download(Uri uri, Nullable`1 cancellationToken)
+   at CG.Web.MegaApiClient.MegaApiClient.<>c__DisplayClass73_0.<DownloadFileAsync>b__0()
+   at System.Threading.Tasks.Task.InnerInvoke()
+   at System.Threading.Tasks.Task.Execute()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at Omnibus.Form1.<DownloadComic>d__28.MoveNext() in C:\Users\rory5\source\repos\Omnibus\Comic Search\Form1.cs:line 324
+(11-07-19 13:31:00) - Searched for new comics.
+(11-07-19 13:31:08) - Downloading new comic: C:\Users\rory5\\Vimanarama (2005).cbr
+(11-07-19 13:31:20) - Download Canceled: C:\Users\rory5\\Vimanarama (2005).cbr
+(11-07-19 13:33:20) - Searched for new comics.
+(11-07-19 13:33:23) - Exception from mega client: System.ArgumentException: Invalid uri. Unable to extract Id and Key from the uri https://getcomics.info/run.php-urls/aHR0cHM6Ly9tZWdhLm56LyMhbW1ZaFVJakkhT3k5bUpRd0g3VTNwUFdsM0tZOUV0bFlpbFZZRnQxOHVuNXZwa1YxOVN6cw==
+   at CG.Web.MegaApiClient.MegaApiClient.GetPartsFromUri(Uri uri, String& id, Byte[]& iv, Byte[]& metaMac, Byte[]& key)
+   at CG.Web.MegaApiClient.MegaApiClient.GetNodeFromLink(Uri uri)
+   at Omnibus.Form1.<DownloadComic>d__28.MoveNext() in C:\Users\rory5\source\repos\Omnibus\Comic Search\Form1.cs:line 305
+(11-07-19 13:33:23) - Downloading new comic: C:\Users\rory5\\Asgardians Of The Galaxy #1 (2018).cbr
+(11-07-19 13:33:23) - System.ArgumentException: Invalid uri. Unable to extract Id and Key from the uri https://getcomics.info/run.php-urls/aHR0cHM6Ly9tZWdhLm56LyMhbW1ZaFVJakkhT3k5bUpRd0g3VTNwUFdsM0tZOUV0bFlpbFZZRnQxOHVuNXZwa1YxOVN6cw==
+   at CG.Web.MegaApiClient.MegaApiClient.GetPartsFromUri(Uri uri, String& id, Byte[]& iv, Byte[]& metaMac, Byte[]& key)
+   at CG.Web.MegaApiClient.MegaApiClient.Download(Uri uri, Nullable`1 cancellationToken)
+   at CG.Web.MegaApiClient.MegaApiClient.<>c__DisplayClass73_0.<DownloadFileAsync>b__0()
+   at System.Threading.Tasks.Task.InnerInvoke()
+   at System.Threading.Tasks.Task.Execute()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at Omnibus.Form1.<DownloadComic>d__28.MoveNext() in C:\Users\rory5\source\repos\Omnibus\Comic Search\Form1.cs:line 324
+(01-09-20 11:14:12) - Searched for new comics.
+(01-09-20 11:14:37) - Exception from mega client: System.ArgumentException: Invalid uri. Unable to extract Id and Key from the uri https://getcomics.info/run.php-urls/aHR0cHM6Ly9tZWdhLm56LyMhNk9KM2xTNUMhaUNZRFRmb2RPTkNOZWVxb011MVlJcFI5YThvRzdOYjhhdlA4akNqMWd5SQ==
+   at CG.Web.MegaApiClient.MegaApiClient.GetPartsFromUri(Uri uri, String& id, Byte[]& iv, Byte[]& metaMac, Byte[]& key)
+   at CG.Web.MegaApiClient.MegaApiClient.GetNodeFromLink(Uri uri)
+   at Omnibus.Form1.<DownloadComic>d__28.MoveNext() in C:\Users\rory5\source\repos\Omnibus\Comic Search\Form1.cs:line 305
+(01-09-20 11:14:37) - Downloading new comic: C:\Users\rory5\\Immortal Hulk #1 (2018).cbr
+(01-09-20 11:14:37) - System.ArgumentException: Invalid uri. Unable to extract Id and Key from the uri https://getcomics.info/run.php-urls/aHR0cHM6Ly9tZWdhLm56LyMhNk9KM2xTNUMhaUNZRFRmb2RPTkNOZWVxb011MVlJcFI5YThvRzdOYjhhdlA4akNqMWd5SQ==
+   at CG.Web.MegaApiClient.MegaApiClient.GetPartsFromUri(Uri uri, String& id, Byte[]& iv, Byte[]& metaMac, Byte[]& key)
+   at CG.Web.MegaApiClient.MegaApiClient.Download(Uri uri, Nullable`1 cancellationToken)
+   at CG.Web.MegaApiClient.MegaApiClient.<>c__DisplayClass73_0.<DownloadFileAsync>b__0()
+   at System.Threading.Tasks.Task.InnerInvoke()
+   at System.Threading.Tasks.Task.Execute()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at Omnibus.Form1.<DownloadComic>d__28.MoveNext() in C:\Users\rory5\source\repos\Omnibus\Comic Search\Form1.cs:line 324
+(01-09-20 11:18:19) - Downloading new comic: C:\Users\rory5\\Immortal Hulk #1 (2018).cbr
+(01-09-20 11:18:29) - Download Canceled: C:\Users\rory5\\Immortal Hulk #1 (2018).cbr
+(01-09-20 12:08:24) - Searched for new comics.
+(01-09-20 12:08:32) - Downloading new comic: C:\Users\rory5\\Psi-Lords #8 (2020).cbr
+(01-09-20 12:08:37) - Download Canceled: C:\Users\rory5\\Psi-Lords #8 (2020).cbr
+(01-09-20 12:12:15) - Searched for new comics.
+(01-09-20 12:12:23) - Downloading new comic: C:\Users\rory5\\Lab Raider #4 (2020).cbr
+(01-09-20 12:12:26) - Download Canceled: C:\Users\rory5\\Lab Raider #4 (2020).cbr
+(01-09-20 13:13:48) - Searched for new comics.
+(01-09-20 13:13:57) - Downloading new comic: C:\Users\rory5\\Firefly - The Outlaw Ma Reynolds #1 (2020).cbr
+(01-09-20 13:14:02) - Download Canceled: C:\Users\rory5\\Firefly - The Outlaw Ma Reynolds #1 (2020).cbr
+(01-09-20 13:51:18) - Searched for new comics.
+(01-09-20 13:51:26) - Downloading new comic: C:\Users\rory5\\Moonshine #15 (2020).cbr
+(01-09-20 13:51:29) - Download Canceled: C:\Users\rory5\\Moonshine #15 (2020).cbr
+(01-09-20 14:07:32) - Searched for new comics.
+(01-09-20 14:07:39) - Exception from mega client: System.ArgumentException: Invalid uri. Unable to extract Id and Key from the uri https://getcomics.info/run.php-urls/aHR0cHM6Ly9tZWdhLm56LyMhU2tzVHdZSlMhbTVKNjNTOGQ5RzBQd3ZldmNpN3k2MDJLZC1OcE5vYmU1aU9rQV9WOUlDTQ==
+   at CG.Web.MegaApiClient.MegaApiClient.GetPartsFromUri(Uri uri, String& id, Byte[]& iv, Byte[]& metaMac, Byte[]& key)
+   at CG.Web.MegaApiClient.MegaApiClient.GetNodeFromLink(Uri uri)
+   at Omnibus.Form1.<DownloadComic>d__28.MoveNext() in C:\Users\rory5\source\repos\Omnibus\Comic Search\Form1.cs:line 305
+(01-09-20 14:07:39) - Downloading new comic: C:\Users\rory5\\Warlord Of Mars Attacks #2 (2019).cbr
+(01-09-20 14:07:39) - System.ArgumentException: Invalid uri. Unable to extract Id and Key from the uri https://getcomics.info/run.php-urls/aHR0cHM6Ly9tZWdhLm56LyMhU2tzVHdZSlMhbTVKNjNTOGQ5RzBQd3ZldmNpN3k2MDJLZC1OcE5vYmU1aU9rQV9WOUlDTQ==
+   at CG.Web.MegaApiClient.MegaApiClient.GetPartsFromUri(Uri uri, String& id, Byte[]& iv, Byte[]& metaMac, Byte[]& key)
+   at CG.Web.MegaApiClient.MegaApiClient.Download(Uri uri, Nullable`1 cancellationToken)
+   at CG.Web.MegaApiClient.MegaApiClient.<>c__DisplayClass73_0.<DownloadFileAsync>b__0()
+   at System.Threading.Tasks.Task.InnerInvoke()
+   at System.Threading.Tasks.Task.Execute()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at Omnibus.Form1.<DownloadComic>d__28.MoveNext() in C:\Users\rory5\source\repos\Omnibus\Comic Search\Form1.cs:line 324
+(01-09-20 14:08:21) - Searched for new comics.
+(01-09-20 14:08:28) - Exception from mega client: System.ArgumentException: Invalid uri. Unable to extract Id and Key from the uri https://getcomics.info/run.php-urls/aHR0cHM6Ly9tZWdhLm56LyMhU2tzVHdZSlMhbTVKNjNTOGQ5RzBQd3ZldmNpN3k2MDJLZC1OcE5vYmU1aU9rQV9WOUlDTQ==
+   at CG.Web.MegaApiClient.MegaApiClient.GetPartsFromUri(Uri uri, String& id, Byte[]& iv, Byte[]& metaMac, Byte[]& key)
+   at CG.Web.MegaApiClient.MegaApiClient.GetNodeFromLink(Uri uri)
+   at Omnibus.Form1.<DownloadComic>d__28.MoveNext() in C:\Users\rory5\source\repos\Omnibus\Comic Search\Form1.cs:line 305
+(01-09-20 14:08:28) - Downloading new comic: C:\Users\rory5\\Warlord Of Mars Attacks #2 (2019).cbr
+(01-09-20 14:08:28) - System.ArgumentException: Invalid uri. Unable to extract Id and Key from the uri https://getcomics.info/run.php-urls/aHR0cHM6Ly9tZWdhLm56LyMhU2tzVHdZSlMhbTVKNjNTOGQ5RzBQd3ZldmNpN3k2MDJLZC1OcE5vYmU1aU9rQV9WOUlDTQ==
+   at CG.Web.MegaApiClient.MegaApiClient.GetPartsFromUri(Uri uri, String& id, Byte[]& iv, Byte[]& metaMac, Byte[]& key)
+   at CG.Web.MegaApiClient.MegaApiClient.Download(Uri uri, Nullable`1 cancellationToken)
+   at CG.Web.MegaApiClient.MegaApiClient.<>c__DisplayClass73_0.<DownloadFileAsync>b__0()
+   at System.Threading.Tasks.Task.InnerInvoke()
+   at System.Threading.Tasks.Task.Execute()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at Omnibus.Form1.<DownloadComic>d__28.MoveNext() in C:\Users\rory5\source\repos\Omnibus\Comic Search\Form1.cs:line 324
+(01-09-20 14:13:42) - Searched for new comics.
+(01-09-20 14:13:46) - Exception from mega client: System.ArgumentException: Invalid uri. Unable to extract Id and Key from the uri https://getcomics.info/run.php-urls/aHR0cHM6Ly9tZWdhLm56LyMhU2tzVHdZSlMhbTVKNjNTOGQ5RzBQd3ZldmNpN3k2MDJLZC1OcE5vYmU1aU9rQV9WOUlDTQ==
+   at CG.Web.MegaApiClient.MegaApiClient.GetPartsFromUri(Uri uri, String& id, Byte[]& iv, Byte[]& metaMac, Byte[]& key)
+   at CG.Web.MegaApiClient.MegaApiClient.GetNodeFromLink(Uri uri)
+   at Omnibus.Form1.<DownloadComic>d__28.MoveNext() in C:\Users\rory5\source\repos\Omnibus\Comic Search\Form1.cs:line 305
+(01-09-20 14:13:46) - Downloading new comic: C:\Users\rory5\\Warlord Of Mars Attacks #2 (2019).cbr
+(01-09-20 14:14:02) - System.ArgumentException: Invalid uri. Unable to extract Id and Key from the uri https://getcomics.info/run.php-urls/aHR0cHM6Ly9tZWdhLm56LyMhU2tzVHdZSlMhbTVKNjNTOGQ5RzBQd3ZldmNpN3k2MDJLZC1OcE5vYmU1aU9rQV9WOUlDTQ==
+   at CG.Web.MegaApiClient.MegaApiClient.GetPartsFromUri(Uri uri, String& id, Byte[]& iv, Byte[]& metaMac, Byte[]& key)
+   at CG.Web.MegaApiClient.MegaApiClient.Download(Uri uri, Nullable`1 cancellationToken)
+   at CG.Web.MegaApiClient.MegaApiClient.<>c__DisplayClass73_0.<DownloadFileAsync>b__0()
+   at System.Threading.Tasks.Task.InnerInvoke()
+   at System.Threading.Tasks.Task.Execute()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at Omnibus.Form1.<DownloadComic>d__28.MoveNext() in C:\Users\rory5\source\repos\Omnibus\Comic Search\Form1.cs:line 324
+(01-09-20 14:18:14) - Searched for new comics.
+(01-09-20 14:18:19) - Exception from mega client: System.ArgumentException: Invalid uri. Unable to extract Id and Key from the uri https://getcomics.info/run.php-urls/aHR0cHM6Ly9tZWdhLm56LyMhdWV4V0RLUVEhMGpvQzBIN25ibVJQbDZiYVNVOWRFRzcxZElDNnVmT1I2MHdrYUo3UnAxUQ==
+   at CG.Web.MegaApiClient.MegaApiClient.GetPartsFromUri(Uri uri, String& id, Byte[]& iv, Byte[]& metaMac, Byte[]& key)
+   at CG.Web.MegaApiClient.MegaApiClient.GetNodeFromLink(Uri uri)
+   at Omnibus.Form1.<DownloadComic>d__28.MoveNext() in C:\Users\rory5\source\repos\Omnibus\Comic Search\Form1.cs:line 305
+(01-09-20 14:18:19) - Downloading new comic: C:\Users\rory5\\Immortal Hulk #29 (2020).cbr
+(01-09-20 14:18:19) - System.ArgumentException: Invalid uri. Unable to extract Id and Key from the uri https://getcomics.info/run.php-urls/aHR0cHM6Ly9tZWdhLm56LyMhdWV4V0RLUVEhMGpvQzBIN25ibVJQbDZiYVNVOWRFRzcxZElDNnVmT1I2MHdrYUo3UnAxUQ==
+   at CG.Web.MegaApiClient.MegaApiClient.GetPartsFromUri(Uri uri, String& id, Byte[]& iv, Byte[]& metaMac, Byte[]& key)
+   at CG.Web.MegaApiClient.MegaApiClient.Download(Uri uri, Nullable`1 cancellationToken)
+   at CG.Web.MegaApiClient.MegaApiClient.<>c__DisplayClass73_0.<DownloadFileAsync>b__0()
+   at System.Threading.Tasks.Task.InnerInvoke()
+   at System.Threading.Tasks.Task.Execute()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at Omnibus.Form1.<DownloadComic>d__28.MoveNext() in C:\Users\rory5\source\repos\Omnibus\Comic Search\Form1.cs:line 324
+(01-09-20 14:33:34) - Searched for new comics.
+(01-09-20 14:33:39) - Downloading new comic: C:\Users\rory5\\Time and Vine (2018).cbr
+(01-09-20 14:33:44) - Download Canceled: C:\Users\rory5\\Time and Vine (2018).cbr
+(01-09-20 14:33:54) - Downloading new comic: C:\Users\rory5\\Lab Raider #4 (2020).cbr
+(01-09-20 14:34:05) - Download Canceled: C:\Users\rory5\\Lab Raider #4 (2020).cbr
+(01-09-20 14:34:14) - Searched for new comics.
+(01-09-20 14:34:18) - Downloading new comic: C:\Users\rory5\\Immortal Hulk #29 (2020).cbr
+(01-09-20 14:35:32) - Searched for new comics.
+(01-09-20 14:35:41) - Downloading new comic: C:\Users\rory5\\Red Sonja #12 (2020).cbr
+(01-09-20 14:35:45) - Download Canceled: C:\Users\rory5\\Red Sonja #12 (2020).cbr
+(01-09-20 14:38:46) - Searched for new comics.
+(01-09-20 14:38:56) - Downloading new comic: C:\Users\rory5\\Young Justice #12 (2020).cbr
+(01-09-20 14:39:00) - Download Canceled: C:\Users\rory5\\Young Justice #12 (2020).cbr
+(01-09-20 14:43:07) - Searched for new comics.
+(01-09-20 14:43:16) - Downloading new comic: C:\Users\rory5\\Venom #22 (2020).cbr
+(01-09-20 14:43:20) - Download Canceled: C:\Users\rory5\\Venom #22 (2020).cbr
+(01-10-20 20:49:25) - Searched for new comics.
+(01-10-20 20:49:31) - Downloading new comic: C:\Users\rory5\\The Magicians #3 (2020).cbr
+(01-14-20 20:07:04) - Searched for new comics.
+(01-14-20 20:07:10) - Exception from mega client: System.ArgumentException: Invalid uri. Unable to extract Id and Key from the uri https://getcomics.info/run.php-urls/aHR0cHM6Ly9tZWdhLm56LyMhS2dWa2pRS1MhaktFWXprX1hUU1dDX3Z6emhnb0VuTWZSbEFNaGlsakNRR2pqTnZ5enhGMA==
+   at CG.Web.MegaApiClient.MegaApiClient.GetPartsFromUri(Uri uri, String& id, Byte[]& iv, Byte[]& metaMac, Byte[]& key)
+   at CG.Web.MegaApiClient.MegaApiClient.GetNodeFromLink(Uri uri)
+   at Omnibus.Form1.<DownloadComic>d__28.MoveNext() in C:\Users\rory5\source\repos\Omnibus\Comic Search\Form1.cs:line 305
+(01-14-20 20:07:10) - Downloading new comic: C:\Users\rory5\\Something Is Killing The Children #1 (2019).cbr
+(01-14-20 20:07:10) - System.ArgumentException: Invalid uri. Unable to extract Id and Key from the uri https://getcomics.info/run.php-urls/aHR0cHM6Ly9tZWdhLm56LyMhS2dWa2pRS1MhaktFWXprX1hUU1dDX3Z6emhnb0VuTWZSbEFNaGlsakNRR2pqTnZ5enhGMA==
+   at CG.Web.MegaApiClient.MegaApiClient.GetPartsFromUri(Uri uri, String& id, Byte[]& iv, Byte[]& metaMac, Byte[]& key)
+   at CG.Web.MegaApiClient.MegaApiClient.Download(Uri uri, Nullable`1 cancellationToken)
+   at CG.Web.MegaApiClient.MegaApiClient.<>c__DisplayClass73_0.<DownloadFileAsync>b__0()
+   at System.Threading.Tasks.Task.InnerInvoke()
+   at System.Threading.Tasks.Task.Execute()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at Omnibus.Form1.<DownloadComic>d__28.MoveNext() in C:\Users\rory5\source\repos\Omnibus\Comic Search\Form1.cs:line 324
+(01-14-20 20:10:48) - Searched for new comics.
+(01-14-20 20:10:50) - Searched for new comics.
+(01-14-20 20:13:40) - Searched for new comics.
+(01-14-20 20:15:17) - Searched for new comics.
+(01-14-20 20:16:06) - Searched for new comics.
+(01-14-20 20:16:23) - Searched for new comics.
+(01-14-20 20:16:29) - Exception from mega client: System.ArgumentException: Invalid uri. Unable to extract Id and Key from the uri https://getcomics.info/run.php-urls/aHR0cHM6Ly9tZWdhLm56LyMhS2dWa2pRS1MhaktFWXprX1hUU1dDX3Z6emhnb0VuTWZSbEFNaGlsakNRR2pqTnZ5enhGMA==
+   at CG.Web.MegaApiClient.MegaApiClient.GetPartsFromUri(Uri uri, String& id, Byte[]& iv, Byte[]& metaMac, Byte[]& key)
+   at CG.Web.MegaApiClient.MegaApiClient.GetNodeFromLink(Uri uri)
+   at Omnibus.Form1.<DownloadComic>d__28.MoveNext() in C:\Users\rory5\source\repos\Omnibus\Comic Search\Form1.cs:line 305
+(01-14-20 20:16:29) - Downloading new comic: C:\Users\rory5\\Something Is Killing The Children #1 (2019).cbr
+(01-14-20 20:16:29) - System.ArgumentException: Invalid uri. Unable to extract Id and Key from the uri https://getcomics.info/run.php-urls/aHR0cHM6Ly9tZWdhLm56LyMhS2dWa2pRS1MhaktFWXprX1hUU1dDX3Z6emhnb0VuTWZSbEFNaGlsakNRR2pqTnZ5enhGMA==
+   at CG.Web.MegaApiClient.MegaApiClient.GetPartsFromUri(Uri uri, String& id, Byte[]& iv, Byte[]& metaMac, Byte[]& key)
+   at CG.Web.MegaApiClient.MegaApiClient.Download(Uri uri, Nullable`1 cancellationToken)
+   at CG.Web.MegaApiClient.MegaApiClient.<>c__DisplayClass73_0.<DownloadFileAsync>b__0()
+   at System.Threading.Tasks.Task.InnerInvoke()
+   at System.Threading.Tasks.Task.Execute()
+--- End of stack trace from previous location where exception was thrown ---
+   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+   at System.Runtime.CompilerServices.TaskAwaiter.GetResult()
+   at Omnibus.Form1.<DownloadComic>d__28.MoveNext() in C:\Users\rory5\source\repos\Omnibus\Comic Search\Form1.cs:line 324
+(01-14-20 20:16:53) - Searched for new comics.
+(01-14-20 20:27:04) - Searched for new comics.
+(01-14-20 20:27:42) - Searched for new comics.
+(01-14-20 20:28:11) - Searched for new comics.
+(01-14-20 20:28:13) - Downloading new comic: C:\Users\rory5\\Something Is Killing The Children #1 (2019).cbr
+(01-14-20 20:28:22) - Download Canceled: C:\Users\rory5\\Something Is Killing The Children #1 (2019).cbr
+(01-14-20 20:28:25) - Searched for new comics.
+(01-14-20 20:36:45) - Searched for new comics.
+(01-14-20 20:44:31) - Searched for new comics.

@@ -53,6 +53,7 @@
             this.btnNextPage = new System.Windows.Forms.Button();
             this.cmsComics = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.search = new System.Windows.Forms.ToolStripMenuItem();
+            this.validate = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pbCover)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.cmsComics.SuspendLayout();
@@ -191,6 +192,7 @@
             this.Title,
             this.Status,
             this.Progress});
+            this.lvDownloads.HideSelection = false;
             this.lvDownloads.Location = new System.Drawing.Point(12, 505);
             this.lvDownloads.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lvDownloads.Name = "lvDownloads";
@@ -272,9 +274,10 @@
             // 
             this.cmsComics.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.cmsComics.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.search});
+            this.search,
+            this.validate});
             this.cmsComics.Name = "cmsComics";
-            this.cmsComics.Size = new System.Drawing.Size(200, 28);
+            this.cmsComics.Size = new System.Drawing.Size(200, 52);
             this.cmsComics.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.cmsComics_ItemClicked);
             // 
             // search
@@ -282,6 +285,12 @@
             this.search.Name = "search";
             this.search.Size = new System.Drawing.Size(199, 24);
             this.search.Text = "Find more like this";
+            // 
+            // validate
+            // 
+            this.validate.Name = "validate";
+            this.validate.Size = new System.Drawing.Size(199, 24);
+            this.validate.Text = "Verify MEGA Link";
             // 
             // Form1
             // 
@@ -339,6 +348,7 @@
         private System.Windows.Forms.Button btnNextPage;
         private System.Windows.Forms.ContextMenuStrip cmsComics;
         private System.Windows.Forms.ToolStripMenuItem search;
+        private System.Windows.Forms.ToolStripMenuItem validate;
     }
 }
 
