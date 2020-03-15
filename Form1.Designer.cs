@@ -122,7 +122,7 @@
             this.btnDownload.TabIndex = 5;
             this.btnDownload.Text = "Download Comic";
             this.btnDownload.UseVisualStyleBackColor = true;
-            this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
+            this.btnDownload.Click += new System.EventHandler(this.btnDownload_ClickAsync);
             // 
             // tbDesc
             // 
