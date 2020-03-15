@@ -208,3 +208,138 @@
 (01-14-20 20:28:25) - Searched for new comics.
 (01-14-20 20:36:45) - Searched for new comics.
 (01-14-20 20:44:31) - Searched for new comics.
+(01-14-20 22:37:35) - Searched for new comics.
+(01-14-20 22:37:39) - Downloading new comic: C:\Users\rory5\\Dissident X (2019).cbr
+(01-14-20 22:37:41) - Downloading new comic: C:\Users\rory5\\Dissident X (2019).cbr
+(01-14-20 22:38:36) - Searched for new comics.
+(01-14-20 22:38:48) - Downloading new comic: C:\Users\rory5\\Dissident X (2019).cbr
+(01-14-20 22:55:46) - Searched for new comics.
+(01-14-20 22:55:47) - Searched for new comics.
+(01-14-20 22:56:00) - Searched for new comics.
+(01-14-20 22:56:11) - Downloading new comic: C:\Users\rory5\\Dissident X (2019).cbr
+(01-14-20 23:05:53) - Searched for new comics.
+(01-14-20 23:05:55) - Downloading new comic: C:\Users\rory5\\Dissident X (2019).cbr
+(01-14-20 23:06:51) - Searched for new comics.
+(01-14-20 23:06:54) - Downloading new comic: C:\Users\rory5\\Dissident X (2019).cbr
+(01-14-20 23:06:59) - Downloading new comic: C:\Users\rory5\\Dissident X (2019).cbr
+(01-14-20 23:07:45) - Searched for new comics.
+(01-14-20 23:08:11) - Downloading new comic: C:\Users\rory5\\Dissident X (2019).cbr
+(01-14-20 23:22:49) - Searched for new comics.
+(01-14-20 23:22:52) - Downloading new comic: C:\Users\rory5\\Obnoxio The Clown #1 (1983).cbr
+(01-14-20 23:22:56) - Downloading new comic: C:\Users\rory5\\Obnoxio The Clown #1 (1983).cbr
+(01-15-20 09:24:14) - Searched for new comics.
+(01-15-20 09:24:22) - Downloading new comic: C:\Users\rory5\\Venom - The End #1 (2020).cbr
+(01-15-20 09:24:43) - Downloading new comic: C:\Users\rory5\\Venom - The End #1 (2020).cbr
+(01-15-20 09:27:46) - Searched for new comics.
+(01-15-20 09:27:53) - Downloading new comic: C:\Users\rory5\\Venom - The End #1 (2020).cbr
+(01-15-20 11:23:24) - Searched for new comics.
+(01-15-20 11:23:34) - Downloading new comic: C:\Users\rory5\\Something Is Killing The Children #1 (2019).cbr
+(01-15-20 14:21:05) - Searched for new comics.
+(01-15-20 14:21:09) - Downloading new comic: C:\Users\rory5\\Buffy the Vampire Slayer-Angel - Hellmouth #4 (2020).cbr
+(01-15-20 14:21:13) - Downloading new comic: C:\Users\rory5\\Buffy the Vampire Slayer-Angel - Hellmouth #4 (2020).cbr
+(01-15-20 14:25:26) - Searched for new comics.
+(01-15-20 14:25:29) - Downloading new comic: C:\Users\rory5\\Spawn #304 (2020).cbr
+(01-15-20 14:25:32) - Downloading new comic: C:\Users\rory5\\Spawn #304 (2020).cbr
+(01-15-20 14:48:36) - Searched for new comics.
+(01-15-20 14:48:40) - Downloading new comic: C:\Users\rory5\\Venom - The End #1 (2020).cbr
+(01-15-20 14:48:46) - Downloading new comic: C:\Users\rory5\\Venom - The End #1 (2020).cbr
+(01-15-20 14:49:05) - Downloading new comic: C:\Users\rory5\\Valkyrie - Jane Foster #7 (2020).cbr
+(01-15-20 14:49:20) - Downloading new comic: C:\Users\rory5\\Valkyrie - Jane Foster #7 (2020).cbr
+(01-15-20 14:49:44) - Searched for new comics.
+(01-15-20 14:49:48) - Downloading new comic: C:\Users\rory5\\RWBY #10 (2020).cbr
+(01-15-20 15:00:34) - Searched for new comics.
+(01-15-20 15:00:39) - Downloading new comic: C:\Users\rory5\\Go Go Power Rangers #27 (2020).cbr
+(01-15-20 15:04:59) - Searched for new comics.
+(01-15-20 15:05:02) - Downloading new comic: C:\Users\rory5\\James Bond #2 (2020).cbr
+(01-15-20 17:22:00) - Searched for new comics.
+(01-15-20 17:22:03) - Downloading new comic: C:\Users\rory5\\Vampirella - Red Sonja #5 (2020).cbr
+(01-15-20 17:24:05) - Searched for new comics.
+(01-15-20 17:24:07) - Downloading new comic: C:\Users\rory5\\Vampirella - Red Sonja #5 (2020).cbr
+(01-15-20 17:26:01) - Searched for new comics.
+(01-15-20 17:26:04) - Downloading new comic: C:\Users\rory5\\Vampirella - Red Sonja #5 (2020).cbr
+(01-15-20 17:32:52) - Searched for new comics.
+(01-15-20 17:32:55) - Downloading new comic: C:\Users\rory5\\Vampirella - Red Sonja #5 (2020).cbr
+(01-15-20 17:43:09) - Searched for new comics.
+(01-15-20 17:43:12) - Downloading new comic: C:\Users\rory5\\Vampirella - Red Sonja #5 (2020).cbr
+(01-15-20 17:54:08) - Searched for new comics.
+(01-15-20 17:54:11) - Downloading new comic: C:\Users\rory5\\Vampirella - Red Sonja #5 (2020).cbr
+(01-15-20 17:54:19) - Downloading new comic: C:\Users\rory5\\Vampirella - Red Sonja #5 (2020).cbr
+(01-15-20 17:56:17) - Searched for new comics.
+(01-15-20 17:56:19) - Downloading new comic: C:\Users\rory5\\Rai #3 (2020).cbr
+(01-15-20 18:16:52) - Searched for new comics.
+(01-15-20 18:18:26) - Searched for new comics.
+(01-15-20 18:20:08) - Searched for new comics.
+(01-15-20 18:20:10) - Downloading new comic: C:\Users\rory5\\Vampirella - Red Sonja #5 (2020).cbr
+(01-15-20 18:28:38) - Searched for new comics.
+(01-15-20 18:28:44) - Downloading new comic: C:\Users\rory5\\Vampirella - Red Sonja #5 (2020).cbr
+(01-15-20 18:35:16) - Searched for new comics.
+(01-15-20 18:35:19) - Downloading new comic: C:\Users\rory5\\Rai #3 (2020).cbr
+(01-15-20 18:37:46) - Searched for new comics.
+(01-15-20 18:37:49) - Downloading new comic: C:\Users\rory5\\Bloodshot #5 (2020).cbr
+(01-15-20 18:41:25) - Searched for new comics.
+(01-15-20 18:41:27) - Downloading new comic: C:\Users\rory5\\Vampirella - Red Sonja #5 (2020).cbr
+(01-15-20 18:44:13) - Searched for new comics.
+(01-15-20 18:44:16) - Downloading new comic: C:\Users\rory5\\Rai #3 (2020).cbr
+(01-15-20 18:44:38) - Downloading new comic: C:\Users\rory5\\Bettie Page - Unbound #9 (2020).cbr
+(01-15-20 21:27:24) - Searched for new comics.
+(01-15-20 21:30:26) - Searched for new comics.
+(01-15-20 21:33:56) - Error loading cover image.
+(01-15-20 21:34:12) - Downloading new comic: C:\Users\rory5\\Aquaman #56 (2020).cbr
+(01-15-20 21:34:30) - Downloading new comic: C:\Users\rory5\\Buffy the Vampire Slayer-Angel - Hellmouth #4 (2020).cbr
+(01-15-20 21:36:01) - Searched for new comics.
+(01-15-20 21:36:17) - Downloading new comic: C:\Users\rory5\\Avatar - Tsu'tey's Path (TPB) (2019).cbr
+(01-15-20 21:43:03) - Searched for new comics.
+(01-15-20 21:43:11) - Downloading new comic: C:\Users\rory5\\Rai #3 (2020).cbr
+(01-15-20 22:12:39) - Searched for new comics.
+(01-15-20 22:12:44) - Downloading new comic: C:\Users\rory5\\Princeless Book 1 - 9 (2012-2020).cbr
+(01-15-20 22:14:45) - Searched for new comics.
+(01-15-20 22:14:56) - Downloading new comic: C:\Users\rory5\\Princeless Book 1 - 9 (2012-2020).cbr
+(01-15-20 22:16:07) - Searched for new comics.
+(01-15-20 22:16:10) - Downloading new comic: C:\Users\rory5\\Copra Vol. 1 - 5 (Fan Made TPB) (2014-2018).cbr
+(01-15-20 22:16:21) - Downloading new comic: C:\Users\rory5\\Avatar - Tsu'tey's Path (TPB) (2019).cbr
+(01-15-20 22:16:21) - Download Canceled: C:\Users\rory5\\Avatar - Tsu'tey's Path (TPB) (2019).cbr
+(01-15-20 22:16:46) - Downloading new comic: C:\Users\rory5\\Avatar - Tsu'tey's Path (TPB) (2019).cbr
+(01-15-20 22:24:14) - Searched for new comics.
+(01-15-20 22:24:23) - Downloading new comic: C:\Users\rory5\\Princeless Book 1 - 9 (2012-2020).cbr
+(01-15-20 22:25:19) - Downloading new comic: C:\Users\rory5\\Copra Vol. 1 - 5 (Fan Made TPB) (2014-2018).cbr
+(01-15-20 22:30:55) - Searched for new comics.
+(01-15-20 22:31:05) - Downloading new comic: C:\Users\rory5\\Vampirella - Red Sonja #5 (2020).cbr
+(03-13-20 23:43:56) - Searched for new comics.
+(03-13-20 23:56:34) - Searched for new comics.
+(03-13-20 23:56:37) - Downloading new comic: F:\comics\X-Men #8 (2020).cbr
+(03-13-20 23:56:46) - Downloading new comic: F:\comics\X-Men #7 (2020).cbr
+(03-13-20 23:57:34) - Downloading new comic: F:\comics\X-Men #6 (2020).cbr
+(03-14-20 23:40:16) - Searched for new comics.
+(03-14-20 23:40:19) - Downloading new comic: F:\comics\X-Men #8 (2020).cbr
+(03-14-20 23:43:58) - Searched for new comics.
+(03-14-20 23:44:02) - Downloading new comic: F:\comics\X-Men #8 (2020).cbr
+(03-14-20 23:47:18) - Searched for new comics.
+(03-14-20 23:47:26) - Downloading new comic: F:\comics\X-Men #8 (2020).cbr
+(03-14-20 23:47:28) - Downloading new comic: F:\comics\X-Men #8 (2020).cbr
+(03-14-20 23:47:34) - Downloading new comic: F:\comics\X-Men #7 (2020).cbr
+(03-14-20 23:49:16) - Searched for new comics.
+(03-14-20 23:49:17) - Downloading new comic: F:\comics\X-Men #8 (2020).cbr
+(03-14-20 23:49:24) - Downloading new comic: F:\comics\X-Men #8 (2020).cbr
+(03-14-20 23:49:29) - Downloading new comic: F:\comics\X-Men #7 (2020).cbr
+(03-14-20 23:50:01) - Downloading new comic: F:\comics\X-Men #6 (2020).cbr
+(03-14-20 23:50:06) - Downloading new comic: F:\comics\X-Men #6 (2020).cbr
+(03-14-20 23:50:08) - Downloading new comic: F:\comics\X-Men #5 (2020).cbr
+(03-14-20 23:50:52) - Searched for new comics.
+(03-14-20 23:50:53) - Downloading new comic: F:\comics\X-Men #8 (2020).cbr
+(03-14-20 23:50:55) - Downloading new comic: F:\comics\X-Men #8 (2020).cbr
+(03-15-20 00:03:37) - Searched for new comics.
+(03-15-20 00:05:46) - Searched for new comics.
+(03-15-20 00:05:48) - Downloading new comic: F:\comics\X-Men #8 (2020).cbr
+(03-15-20 00:05:51) - Downloading new comic: F:\comics\X-Men #8 (2020).cbr
+(03-15-20 00:07:38) - Searched for new comics.
+(03-15-20 00:07:40) - Downloading new comic: F:\comics\X-Men #8 (2020).cbr
+(03-15-20 00:07:42) - Downloading new comic: F:\comics\X-Men #7 (2020).cbr
+(03-15-20 00:07:48) - Downloading new comic: F:\comics\X-Men #6 (2020).cbr
+(03-15-20 00:10:58) - Searched for new comics.
+(03-15-20 00:22:02) - Searched for new comics.
+(03-15-20 00:22:06) - Downloading new comic: F:\comics\Star Wars - The Rise Of Kylo Ren #4 (2020).cbr
+(03-15-20 00:22:20) - Downloading new comic: F:\comics\Star Wars - The Rise Of Kylo Ren #3 (2020).cbr
+(03-15-20 00:22:40) - Downloading new comic: F:\comics\Star Wars - The Rise Of Kylo Ren #2 (2020).cbr
+(03-15-20 00:22:42) - Downloading new comic: F:\comics\Star Wars - The Rise Kylo Ren #1 (2019).cbr
+(03-15-20 00:23:09) - Downloading new comic: F:\comics\Star Wars Adventures #30 (2020).cbr
+(03-15-20 00:23:33) - Downloading new comic: F:\comics\Journey To Star Wars - The Rise Of Skywalker - Allegiance #4 (2019).cbr
