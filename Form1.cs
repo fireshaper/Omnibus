@@ -22,7 +22,7 @@ namespace Omnibus
     public partial class Form1 : Form
     {
 
-        private String version = "1.4.6.2";
+        private String version = "1.4.7";
         private String url = "https://getcomics.info/?s=";
         private int cancelled = 0;
         private bool isDownloading = false;
@@ -120,7 +120,12 @@ namespace Omnibus
             string[] preDesc = c[0].Split('>');
             string[] desc = preDesc[6].Split('<');
 
-            tbDesc.Text = desc[0];
+            string[] c1 = c[0].Split('|');
+            string[] c2 = c1[0].Split('>');
+            string date = c2[3];
+
+
+            tbDesc.Text = "Date: " + date + "\r\n\r\n" + desc[0];
         }
 
         private void btnOpenLink_Click(object sender, EventArgs e)

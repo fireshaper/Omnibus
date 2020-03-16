@@ -333,3 +333,9 @@
 (03-15-20 13:47:05) - Downloading new comic: C:\Users\rory5\\Star Wars - Age Of Resistance - Supreme Leader Snoke (2019).cbr
 (03-15-20 13:47:17) - Downloading new comic: C:\Users\rory5\\Star Wars - The Last Jedi Adaptation #4 (2018).cbr
 (03-15-20 13:48:17) - Downloading new comic: C:\Users\rory5\\Star Wars - The Last Jedi Adaptation #5 (2018).cbr
+(03-15-20 21:02:38) - Searched for new comics.
+(03-15-20 22:55:36) - Searched for new comics.
+(03-15-20 23:04:37) - Searched for new comics.
+(03-15-20 23:05:36) - Searched for new comics.
+(03-15-20 23:06:26) - Searched for new comics.
+(03-15-20 23:07:20) - Searched for new comics.
