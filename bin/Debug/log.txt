@@ -304,42 +304,38 @@
 (01-15-20 22:25:19) - Downloading new comic: C:\Users\rory5\\Copra Vol. 1 - 5 (Fan Made TPB) (2014-2018).cbr
 (01-15-20 22:30:55) - Searched for new comics.
 (01-15-20 22:31:05) - Downloading new comic: C:\Users\rory5\\Vampirella - Red Sonja #5 (2020).cbr
-(03-13-20 23:43:56) - Searched for new comics.
-(03-13-20 23:56:34) - Searched for new comics.
-(03-13-20 23:56:37) - Downloading new comic: F:\comics\X-Men #8 (2020).cbr
-(03-13-20 23:56:46) - Downloading new comic: F:\comics\X-Men #7 (2020).cbr
-(03-13-20 23:57:34) - Downloading new comic: F:\comics\X-Men #6 (2020).cbr
-(03-14-20 23:40:16) - Searched for new comics.
-(03-14-20 23:40:19) - Downloading new comic: F:\comics\X-Men #8 (2020).cbr
-(03-14-20 23:43:58) - Searched for new comics.
-(03-14-20 23:44:02) - Downloading new comic: F:\comics\X-Men #8 (2020).cbr
-(03-14-20 23:47:18) - Searched for new comics.
-(03-14-20 23:47:26) - Downloading new comic: F:\comics\X-Men #8 (2020).cbr
-(03-14-20 23:47:28) - Downloading new comic: F:\comics\X-Men #8 (2020).cbr
-(03-14-20 23:47:34) - Downloading new comic: F:\comics\X-Men #7 (2020).cbr
-(03-14-20 23:49:16) - Searched for new comics.
-(03-14-20 23:49:17) - Downloading new comic: F:\comics\X-Men #8 (2020).cbr
-(03-14-20 23:49:24) - Downloading new comic: F:\comics\X-Men #8 (2020).cbr
-(03-14-20 23:49:29) - Downloading new comic: F:\comics\X-Men #7 (2020).cbr
-(03-14-20 23:50:01) - Downloading new comic: F:\comics\X-Men #6 (2020).cbr
-(03-14-20 23:50:06) - Downloading new comic: F:\comics\X-Men #6 (2020).cbr
-(03-14-20 23:50:08) - Downloading new comic: F:\comics\X-Men #5 (2020).cbr
-(03-14-20 23:50:52) - Searched for new comics.
-(03-14-20 23:50:53) - Downloading new comic: F:\comics\X-Men #8 (2020).cbr
-(03-14-20 23:50:55) - Downloading new comic: F:\comics\X-Men #8 (2020).cbr
-(03-15-20 00:03:37) - Searched for new comics.
-(03-15-20 00:05:46) - Searched for new comics.
-(03-15-20 00:05:48) - Downloading new comic: F:\comics\X-Men #8 (2020).cbr
-(03-15-20 00:05:51) - Downloading new comic: F:\comics\X-Men #8 (2020).cbr
-(03-15-20 00:07:38) - Searched for new comics.
-(03-15-20 00:07:40) - Downloading new comic: F:\comics\X-Men #8 (2020).cbr
-(03-15-20 00:07:42) - Downloading new comic: F:\comics\X-Men #7 (2020).cbr
-(03-15-20 00:07:48) - Downloading new comic: F:\comics\X-Men #6 (2020).cbr
-(03-15-20 00:10:58) - Searched for new comics.
-(03-15-20 00:22:02) - Searched for new comics.
-(03-15-20 00:22:06) - Downloading new comic: F:\comics\Star Wars - The Rise Of Kylo Ren #4 (2020).cbr
-(03-15-20 00:22:20) - Downloading new comic: F:\comics\Star Wars - The Rise Of Kylo Ren #3 (2020).cbr
-(03-15-20 00:22:40) - Downloading new comic: F:\comics\Star Wars - The Rise Of Kylo Ren #2 (2020).cbr
-(03-15-20 00:22:42) - Downloading new comic: F:\comics\Star Wars - The Rise Kylo Ren #1 (2019).cbr
-(03-15-20 00:23:09) - Downloading new comic: F:\comics\Star Wars Adventures #30 (2020).cbr
-(03-15-20 00:23:33) - Downloading new comic: F:\comics\Journey To Star Wars - The Rise Of Skywalker - Allegiance #4 (2019).cbr
+(03-15-20 10:22:51) - Searched for new comics.
+(03-15-20 10:23:02) - Searched for new comics.
+(03-15-20 10:23:39) - Searched for new comics.
+(03-15-20 10:23:42) - Downloading new comic: C:\Users\rory5\\Star Wars - The Rise Kylo Ren #1 (2019).cbr
+(03-15-20 10:23:46) - Downloading new comic: C:\Users\rory5\\Star Wars - The Rise Kylo Ren #1 (2019).cbr
+(03-15-20 10:26:24) - Searched for new comics.
+(03-15-20 10:26:28) - Downloading new comic: C:\Users\rory5\\Star Wars - The Rise Kylo Ren #1 (2019).cbr
+(03-15-20 10:26:30) - Downloading new comic: C:\Users\rory5\\Star Wars - The Rise Of Kylo Ren #2 (2020).cbr
+(03-15-20 10:26:40) - Downloading new comic: C:\Users\rory5\\Star Wars - The Rise Of Kylo Ren #3 (2020).cbr
+(03-15-20 10:28:31) - Searched for new comics.
+(03-15-20 10:28:34) - Downloading new comic: C:\Users\rory5\\Star Wars - The Rise Of Kylo Ren #4 (2020).cbr
+(03-15-20 10:28:39) - Downloading new comic: C:\Users\rory5\\Star Wars - The Rise Of Kylo Ren #3 (2020).cbr
+(03-15-20 10:28:45) - Downloading new comic: C:\Users\rory5\\Star Wars - The Rise Of Kylo Ren #2 (2020).cbr
+(03-15-20 13:07:32) - Searched for new comics.
+(03-15-20 13:07:38) - Downloading new comic: C:\Users\rory5\\Star Wars - The Rise Of Kylo Ren #4 (2020).cbr
+(03-15-20 13:07:45) - Downloading new comic: C:\Users\rory5\\Star Wars - The Rise Of Kylo Ren #3 (2020).cbr
+(03-15-20 13:10:10) - Searched for new comics.
+(03-15-20 13:10:14) - Downloading new comic: C:\Users\rory5\\Star Wars - The Rise Of Kylo Ren #4 (2020).cbr
+(03-15-20 13:10:38) - Downloading new comic: C:\Users\rory5\\Star Wars - The Rise Kylo Ren #1 (2019).cbr
+(03-15-20 13:10:46) - Downloading new comic: C:\Users\rory5\\Star Wars Adventures #30 (2020).cbr
+(03-15-20 13:11:11) - Downloading new comic: C:\Users\rory5\\Journey To Star Wars - The Rise Of Skywalker - Allegiance #4 (2019).cbr
+(03-15-20 13:38:47) - Downloading new comic: C:\Users\rory5\\Journey To Star Wars - The Rise Of Skywalker - Allegiance #2 (2019).cbr
+(03-15-20 13:38:52) - Downloading new comic: C:\Users\rory5\\Journey To Star Wars - The Rise Of Skywalker Allegiance #1 (2019).cbr
+(03-15-20 13:39:21) - Downloading new comic: C:\Users\rory5\\Star Wars - Age Of Resistance - General Hux #1 (2019).cbr
+(03-15-20 13:40:44) - Searched for new comics.
+(03-15-20 13:40:57) - Downloading new comic: C:\Users\rory5\\Star Wars - The Last Jedi Adaptation #6 (2018).cbr
+(03-15-20 13:47:05) - Downloading new comic: C:\Users\rory5\\Star Wars - Age Of Resistance - Supreme Leader Snoke (2019).cbr
+(03-15-20 13:47:17) - Downloading new comic: C:\Users\rory5\\Star Wars - The Last Jedi Adaptation #4 (2018).cbr
+(03-15-20 13:48:17) - Downloading new comic: C:\Users\rory5\\Star Wars - The Last Jedi Adaptation #5 (2018).cbr
+(03-15-20 21:02:38) - Searched for new comics.
+(03-15-20 22:55:36) - Searched for new comics.
+(03-15-20 23:04:37) - Searched for new comics.
+(03-15-20 23:05:36) - Searched for new comics.
+(03-15-20 23:06:26) - Searched for new comics.
+(03-15-20 23:07:20) - Searched for new comics.

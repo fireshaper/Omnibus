@@ -22,7 +22,7 @@ namespace Omnibus
     public partial class Form1 : Form
     {
 
-        private String version = "1.4.6.2";
+        private String version = "1.4.7";
         private String url = "https://getcomics.info/?s=";
         private int cancelled = 0;
         private bool isDownloading = false;
@@ -30,7 +30,6 @@ namespace Omnibus
         private bool status;
         private String pbID;
         private int idCount = 0;
-        private int dlIDCount = 0;
         public int LVCount = 0;
         private int page = 1;
 
@@ -121,7 +120,12 @@ namespace Omnibus
             string[] preDesc = c[0].Split('>');
             string[] desc = preDesc[6].Split('<');
 
-            tbDesc.Text = desc[0];
+            string[] c1 = c[0].Split('|');
+            string[] c2 = c1[0].Split('>');
+            string date = c2[3];
+
+
+            tbDesc.Text = "Date: " + date + "\r\n\r\n" + desc[0];
         }
 
         private void btnOpenLink_Click(object sender, EventArgs e)
@@ -155,10 +159,11 @@ namespace Omnibus
             {
                 for (int i = 0; i < lvDownloads.Items.Count; i++)
                 {
-                    lvDownloads.Items[i].Remove();
+                    lvDownloads.Items[i].Remove(); 
                 }
-                downloadList.Clear();
+
                 idCount = 0;
+                downloadList.Clear();
             }
 
             if (lbComics.Items.Count > 0)
@@ -339,8 +344,8 @@ namespace Omnibus
                 LogWriter("Exception from mega client: " + e);
             }
 
-            string filename = titleList[idCount];
             //string filename = titleList[0];
+            string filename = titleList[idCount];
             downloadPath = Properties.Settings.Default.DownloadLocation + "\\" + filename + ".cbr";
 
             IProgress<double> progressHandler = new Progress<double>(x => UpdateItemValue(id, (int)x));  //update progressbar with progress
@@ -363,33 +368,32 @@ namespace Omnibus
                 isDownloading = false;
                 LogWriter("Download Canceled: " + downloadPath);
             }
-            //catch (IOException io)
-            //{
-            //    if (MessageBox.Show("Would you like to overwrite?", "File already exists", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            //    {
-            //        Console.WriteLine(io);
-            //        if (File.Exists(downloadPath))
-            //        {
-            //            File.Delete(downloadPath);
-            //        }
-            //        try
-            //        {
-            //            await mClient.DownloadFileAsync(myStringWebResource, downloadPath, progressHandler, cts.Token);
-            //        }
-            //        catch (OperationCanceledException ex)
-            //        {
-            //            complete = 0;
-            //            isDownloading = false;
-            //            CancelDownload(downloadPath);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        complete = 0;
-            //        isDownloading = false;
-            //        CancelDownload(downloadPath);
-            //    }
-            //}
+            catch (IOException io)
+            {
+                if (MessageBox.Show("Would you like to overwrite?", "File already exists", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    if (File.Exists(downloadPath))
+                    {
+                        File.Delete(downloadPath);
+                    }
+                    try
+                    {
+                        await mClient.DownloadFileAsync(myStringWebResource, downloadPath, progressHandler, cts.Token);
+                    }
+                    catch (OperationCanceledException ex)
+                    {
+                        complete = 0;
+                        isDownloading = false;
+                        CancelDownload(downloadPath);
+                    }
+                }
+                else
+                {
+                    complete = 0;
+                    isDownloading = false;
+                    CancelDownload(downloadPath);
+                }
+            }
             catch (ArgumentException aex)
             {
                 complete = 0;
@@ -416,6 +420,7 @@ namespace Omnibus
                 {
                     lvi.SubItems[1].Text = "Downloading";
                     status = false;
+                    isDownloading = true;
                 }
                 else if (value >= 100)
                 {
@@ -519,6 +524,7 @@ namespace Omnibus
                 {
                     lvDownloads.Items[i].Remove();
                 }
+                idCount = 0;
             }
         }
 
