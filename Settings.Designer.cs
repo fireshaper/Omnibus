@@ -38,12 +38,13 @@
             this.btnBrowseLog = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.tbLLocation = new System.Windows.Forms.TextBox();
+            this.cbLogs = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // tbDLocation
             // 
             this.tbDLocation.Location = new System.Drawing.Point(31, 35);
-            this.tbDLocation.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbDLocation.Margin = new System.Windows.Forms.Padding(2);
             this.tbDLocation.Name = "tbDLocation";
             this.tbDLocation.Size = new System.Drawing.Size(417, 20);
             this.tbDLocation.TabIndex = 0;
@@ -61,7 +62,7 @@
             // btnSave
             // 
             this.btnSave.Location = new System.Drawing.Point(430, 337);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(2);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(56, 19);
             this.btnSave.TabIndex = 2;
@@ -72,7 +73,7 @@
             // btnCancel
             // 
             this.btnCancel.Location = new System.Drawing.Point(491, 337);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(56, 19);
             this.btnCancel.TabIndex = 3;
@@ -83,7 +84,7 @@
             // btnBrowse
             // 
             this.btnBrowse.Location = new System.Drawing.Point(452, 34);
-            this.btnBrowse.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnBrowse.Margin = new System.Windows.Forms.Padding(2);
             this.btnBrowse.Name = "btnBrowse";
             this.btnBrowse.Size = new System.Drawing.Size(56, 19);
             this.btnBrowse.TabIndex = 4;
@@ -93,7 +94,7 @@
             // 
             // btnBrowseLog
             // 
-            this.btnBrowseLog.Location = new System.Drawing.Point(452, 83);
+            this.btnBrowseLog.Location = new System.Drawing.Point(452, 146);
             this.btnBrowseLog.Margin = new System.Windows.Forms.Padding(2);
             this.btnBrowseLog.Name = "btnBrowseLog";
             this.btnBrowseLog.Size = new System.Drawing.Size(56, 19);
@@ -105,7 +106,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(28, 68);
+            this.label2.Location = new System.Drawing.Point(28, 131);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(72, 13);
@@ -114,17 +115,29 @@
             // 
             // tbLLocation
             // 
-            this.tbLLocation.Location = new System.Drawing.Point(31, 84);
+            this.tbLLocation.Location = new System.Drawing.Point(31, 147);
             this.tbLLocation.Margin = new System.Windows.Forms.Padding(2);
             this.tbLLocation.Name = "tbLLocation";
             this.tbLLocation.Size = new System.Drawing.Size(417, 20);
             this.tbLLocation.TabIndex = 5;
+            // 
+            // cbLogs
+            // 
+            this.cbLogs.AutoSize = true;
+            this.cbLogs.Location = new System.Drawing.Point(31, 101);
+            this.cbLogs.Name = "cbLogs";
+            this.cbLogs.Size = new System.Drawing.Size(85, 17);
+            this.cbLogs.TabIndex = 8;
+            this.cbLogs.Text = "Enable Logs";
+            this.cbLogs.UseVisualStyleBackColor = true;
+            this.cbLogs.CheckedChanged += new System.EventHandler(this.cbLogs_CheckedChanged);
             // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(571, 366);
+            this.Controls.Add(this.cbLogs);
             this.Controls.Add(this.btnBrowseLog);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tbLLocation);
@@ -134,7 +147,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbDLocation);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Settings";
             this.Text = "Settings";
             this.Load += new System.EventHandler(this.Settings_Load);
@@ -154,5 +167,6 @@
         private System.Windows.Forms.Button btnBrowseLog;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tbLLocation;
+        private System.Windows.Forms.CheckBox cbLogs;
     }
 }

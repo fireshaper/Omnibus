@@ -828,10 +828,14 @@ namespace Omnibus
 
         private void LogWriter(string line)
         {
-            string datetime = DateTime.Now.ToString("MM-dd-yy HH:mm:ss");
-            string logPath = Properties.Settings.Default.LogLocation;
+            if (Properties.Settings.Default.LogEnabled == true)
+            {
+                string datetime = DateTime.Now.ToString("MM-dd-yy HH:mm:ss");
+                string logPath = Properties.Settings.Default.LogLocation;
 
-            File.AppendAllText(logPath + "\\log.txt", "(" + datetime + ") - " + line + Environment.NewLine);
+                File.AppendAllText(logPath + "\\log.txt", "(" + datetime + ") - " + line + Environment.NewLine);
+            }
+            
         }
 
     }

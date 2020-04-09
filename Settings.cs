@@ -21,6 +21,15 @@ namespace Omnibus
         {
             tbDLocation.Text = Properties.Settings.Default.DownloadLocation;
             tbLLocation.Text = Properties.Settings.Default.LogLocation;
+
+            if (Properties.Settings.Default.LogEnabled == true)
+            {
+                cbLogs.Checked = true;
+            }
+            else
+            {
+                cbLogs.Checked = false;
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -52,6 +61,19 @@ namespace Omnibus
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
                 tbLLocation.Text = folderBrowserDialog1.SelectedPath;
+            }
+        }
+
+
+        private void cbLogs_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbLogs.Checked == true)
+            {
+                Properties.Settings.Default.LogEnabled = true;
+            }
+            else
+            {
+                Properties.Settings.Default.LogEnabled = false;
             }
         }
     }
