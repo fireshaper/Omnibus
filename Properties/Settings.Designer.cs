@@ -58,5 +58,41 @@ namespace Omnibus.Properties {
                 this["LogEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string UserAgent {
+            get {
+                return ((string)(this["UserAgent"]));
+            }
+            set {
+                this["UserAgent"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string cfduid {
+            get {
+                return ((string)(this["cfduid"]));
+            }
+            set {
+                this["cfduid"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string cf_clearance {
+            get {
+                return ((string)(this["cf_clearance"]));
+            }
+            set {
+                this["cf_clearance"] = value;
+            }
+        }
     }
 }

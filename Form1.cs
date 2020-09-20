@@ -22,7 +22,7 @@ namespace Omnibus
     public partial class Form1 : Form
     {
 
-        private String version = "1.4.7.1.1";
+        private String version = "1.4.8";
         private String url = "https://getcomics.info/?s=";
         private int cancelled = 0;
         private bool isDownloading = false;
@@ -85,6 +85,12 @@ namespace Omnibus
                 Properties.Settings.Default.Save();
             }
 
+            //Warn user to get UserAgent string and cookies on first run
+            if (Properties.Settings.Default.UserAgent == "")
+            {
+                MessageBox.Show("Thank you for using Omnibus! Before you can get started, you are going to have to gather a few things. " +
+                    "Read the Setup information on github (https://github.com/fireshaper/Omnibus) for more information.");
+            }
 
             //Log in to the MEGA client Anonymously
             mClient.LoginAnonymous();
@@ -179,6 +185,12 @@ namespace Omnibus
                     string[] a = node.Split('"');
 
                     HttpWebRequest request = (HttpWebRequest)WebRequest.Create(a[1]);
+                    request.UserAgent = Properties.Settings.Default.UserAgent;
+                    request.Headers.Add(HttpRequestHeader.Cookie,
+                                        "__cfduid=" + Properties.Settings.Default.cfduid + ";" +
+                                        "cf_clearance=" + Properties.Settings.Default.cf_clearance
+                                        );
+
                     HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
                     if (response.StatusCode == HttpStatusCode.OK)
@@ -542,6 +554,12 @@ namespace Omnibus
                 string[] a = node.Split('"');
 
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(a[1]);
+                request.UserAgent = Properties.Settings.Default.UserAgent;
+                request.Headers.Add(HttpRequestHeader.Cookie,
+                                    "__cfduid=" + Properties.Settings.Default.cfduid + ";" +
+                                    "cf_clearance=" + Properties.Settings.Default.cf_clearance
+                                    );
+
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
                 if (response.StatusCode == HttpStatusCode.OK)
@@ -737,6 +755,12 @@ namespace Omnibus
             string searchURL = "https://getcomics.info/page/" + page + "/?s=" + search;
 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(searchURL);
+            request.UserAgent = Properties.Settings.Default.UserAgent;
+            request.Headers.Add(HttpRequestHeader.Cookie,
+                                "__cfduid=" + Properties.Settings.Default.cfduid + ";" +
+                                "cf_clearance=" + Properties.Settings.Default.cf_clearance
+                                );
+
             HttpWebResponse response = null;
 
             try
@@ -751,7 +775,15 @@ namespace Omnibus
             
             if (response == null)
             {
-                MessageBox.Show("Comic does not exist. Try again.");
+                if (Properties.Settings.Default.cfduid != "" && Properties.Settings.Default.cf_clearance != "")
+                {
+                    MessageBox.Show("Comic does not exist or Cookies are not correct. Check your Cookies in Settings and try again.");
+                }
+                else
+                {
+                    MessageBox.Show("No Cookies in Settings. Set up your Cookies and try again.");
+                }
+
 
                 tbComicSearch.Text = "";
                 lbComics.Items.Clear();
