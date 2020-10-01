@@ -22,7 +22,7 @@ namespace Omnibus
     public partial class Form1 : Form
     {
 
-        private String version = "1.4.8";
+        private String version = "1.4.8.1";
         private String url = "https://getcomics.info/?s=";
         private int cancelled = 0;
         private bool isDownloading = false;
@@ -218,6 +218,11 @@ namespace Omnibus
                         doc.LoadHtml(data);
 
                         var htmlNodes = doc.DocumentNode.SelectSingleNode("//a[@title='Mega Link']");
+
+                        if (htmlNodes == null) //Check to see if they just renamed the Node
+                        {
+                            htmlNodes = doc.DocumentNode.SelectSingleNode("//a[@title='MEGA']");
+                        }
 
                         if (htmlNodes == null)
                         {

@@ -41,10 +41,8 @@
             this.cbLogs = new System.Windows.Forms.CheckBox();
             this.lblWebAgent = new System.Windows.Forms.Label();
             this.lblCfduid = new System.Windows.Forms.Label();
-            this.lblCF_clearance = new System.Windows.Forms.Label();
             this.tbUserAgent = new System.Windows.Forms.TextBox();
             this.tbCfduid = new System.Windows.Forms.TextBox();
-            this.tbCF_clearance = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // tbDLocation
@@ -158,15 +156,6 @@
             this.lblCfduid.TabIndex = 10;
             this.lblCfduid.Text = "__cfduid";
             // 
-            // lblCF_clearance
-            // 
-            this.lblCF_clearance.AutoSize = true;
-            this.lblCF_clearance.Location = new System.Drawing.Point(28, 337);
-            this.lblCF_clearance.Name = "lblCF_clearance";
-            this.lblCF_clearance.Size = new System.Drawing.Size(69, 13);
-            this.lblCF_clearance.TabIndex = 11;
-            this.lblCF_clearance.Text = "cf_clearance";
-            // 
             // tbUserAgent
             // 
             this.tbUserAgent.Location = new System.Drawing.Point(31, 240);
@@ -181,22 +170,13 @@
             this.tbCfduid.Size = new System.Drawing.Size(418, 20);
             this.tbCfduid.TabIndex = 13;
             // 
-            // tbCF_clearance
-            // 
-            this.tbCF_clearance.Location = new System.Drawing.Point(30, 353);
-            this.tbCF_clearance.Name = "tbCF_clearance";
-            this.tbCF_clearance.Size = new System.Drawing.Size(418, 20);
-            this.tbCF_clearance.TabIndex = 14;
-            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(571, 453);
-            this.Controls.Add(this.tbCF_clearance);
             this.Controls.Add(this.tbCfduid);
             this.Controls.Add(this.tbUserAgent);
-            this.Controls.Add(this.lblCF_clearance);
             this.Controls.Add(this.lblCfduid);
             this.Controls.Add(this.lblWebAgent);
             this.Controls.Add(this.cbLogs);
@@ -232,9 +212,7 @@
         private System.Windows.Forms.CheckBox cbLogs;
         private System.Windows.Forms.Label lblWebAgent;
         private System.Windows.Forms.Label lblCfduid;
-        private System.Windows.Forms.Label lblCF_clearance;
         private System.Windows.Forms.TextBox tbUserAgent;
         private System.Windows.Forms.TextBox tbCfduid;
-        private System.Windows.Forms.TextBox tbCF_clearance;
     }
 }
