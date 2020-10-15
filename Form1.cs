@@ -253,7 +253,7 @@ namespace Omnibus
                             string lastURL = "";
                             List<string> EVs = new List<string>();
 
-                            //Get the MEGA link by getting response of download link
+                            //Get the MEGA link by getting response of download link !NOT USED!
                             /*
                             using (var client = new HttpClient(new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip }))
                             {
@@ -270,11 +270,19 @@ namespace Omnibus
                             }
                             */
 
-                            //Get MEGA link by decrypting Base64 string in the address
+                            //Check if the MEGA link is encrypted, decrypt Base64 string if it is
+                            //!--- IT LOOKS LIKE THEY ARE NO LONGER ENCRYPTING THE LINKS, BUT KEEPING THIS IN JUST IN CASE ---!//
                             string[] comicLinkArray = comicDLLink.Split('/');
-                            string comicLinkEnc = comicLinkArray[4];
-                            byte[] comicLinkConverted = System.Convert.FromBase64String(comicLinkEnc);
-                            megaURL = System.Text.ASCIIEncoding.ASCII.GetString(comicLinkConverted);
+                            if (comicLinkArray[2] != "mega.nz")
+                            {
+                                string comicLinkEnc = comicLinkArray[4];
+                                byte[] comicLinkConverted = System.Convert.FromBase64String(comicLinkEnc);
+                                megaURL = System.Text.ASCIIEncoding.ASCII.GetString(comicLinkConverted);
+                            }
+                            else
+                            {
+                                megaURL = comicDLLink;
+                            }
 
 
                             if (lastURL != megaURL)
@@ -593,6 +601,11 @@ namespace Omnibus
 
                     var htmlNodes = doc.DocumentNode.SelectSingleNode("//a[@title='Mega Link']");
 
+                    if (htmlNodes == null) //Check to see if they just renamed the Node
+                    {
+                        htmlNodes = doc.DocumentNode.SelectSingleNode("//a[@title='MEGA']");
+                    }
+
                     if (htmlNodes == null)
                     {
                         foreach (HtmlNode node1 in doc.DocumentNode.SelectNodes("//a"))
@@ -616,6 +629,8 @@ namespace Omnibus
                         comicDLLink = htmlNodes.Attributes["href"].Value;
                     }
 
+                    int didDecrypt = 0;
+
                     if (comicDLLink != "")
                     {
                         //string lastEV = "";
@@ -624,11 +639,27 @@ namespace Omnibus
 
                         //Get MEGA link by decrypting Base64 string in the address
                         string[] comicLinkArray = comicDLLink.Split('/');
-                        string comicLinkEnc = comicLinkArray[4];
-                        byte[] comicLinkConverted = System.Convert.FromBase64String(comicLinkEnc);
-                        megaURL = System.Text.ASCIIEncoding.ASCII.GetString(comicLinkConverted);
+                        if (comicLinkArray[2] != "mega.nz")
+                        {
+                            string comicLinkEnc = comicLinkArray[4];
+                            byte[] comicLinkConverted = System.Convert.FromBase64String(comicLinkEnc);
+                            megaURL = System.Text.ASCIIEncoding.ASCII.GetString(comicLinkConverted);
+                            didDecrypt = 1;
+                        }
+                        else
+                        {
+                            megaURL = comicDLLink;
+                        }
 
-                        MessageBox.Show("MEGA URL: " + megaURL);
+                        if (didDecrypt == 1)
+                        {
+                            MessageBox.Show("DECRYPTED MEGA URL: " + megaURL);
+                        }
+                        else
+                        {
+                            MessageBox.Show("MEGA URL: " + megaURL);
+                        }
+                        
 
                     }
                     else
