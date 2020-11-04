@@ -22,7 +22,7 @@ namespace Omnibus
     public partial class Form1 : Form
     {
 
-        private String version = "1.4.8.1";
+        private String version = "1.4.8.2";
         private String url = "https://getcomics.info/?s=";
         private int cancelled = 0;
         private bool isDownloading = false;
@@ -190,6 +190,10 @@ namespace Omnibus
                                         "__cfduid=" + Properties.Settings.Default.cfduid + ";" +
                                         "cf_clearance=" + Properties.Settings.Default.cf_clearance
                                         );
+
+                    //request.Headers.Add(HttpRequestHeader.Cookie,
+                    //                    "__cfduid=" + Properties.Settings.Default.cfduid
+                    //                    );
 
                     HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
@@ -790,30 +794,74 @@ namespace Omnibus
 
             string searchURL = "https://getcomics.info/page/" + page + "/?s=" + search;
 
+            CookieContainer reqCookies = new CookieContainer();
+
+            Cookie cookieCfduid = new Cookie("__cfduid", Properties.Settings.Default.cfduid, "/", ".getcomics.info");
+
+            reqCookies.Add(cookieCfduid);
+
+            Cookie cookieCfClearance = new Cookie("cf_clearance", Properties.Settings.Default.cf_clearance, "/", ".getcomics.info");
+
+            reqCookies.Add(cookieCfClearance);
+
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(searchURL);
             request.UserAgent = Properties.Settings.Default.UserAgent;
-            request.Headers.Add(HttpRequestHeader.Cookie,
-                                "__cfduid=" + Properties.Settings.Default.cfduid + ";" +
-                                "cf_clearance=" + Properties.Settings.Default.cf_clearance
-                                );
+            request.CookieContainer = reqCookies;
+
+            //request.Headers.Add(HttpRequestHeader.Cookie,
+            //                    "__cfduid=" + Properties.Settings.Default.cfduid + ";" +
+            //                    "cf_clearance=" + Properties.Settings.Default.cf_clearance
+            //                    );
 
             HttpWebResponse response = null;
+
+            string html = "null";
 
             try
             {
                 response = (HttpWebResponse)request.GetResponse();
+                var stream = response.GetResponseStream();
+                var reader = new StreamReader(stream);
+                html = reader.ReadToEnd();
+                response.Close();
             }
-            catch (Exception ex)
+            catch (WebException ex)
             {
-                LogWriter("Searching for " + searchURL + " failed.");
-                LogWriter(ex.ToString());
+                using (var sr = new StreamReader(ex.Response.GetResponseStream()))
+                    html = sr.ReadToEnd();
             }
+
+            //tbhtml.Text = html;
             
-            if (response == null)
+            //try
+            //{
+            //    response = (HttpWebResponse)request.GetResponse();
+            //}
+            //catch (Exception ex)
+            //{
+            //    LogWriter("Searching for " + searchURL + " failed.");
+            //    LogWriter(ex.ToString());
+            //}
+            
+            if (html == null)
             {
                 if (Properties.Settings.Default.cfduid != "" && Properties.Settings.Default.cf_clearance != "")
                 {
                     MessageBox.Show("Comic does not exist or Cookies are not correct. Check your Cookies in Settings and try again.");
+
+                    //string missingCookie = GetCookie();
+                    //string[] aMissingCookie = missingCookie.Split(';');
+                    //string[] aMCInfo = aMissingCookie[0].Split('=');
+                    //string mcName = aMCInfo[0];
+                    //string mcValue = aMCInfo[1];
+
+                    //if (mcName == "__cfduid")
+                    //{
+                    //    Properties.Settings.Default.cfduid = mcValue;
+                    //    Properties.Settings.Default.Save();
+                    //}                    
+
+                    //MessageBox.Show("Saved new cookie: " + mcName +" = " + mcValue + "\nClick Search Button again.");
                 }
                 else
                 {
@@ -830,6 +878,7 @@ namespace Omnibus
             }
             else
             {
+                /*
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     Stream receiveStream = response.GetResponseStream();
@@ -890,7 +939,45 @@ namespace Omnibus
                 else
                 {
                     MessageBox.Show("There was an error. Try again in a couple of minutes.");
+                }*/
+
+                HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+                doc.LoadHtml(html);
+
+                var npNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("pagination-newer"));
+                var opNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("pagination-older"));
+
+                if (opNodes.Count() > 0)
+                {
+                    btnNextPage.Enabled = true;
                 }
+                else
+                {
+                    btnNextPage.Enabled = false;
+                }
+
+                if (npNodes.Count() > 0)
+                {
+                    btnLastPage.Enabled = true;
+                }
+                else
+                {
+                    btnLastPage.Enabled = false;
+                }
+
+                nodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("post-header-image"));
+
+                foreach (HtmlNode n in nodes)
+                {
+                    string node = n.InnerHtml;
+                    string[] a = node.Split('"');
+
+                    string title = replaceASCII(a[5]);
+
+                    lbComics.Items.Add(title);
+                }
+
+                descNodes = doc.DocumentNode.Descendants(0).Where(n => n.HasClass("post-info"));
             }
         }
 
@@ -904,6 +991,25 @@ namespace Omnibus
                 File.AppendAllText(logPath + "\\log.txt", "(" + datetime + ") - " + line + Environment.NewLine);
             }
             
+        }
+
+        public static string GetCookie()
+        {
+            WebRequest request = WebRequest.Create("https://hornystress.me");
+            request.Proxy = WebProxy.GetDefaultProxy();
+            request.Timeout *= 100;
+            string cookie;
+            WebResponse response;
+            try
+            {
+                response = request.GetResponse();
+                cookie = response.Headers.Get("Set-Cookie");
+            }
+            catch (WebException we)
+            {
+                cookie = we.Response.Headers.Get("Set-Cookie");
+            }
+            return cookie;
         }
 
     }

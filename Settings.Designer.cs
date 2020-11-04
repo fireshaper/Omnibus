@@ -43,6 +43,9 @@
             this.lblCfduid = new System.Windows.Forms.Label();
             this.tbUserAgent = new System.Windows.Forms.TextBox();
             this.tbCfduid = new System.Windows.Forms.TextBox();
+            this.tbCfClearance = new System.Windows.Forms.TextBox();
+            this.lblCf_Clearance = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // tbDLocation
@@ -141,7 +144,7 @@
             // lblWebAgent
             // 
             this.lblWebAgent.AutoSize = true;
-            this.lblWebAgent.Location = new System.Drawing.Point(28, 224);
+            this.lblWebAgent.Location = new System.Drawing.Point(28, 210);
             this.lblWebAgent.Name = "lblWebAgent";
             this.lblWebAgent.Size = new System.Drawing.Size(57, 13);
             this.lblWebAgent.TabIndex = 9;
@@ -150,7 +153,7 @@
             // lblCfduid
             // 
             this.lblCfduid.AutoSize = true;
-            this.lblCfduid.Location = new System.Drawing.Point(28, 285);
+            this.lblCfduid.Location = new System.Drawing.Point(27, 270);
             this.lblCfduid.Name = "lblCfduid";
             this.lblCfduid.Size = new System.Drawing.Size(48, 13);
             this.lblCfduid.TabIndex = 10;
@@ -158,23 +161,52 @@
             // 
             // tbUserAgent
             // 
-            this.tbUserAgent.Location = new System.Drawing.Point(31, 240);
+            this.tbUserAgent.Location = new System.Drawing.Point(31, 226);
             this.tbUserAgent.Name = "tbUserAgent";
             this.tbUserAgent.Size = new System.Drawing.Size(417, 20);
             this.tbUserAgent.TabIndex = 12;
             // 
             // tbCfduid
             // 
-            this.tbCfduid.Location = new System.Drawing.Point(30, 301);
+            this.tbCfduid.Location = new System.Drawing.Point(30, 286);
             this.tbCfduid.Name = "tbCfduid";
             this.tbCfduid.Size = new System.Drawing.Size(418, 20);
             this.tbCfduid.TabIndex = 13;
+            // 
+            // tbCfClearance
+            // 
+            this.tbCfClearance.Location = new System.Drawing.Point(30, 339);
+            this.tbCfClearance.Name = "tbCfClearance";
+            this.tbCfClearance.Size = new System.Drawing.Size(418, 20);
+            this.tbCfClearance.TabIndex = 15;
+            // 
+            // lblCf_Clearance
+            // 
+            this.lblCf_Clearance.AutoSize = true;
+            this.lblCf_Clearance.Location = new System.Drawing.Point(28, 323);
+            this.lblCf_Clearance.Name = "lblCf_Clearance";
+            this.lblCf_Clearance.Size = new System.Drawing.Size(69, 13);
+            this.lblCf_Clearance.TabIndex = 14;
+            this.lblCf_Clearance.Text = "cf_clearance";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(29, 375);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(419, 13);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "NOTE: If one, or more, of these cookies are not showing in your browser, leave it" +
+    " blank.";
             // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(571, 453);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.tbCfClearance);
+            this.Controls.Add(this.lblCf_Clearance);
             this.Controls.Add(this.tbCfduid);
             this.Controls.Add(this.tbUserAgent);
             this.Controls.Add(this.lblCfduid);
@@ -214,5 +246,8 @@
         private System.Windows.Forms.Label lblCfduid;
         private System.Windows.Forms.TextBox tbUserAgent;
         private System.Windows.Forms.TextBox tbCfduid;
+        private System.Windows.Forms.TextBox tbCfClearance;
+        private System.Windows.Forms.Label lblCf_Clearance;
+        private System.Windows.Forms.Label label3;
     }
 }
