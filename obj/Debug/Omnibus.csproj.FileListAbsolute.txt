@@ -64,3 +64,13 @@ C:\Users\Rory\source\repos\Omnibus\Comic Search\obj\Debug\Omnibus.csproj.CoreCom
 C:\Users\Rory\source\repos\Omnibus\Comic Search\obj\Debug\Omnibus.csproj.CopyComplete
 C:\Users\Rory\source\repos\Omnibus\Comic Search\obj\Debug\Omnibus.exe
 C:\Users\Rory\source\repos\Omnibus\Comic Search\obj\Debug\Omnibus.pdb
+C:\Users\Rory\source\repos\Omnibus\Comic Search\bin\Debug\crypto.dll
+C:\Users\Rory\source\repos\Omnibus\Comic Search\bin\Debug\MediaFireSDK.dll
+C:\Users\Rory\source\repos\Omnibus\Comic Search\bin\Debug\System.Net.Http.Extensions.dll
+C:\Users\Rory\source\repos\Omnibus\Comic Search\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\Rory\source\repos\Omnibus\Comic Search\bin\Debug\System.Net.Http.Primitives.dll
+C:\Users\Rory\source\repos\Omnibus\Comic Search\bin\Debug\crypto.xml
+C:\Users\Rory\source\repos\Omnibus\Comic Search\bin\Debug\System.Net.Http.Extensions.xml
+C:\Users\Rory\source\repos\Omnibus\Comic Search\bin\Debug\System.Net.Http.Formatting.xml
+C:\Users\Rory\source\repos\Omnibus\Comic Search\bin\Debug\System.Net.Http.Primitives.xml
+C:\Users\Rory\source\repos\Omnibus\Comic Search\obj\Debug\Omnibus.csproj.App.config

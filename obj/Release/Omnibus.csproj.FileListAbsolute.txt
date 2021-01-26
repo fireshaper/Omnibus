@@ -64,3 +64,13 @@ C:\Users\Rory\source\repos\Omnibus\Comic Search\bin\Release\IKVM.OpenJDK.XML.Web
 C:\Users\Rory\source\repos\Omnibus\Comic Search\bin\Release\IKVM.OpenJDK.XML.XPath.dll
 C:\Users\Rory\source\repos\Omnibus\Comic Search\bin\Release\IKVM.Runtime.dll
 C:\Users\Rory\source\repos\Omnibus\Comic Search\bin\Release\IKVM.Runtime.JNI.dll
+C:\Users\Rory\source\repos\Omnibus\Comic Search\bin\Release\crypto.dll
+C:\Users\Rory\source\repos\Omnibus\Comic Search\bin\Release\MediaFireSDK.dll
+C:\Users\Rory\source\repos\Omnibus\Comic Search\bin\Release\System.Net.Http.Extensions.dll
+C:\Users\Rory\source\repos\Omnibus\Comic Search\bin\Release\System.Net.Http.Formatting.dll
+C:\Users\Rory\source\repos\Omnibus\Comic Search\bin\Release\System.Net.Http.Primitives.dll
+C:\Users\Rory\source\repos\Omnibus\Comic Search\bin\Release\crypto.xml
+C:\Users\Rory\source\repos\Omnibus\Comic Search\bin\Release\System.Net.Http.Extensions.xml
+C:\Users\Rory\source\repos\Omnibus\Comic Search\bin\Release\System.Net.Http.Formatting.xml
+C:\Users\Rory\source\repos\Omnibus\Comic Search\bin\Release\System.Net.Http.Primitives.xml
+C:\Users\Rory\source\repos\Omnibus\Comic Search\obj\Release\Omnibus.csproj.App.config

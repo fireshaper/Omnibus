@@ -22,7 +22,7 @@ namespace Omnibus
     public partial class Form1 : Form
     {
 
-        private String version = "1.4.8.2";
+        private String version = "1.4.8.4";
         private String url = "https://getcomics.info/?s=";
         private int cancelled = 0;
         private bool isDownloading = false;
@@ -221,35 +221,48 @@ namespace Omnibus
                         HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
                         doc.LoadHtml(data);
 
-                        var htmlNodes = doc.DocumentNode.SelectSingleNode("//a[@title='Mega Link']");
+                        //// FOR MEGA
+                        //var htmlNodes = doc.DocumentNode.SelectSingleNode("//a[@title='Mega Link']");
 
-                        if (htmlNodes == null) //Check to see if they just renamed the Node
-                        {
-                            htmlNodes = doc.DocumentNode.SelectSingleNode("//a[@title='MEGA']");
-                        }
+                        //if (htmlNodes == null) //Check to see if they just renamed the Node
+                        //{
+                        //    htmlNodes = doc.DocumentNode.SelectSingleNode("//a[@title='MEGA']");
+                        //}
+
+                        //if (htmlNodes == null)
+                        //{
+                        //    foreach(HtmlNode node1 in doc.DocumentNode.SelectNodes("//a"))
+                        //    {
+                        //        if (node1.SelectNodes(".//span") != null)
+                        //        {
+                        //            foreach (HtmlNode node2 in node1.SelectNodes(".//span"))
+                        //            {
+                        //                string value = node2.InnerText;
+                        //                if (value == "Mega")
+                        //                {
+                        //                    comicDLLink = node1.Attributes["href"].Value;
+                        //                }
+
+                        //            }
+                        //        }
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    comicDLLink = htmlNodes.Attributes["href"].Value;
+                        //}    
+
+                        // FOR MEDIAFIRE
+                        var htmlNodes = doc.DocumentNode.SelectSingleNode("//a[@title='MEDIAFIRE']");
 
                         if (htmlNodes == null)
                         {
-                            foreach(HtmlNode node1 in doc.DocumentNode.SelectNodes("//a"))
-                            {
-                                if (node1.SelectNodes(".//span") != null)
-                                {
-                                    foreach (HtmlNode node2 in node1.SelectNodes(".//span"))
-                                    {
-                                        string value = node2.InnerText;
-                                        if (value == "Mega")
-                                        {
-                                            comicDLLink = node1.Attributes["href"].Value;
-                                        }
-
-                                    }
-                                }
-                            }
+                            MessageBox.Show("No MediaFire button");
                         }
                         else
                         {
                             comicDLLink = htmlNodes.Attributes["href"].Value;
-                        }                       
+                        }
 
                         if (comicDLLink != "")
                         {
@@ -275,17 +288,54 @@ namespace Omnibus
                             */
 
                             //Check if the MEGA link is encrypted, decrypt Base64 string if it is
-                            //!--- IT LOOKS LIKE THEY ARE NO LONGER ENCRYPTING THE LINKS, BUT KEEPING THIS IN JUST IN CASE ---!//
+                            //!--- MEGA LINKS ARE NOW ENCRYPTED AND WE CANNOT DECRYPT THEM ---!//
+                            //!--- ALL DOWNLOADS SHOULD BE DONE WITH MEDIAFIRE NOW ---!//
                             string[] comicLinkArray = comicDLLink.Split('/');
-                            if (comicLinkArray[2] != "mega.nz")
+
+                            //if (comicLinkArray[2] != "mega.nz")
+                            //{
+                            //    string comicLinkEnc = comicLinkArray[4];
+                            //    byte[] comicLinkConverted = System.Convert.FromBase64String(comicLinkEnc);
+                            //    megaURL = System.Text.ASCIIEncoding.ASCII.GetString(comicLinkConverted);
+                            //}
+                            //else
+                            //{
+                            //    megaURL = comicDLLink;
+                            //}
+
+                            HttpWebRequest requestMF = (HttpWebRequest)WebRequest.Create(comicDLLink);
+                            HttpWebResponse responseMF = (HttpWebResponse)requestMF.GetResponse();
+
+                            if (responseMF.StatusCode == HttpStatusCode.OK)
                             {
-                                string comicLinkEnc = comicLinkArray[4];
-                                byte[] comicLinkConverted = System.Convert.FromBase64String(comicLinkEnc);
-                                megaURL = System.Text.ASCIIEncoding.ASCII.GetString(comicLinkConverted);
-                            }
-                            else
-                            {
-                                megaURL = comicDLLink;
+                                Stream receiveStreamMF = responseMF.GetResponseStream();
+                                StreamReader readStreamMF = null;
+
+                                if (responseMF.CharacterSet == null)
+                                {
+                                    readStreamMF = new StreamReader(receiveStreamMF);
+                                }
+                                else
+                                {
+                                    readStreamMF = new StreamReader(receiveStreamMF, Encoding.GetEncoding(responseMF.CharacterSet));
+                                }
+
+                                string dataMF = readStreamMF.ReadToEnd();
+
+                                responseMF.Close();
+                                readStreamMF.Close();
+
+                                string comicDLLinkMF = "";
+
+                                HtmlAgilityPack.HtmlDocument docMF = new HtmlAgilityPack.HtmlDocument();
+                                docMF.LoadHtml(dataMF);
+
+                                var htmlNodesMF = docMF.DocumentNode.SelectSingleNode("//a[@id='downloadButton']");
+
+                                string MFLink = "null";
+                                MFLink = htmlNodesMF.Attributes["href"].Value;
+
+                                megaURL = MFLink;
                             }
 
 
@@ -364,20 +414,21 @@ namespace Omnibus
 
             Uri myStringWebResource = new Uri(url);
 
-            try
-            {
-                INodeInfo node = mClient.GetNodeFromLink(myStringWebResource);
-            }
-            catch (Exception e)
-            {
-                LogWriter("Exception from mega client: " + e);
-            }
+            ////FOR MEGA CLIENT
+            //try
+            //{
+            //    INodeInfo node = mClient.GetNodeFromLink(myStringWebResource);
+            //}
+            //catch (Exception e)
+            //{
+            //    LogWriter("Exception from mega client: " + e);
+            //}
 
             //string filename = titleList[0];
             string filename = titleList[idCount];
             downloadPath = Properties.Settings.Default.DownloadLocation + "\\" + filename + ".cbr";
 
-            IProgress<double> progressHandler = new Progress<double>(x => UpdateItemValue(id, (int)x));  //update progressbar with progress
+            //IProgress<double> progressHandler = new Progress<double>(x => UpdateItemValue(sender, e, id));  //update progressbar with progress
             //IProgress<double> progressHandler = new Progress<double>(x => Console.WriteLine("{0}%", x)); //write progress to Console
 
             Console.WriteLine("Downloading: " + downloadPath);
@@ -388,7 +439,11 @@ namespace Omnibus
 
             try
             {
-                await mClient.DownloadFileAsync(myStringWebResource, downloadPath, progressHandler, cts.Token);
+                using (WebClient wc = new WebClient())
+                {
+                    wc.DownloadProgressChanged += (sender, e) => UpdateItemValue(sender, e, id);
+                    wc.DownloadFileAsync(new System.Uri(url), downloadPath);
+                }
             }
             catch (OperationCanceledException ex)
             {
@@ -407,7 +462,10 @@ namespace Omnibus
                     }
                     try
                     {
-                        await mClient.DownloadFileAsync(myStringWebResource, downloadPath, progressHandler, cts.Token);
+                        using (WebClient wc = new WebClient())
+                        {
+                            wc.DownloadFileAsync(new System.Uri(url), downloadPath);
+                        }
                     }
                     catch (OperationCanceledException ex)
                     {
@@ -433,13 +491,99 @@ namespace Omnibus
                 MessageBox.Show("There was a problem downloading the comic. Try again later or download manually by clicking the Open Link button.\n\nIf this continues to happen try the following:\n1: Close Omnibus\n2: Go to https://getcomics.info in your browser\n3: Search for any comic and click the Mega button\n4: Open Omnibus and attempt the download again.");
             }
 
+            ////FOR MEGA CLIENT
+            //try
+            //{
+            //    await mClient.DownloadFileAsync(myStringWebResource, downloadPath, progressHandler, cts.Token);
+            //}
+            //catch (OperationCanceledException ex)
+            //{
+            //    complete = 0;
+            //    CancelDownload(downloadPath);
+            //    isDownloading = false;
+            //    LogWriter("Download Canceled: " + downloadPath);
+            //}
+            //catch (IOException io)
+            //{
+            //    if (MessageBox.Show("Would you like to overwrite?", "File already exists", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            //    {
+            //        if (File.Exists(downloadPath))
+            //        {
+            //            File.Delete(downloadPath);
+            //        }
+            //        try
+            //        {
+            //            await mClient.DownloadFileAsync(myStringWebResource, downloadPath, progressHandler, cts.Token);
+            //        }
+            //        catch (OperationCanceledException ex)
+            //        {
+            //            complete = 0;
+            //            isDownloading = false;
+            //            CancelDownload(downloadPath);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        complete = 0;
+            //        isDownloading = false;
+            //        CancelDownload(downloadPath);
+            //    }
+            //}
+            //catch (ArgumentException aex)
+            //{
+            //    complete = 0;
+            //    isDownloading = false;
+            //    CancelDownload(downloadPath);
+            //    LogWriter(aex.ToString());
+
+            //    MessageBox.Show("There was a problem downloading the comic. Try again later or download manually by clicking the Open Link button.\n\nIf this continues to happen try the following:\n1: Close Omnibus\n2: Go to https://getcomics.info in your browser\n3: Search for any comic and click the Mega button\n4: Open Omnibus and attempt the download again.");
+            //}
+
             //return "complete";
         }
 
-        private void UpdateItemValue(string id, int value)
+        private void DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e, string id)
+        {
+
+        }
+
+        // Event to track the progress
+        void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e, int id)
+        {
+            //progressBar.Value = e.ProgressPercentage;
+        }
+
+        //private void UpdateItemValue(string id, int value)
+        //{
+        //    ListViewItem lvi = GetLVItemById(id);
+        //    ProgressBar pb = GetPBById(id);
+
+        //    if (lvi != null && pb != null)
+        //    {
+        //        pb.Value = value;
+
+        //        if (value == 1 && status == true)
+        //        {
+        //            lvi.SubItems[1].Text = "Downloading";
+        //            status = false;
+        //            isDownloading = true;
+        //        }
+        //        else if (value >= 100)
+        //        {
+        //            lvi.SubItems[1].Text = "Complete";
+        //            lvDownloads.Controls.Remove(pb);
+        //            complete = 1;
+        //            isDownloading = false;
+        //            DownloadComplete();
+        //        }
+        //    }
+        //}
+
+        private void UpdateItemValue(object sender, DownloadProgressChangedEventArgs e, string id)
         {
             ListViewItem lvi = GetLVItemById(id);
             ProgressBar pb = GetPBById(id);
+            int value = e.ProgressPercentage;
 
             if (lvi != null && pb != null)
             {
@@ -637,33 +781,143 @@ namespace Omnibus
 
                     if (comicDLLink != "")
                     {
-                        //string lastEV = "";
-                        string lastURL = "";
-                        List<string> EVs = new List<string>();
+                        ////string lastEV = "";
+                        //string lastURL = "";
+                        //List<string> EVs = new List<string>();
 
-                        //Get MEGA link by decrypting Base64 string in the address
-                        string[] comicLinkArray = comicDLLink.Split('/');
-                        if (comicLinkArray[2] != "mega.nz")
-                        {
-                            string comicLinkEnc = comicLinkArray[4];
-                            byte[] comicLinkConverted = System.Convert.FromBase64String(comicLinkEnc);
-                            megaURL = System.Text.ASCIIEncoding.ASCII.GetString(comicLinkConverted);
-                            didDecrypt = 1;
-                        }
-                        else
-                        {
-                            megaURL = comicDLLink;
-                        }
+                        ////Get MEGA link by decrypting Base64 string in the address
+                        //string[] comicLinkArray = comicDLLink.Split('/');
+                        //if (comicLinkArray[2] != "mega.nz")
+                        //{
+                        //    string comicLinkEnc = comicLinkArray[4];
+                        //    byte[] comicLinkConverted = System.Convert.FromBase64String(comicLinkEnc);
+                        //    megaURL = System.Text.ASCIIEncoding.ASCII.GetString(comicLinkConverted);
+                        //    didDecrypt = 1;
+                        //}
+                        //else
+                        //{
+                        //    megaURL = comicDLLink;
+                        //}
 
-                        if (didDecrypt == 1)
+                        //if (didDecrypt == 1)
+                        //{
+                        //    MessageBox.Show("DECRYPTED MEGA URL: " + megaURL);
+                        //}
+                        //else
+                        //{
+                        //    MessageBox.Show("MEGA URL: " + megaURL);
+                        //}
+
+                        MessageBox.Show("MEGA URLs are not being used at this time");
+
+
+                    }
+                    else
+                        MessageBox.Show("No download link available. Go to comic's page and download manually.");
+                }
+            }
+            if (e.ClickedItem.Name == "validateMF")
+            {
+                HtmlNode n = nodes.ElementAt(lbComics.SelectedIndex);
+                string node = n.InnerHtml;
+                string[] a = node.Split('"');
+
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(a[1]);
+                request.UserAgent = Properties.Settings.Default.UserAgent;
+                request.Headers.Add(HttpRequestHeader.Cookie,
+                                    "__cfduid=" + Properties.Settings.Default.cfduid + ";" +
+                                    "cf_clearance=" + Properties.Settings.Default.cf_clearance
+                                    );
+
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    Stream receiveStream = response.GetResponseStream();
+                    StreamReader readStream = null;
+
+                    if (response.CharacterSet == null)
+                    {
+                        readStream = new StreamReader(receiveStream);
+                    }
+                    else
+                    {
+                        readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
+                    }
+
+                    string data = readStream.ReadToEnd();
+
+                    response.Close();
+                    readStream.Close();
+
+                    string comicDLLink = "";
+
+                    HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+                    doc.LoadHtml(data);
+
+                    var htmlNodes = doc.DocumentNode.SelectSingleNode("//a[@title='MEDIAFIRE']");
+
+                    if (htmlNodes == null)
+                    {
+                        foreach (HtmlNode node1 in doc.DocumentNode.SelectNodes("//a"))
                         {
-                            MessageBox.Show("DECRYPTED MEGA URL: " + megaURL);
+                            if (node1.SelectNodes(".//span") != null)
+                            {
+                                foreach (HtmlNode node2 in node1.SelectNodes(".//span"))
+                                {
+                                    string value = node2.InnerText;
+                                    if (value == "Mega")
+                                    {
+                                        comicDLLink = node1.Attributes["href"].Value;
+                                    }
+
+                                }
+                            }
                         }
-                        else
+                    }
+                    else
+                    {
+                        comicDLLink = htmlNodes.Attributes["href"].Value;
+                    }
+
+                    int didDecrypt = 0;
+
+                    if (comicDLLink != "")
+                    {
+                        HttpWebRequest requestMF = (HttpWebRequest)WebRequest.Create(comicDLLink);
+                        HttpWebResponse responseMF = (HttpWebResponse)requestMF.GetResponse();
+
+                        if (responseMF.StatusCode == HttpStatusCode.OK)
                         {
-                            MessageBox.Show("MEGA URL: " + megaURL);
+                            Stream receiveStreamMF = responseMF.GetResponseStream();
+                            StreamReader readStreamMF = null;
+
+                            if (responseMF.CharacterSet == null)
+                            {
+                                readStreamMF = new StreamReader(receiveStreamMF);
+                            }
+                            else
+                            {
+                                readStreamMF = new StreamReader(receiveStreamMF, Encoding.GetEncoding(responseMF.CharacterSet));
+                            }
+
+                            string dataMF = readStreamMF.ReadToEnd();
+
+                            responseMF.Close();
+                            readStreamMF.Close();
+
+                            string comicDLLinkMF = "";
+
+                            HtmlAgilityPack.HtmlDocument docMF = new HtmlAgilityPack.HtmlDocument();
+                            docMF.LoadHtml(dataMF);
+
+                            var htmlNodesMF = docMF.DocumentNode.SelectSingleNode("//a[@id='downloadButton']");
+
+                            string MFLink = "null";
+                            MFLink = htmlNodesMF.Attributes["href"].Value;
+
+                            MessageBox.Show("MEGA URL: " + MFLink);
                         }
-                        
 
                     }
                     else
@@ -739,6 +993,21 @@ namespace Omnibus
             //    idCount++;
             //    DownloadComic(idCount);
             //}
+
+        }
+
+        private void cmsComics_Opening(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void verifyMediafireLinkToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void validate_Click(object sender, EventArgs e)
+        {
 
         }
 

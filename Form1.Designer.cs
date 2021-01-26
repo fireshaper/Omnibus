@@ -54,6 +54,7 @@
             this.cmsComics = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.search = new System.Windows.Forms.ToolStripMenuItem();
             this.validate = new System.Windows.Forms.ToolStripMenuItem();
+            this.validateMF = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pbCover)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.cmsComics.SuspendLayout();
@@ -65,7 +66,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbComics.FormattingEnabled = true;
             this.lbComics.Location = new System.Drawing.Point(9, 113);
-            this.lbComics.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lbComics.Margin = new System.Windows.Forms.Padding(2);
             this.lbComics.Name = "lbComics";
             this.lbComics.Size = new System.Drawing.Size(402, 186);
             this.lbComics.TabIndex = 2;
@@ -85,7 +86,7 @@
             // tbComicSearch
             // 
             this.tbComicSearch.Location = new System.Drawing.Point(9, 34);
-            this.tbComicSearch.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbComicSearch.Margin = new System.Windows.Forms.Padding(2);
             this.tbComicSearch.Name = "tbComicSearch";
             this.tbComicSearch.Size = new System.Drawing.Size(216, 20);
             this.tbComicSearch.TabIndex = 0;
@@ -94,7 +95,7 @@
             // btnSearch
             // 
             this.btnSearch.Location = new System.Drawing.Point(228, 31);
-            this.btnSearch.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnSearch.Margin = new System.Windows.Forms.Padding(2);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(56, 25);
             this.btnSearch.TabIndex = 1;
@@ -105,7 +106,7 @@
             // btnOpenLink
             // 
             this.btnOpenLink.Location = new System.Drawing.Point(9, 85);
-            this.btnOpenLink.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnOpenLink.Margin = new System.Windows.Forms.Padding(2);
             this.btnOpenLink.Name = "btnOpenLink";
             this.btnOpenLink.Size = new System.Drawing.Size(70, 23);
             this.btnOpenLink.TabIndex = 4;
@@ -116,7 +117,7 @@
             // btnDownload
             // 
             this.btnDownload.Location = new System.Drawing.Point(83, 85);
-            this.btnDownload.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnDownload.Margin = new System.Windows.Forms.Padding(2);
             this.btnDownload.Name = "btnDownload";
             this.btnDownload.Size = new System.Drawing.Size(101, 23);
             this.btnDownload.TabIndex = 5;
@@ -129,7 +130,7 @@
             this.tbDesc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbDesc.Location = new System.Drawing.Point(9, 303);
-            this.tbDesc.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tbDesc.Margin = new System.Windows.Forms.Padding(2);
             this.tbDesc.Name = "tbDesc";
             this.tbDesc.ReadOnly = true;
             this.tbDesc.Size = new System.Drawing.Size(402, 103);
@@ -139,7 +140,7 @@
             // btnClear
             // 
             this.btnClear.Location = new System.Drawing.Point(289, 31);
-            this.btnClear.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnClear.Margin = new System.Windows.Forms.Padding(2);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(58, 25);
             this.btnClear.TabIndex = 11;
@@ -151,7 +152,7 @@
             // 
             this.button2.Image = global::Omnibus.Properties.Resources.downloads_32px;
             this.button2.Location = new System.Drawing.Point(590, 10);
-            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(39, 42);
             this.button2.TabIndex = 13;
@@ -162,7 +163,7 @@
             // 
             this.button1.Image = global::Omnibus.Properties.Resources.settings_32px;
             this.button1.Location = new System.Drawing.Point(546, 10);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(39, 42);
             this.button1.TabIndex = 12;
@@ -176,7 +177,7 @@
             this.pbCover.Image = global::Omnibus.Properties.Resources.omnibus_preview_image;
             this.pbCover.InitialImage = global::Omnibus.Properties.Resources.omnibus_preview_image;
             this.pbCover.Location = new System.Drawing.Point(415, 113);
-            this.pbCover.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pbCover.Margin = new System.Windows.Forms.Padding(2);
             this.pbCover.Name = "pbCover";
             this.pbCover.Size = new System.Drawing.Size(214, 292);
             this.pbCover.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -194,7 +195,7 @@
             this.Progress});
             this.lvDownloads.HideSelection = false;
             this.lvDownloads.Location = new System.Drawing.Point(9, 410);
-            this.lvDownloads.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lvDownloads.Margin = new System.Windows.Forms.Padding(2);
             this.lvDownloads.Name = "lvDownloads";
             this.lvDownloads.Scrollable = false;
             this.lvDownloads.Size = new System.Drawing.Size(620, 160);
@@ -250,7 +251,7 @@
             // 
             this.btnLastPage.Enabled = false;
             this.btnLastPage.Location = new System.Drawing.Point(358, 85);
-            this.btnLastPage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnLastPage.Margin = new System.Windows.Forms.Padding(2);
             this.btnLastPage.Name = "btnLastPage";
             this.btnLastPage.Size = new System.Drawing.Size(23, 23);
             this.btnLastPage.TabIndex = 15;
@@ -262,7 +263,7 @@
             // 
             this.btnNextPage.Enabled = false;
             this.btnNextPage.Location = new System.Drawing.Point(386, 85);
-            this.btnNextPage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnNextPage.Margin = new System.Windows.Forms.Padding(2);
             this.btnNextPage.Name = "btnNextPage";
             this.btnNextPage.Size = new System.Drawing.Size(23, 23);
             this.btnNextPage.TabIndex = 16;
@@ -275,22 +276,32 @@
             this.cmsComics.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.cmsComics.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.search,
-            this.validate});
+            this.validate,
+            this.validateMF});
             this.cmsComics.Name = "cmsComics";
-            this.cmsComics.Size = new System.Drawing.Size(172, 48);
+            this.cmsComics.Size = new System.Drawing.Size(184, 92);
+            this.cmsComics.Opening += new System.ComponentModel.CancelEventHandler(this.cmsComics_Opening);
             this.cmsComics.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.cmsComics_ItemClicked);
             // 
             // search
             // 
             this.search.Name = "search";
-            this.search.Size = new System.Drawing.Size(171, 22);
+            this.search.Size = new System.Drawing.Size(183, 22);
             this.search.Text = "Find more like this";
             // 
             // validate
             // 
             this.validate.Name = "validate";
-            this.validate.Size = new System.Drawing.Size(171, 22);
+            this.validate.Size = new System.Drawing.Size(183, 22);
             this.validate.Text = "Verify MEGA Link";
+            this.validate.Click += new System.EventHandler(this.validate_Click);
+            // 
+            // validateMF
+            // 
+            this.validateMF.Name = "validateMF";
+            this.validateMF.Size = new System.Drawing.Size(183, 22);
+            this.validateMF.Text = "Verify MediaFire Link";
+            this.validateMF.Click += new System.EventHandler(this.verifyMediafireLinkToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -312,7 +323,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lbComics);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbCover)).EndInit();
@@ -349,6 +360,7 @@
         private System.Windows.Forms.ContextMenuStrip cmsComics;
         private System.Windows.Forms.ToolStripMenuItem search;
         private System.Windows.Forms.ToolStripMenuItem validate;
+        private System.Windows.Forms.ToolStripMenuItem validateMF;
     }
 }
 
