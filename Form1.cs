@@ -22,7 +22,7 @@ namespace Omnibus
     public partial class Form1 : Form
     {
 
-        private String version = "1.4.8.4";
+        private String version = "1.4.8.5";
         private String url = "https://getcomics.info/?s=";
         private int cancelled = 0;
         private bool isDownloading = false;
@@ -85,6 +85,9 @@ namespace Omnibus
                 Properties.Settings.Default.Save();
             }
 
+            //Set all Security Protocols available to test SSL certs
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+
             //Warn user to get UserAgent string and cookies on first run
             if (Properties.Settings.Default.UserAgent == "")
             {
@@ -93,7 +96,7 @@ namespace Omnibus
             }
 
             //Log in to the MEGA client Anonymously
-            mClient.LoginAnonymous();
+            //mClient.LoginAnonymous();
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
