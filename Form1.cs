@@ -22,7 +22,7 @@ namespace Omnibus
     public partial class Form1 : Form
     {
 
-        private String version = "1.4.8.5";
+        private String version = "1.5";
         private String url = "https://getcomics.info/?s=";
         private int cancelled = 0;
         private bool isDownloading = false;
@@ -224,7 +224,7 @@ namespace Omnibus
                         HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
                         doc.LoadHtml(data);
 
-                        //// FOR MEGA
+                        //// ------- FOR MEGA ------- ////
                         //var htmlNodes = doc.DocumentNode.SelectSingleNode("//a[@title='Mega Link']");
 
                         //if (htmlNodes == null) //Check to see if they just renamed the Node
@@ -255,17 +255,43 @@ namespace Omnibus
                         //    comicDLLink = htmlNodes.Attributes["href"].Value;
                         //}    
 
-                        // FOR MEDIAFIRE
-                        var htmlNodes = doc.DocumentNode.SelectSingleNode("//a[@title='MEDIAFIRE']");
+
+                        //// ------- FOR MEDIAFIRE ------- ////
+                        //var htmlNodes = doc.DocumentNode.SelectSingleNode("//a[@title='Mediafire Link']");
+
+                        //if (htmlNodes == null)
+                        //{
+                        //    //check for old node
+                        //    htmlNodes = doc.DocumentNode.SelectSingleNode("//a[@title='MEDIAFIRE']");
+
+                        //    if (htmlNodes == null)
+                        //    {
+                        //        MessageBox.Show("No MediaFire button");
+                        //    }
+                        //    else
+                        //    {
+                        //        comicDLLink = htmlNodes.Attributes["href"].Value;
+                        //    }
+
+                        //}
+                        //else
+                        //{
+                        //    comicDLLink = htmlNodes.Attributes["href"].Value;
+                        //}
+
+
+                        //// ------- FOR DOWNLOAD NOW BUTTON ------- ////
+                        var htmlNodes = doc.DocumentNode.SelectSingleNode("//a[@title='Download Now']");
 
                         if (htmlNodes == null)
                         {
-                            MessageBox.Show("No MediaFire button");
+                            MessageBox.Show("No Download Now button");
                         }
                         else
                         {
                             comicDLLink = htmlNodes.Attributes["href"].Value;
                         }
+
 
                         if (comicDLLink != "")
                         {
@@ -273,106 +299,44 @@ namespace Omnibus
                             string lastURL = "";
                             List<string> EVs = new List<string>();
 
-                            //Get the MEGA link by getting response of download link !NOT USED!
-                            /*
-                            using (var client = new HttpClient(new HttpClientHandler() { AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip }))
-                            {
-                                var hrequest = new HttpRequestMessage()
-                                {
-                                    RequestUri = new Uri(comicDLLink),
-                                    Method = HttpMethod.Get
-                                };
-
-                                HttpResponseMessage hresponse = client.SendAsync(hrequest).Result;
-                                var statusCode = (int)hresponse.StatusCode;
-
-                                megaURL = hrequest.RequestUri.ToString();
-                            }
-                            */
-
-                            //Check if the MEGA link is encrypted, decrypt Base64 string if it is
-                            //!--- MEGA LINKS ARE NOW ENCRYPTED AND WE CANNOT DECRYPT THEM ---!//
-                            //!--- ALL DOWNLOADS SHOULD BE DONE WITH MEDIAFIRE NOW ---!//
-                            string[] comicLinkArray = comicDLLink.Split('/');
-
-                            //if (comicLinkArray[2] != "mega.nz")
-                            //{
-                            //    string comicLinkEnc = comicLinkArray[4];
-                            //    byte[] comicLinkConverted = System.Convert.FromBase64String(comicLinkEnc);
-                            //    megaURL = System.Text.ASCIIEncoding.ASCII.GetString(comicLinkConverted);
-                            //}
-                            //else
-                            //{
-                            //    megaURL = comicDLLink;
-                            //}
-
+                            
                             HttpWebRequest requestMF = (HttpWebRequest)WebRequest.Create(comicDLLink);
-                            HttpWebResponse responseMF = (HttpWebResponse)requestMF.GetResponse();
 
-                            if (responseMF.StatusCode == HttpStatusCode.OK)
+                            try
                             {
-                                Stream receiveStreamMF = responseMF.GetResponseStream();
-                                StreamReader readStreamMF = null;
-
-                                if (responseMF.CharacterSet == null)
+                                if (lastURL != comicDLLink)
                                 {
-                                    readStreamMF = new StreamReader(receiveStreamMF);
+                                    downloadList.Add(comicDLLink);
+
+                                    HtmlNode tn = nodes.ElementAt(lbComics.SelectedIndex);
+                                    string tnode = n.InnerHtml;
+                                    string[] ta = node.Split('"');
+
+                                    string title = replaceASCII(ta[5]);
+
+                                    //add item to listview
+                                    AddLVItem(idCount.ToString(), title);
+
+                                    titleList.Add(title);
+
+                                    lastURL = comicDLLink;
                                 }
-                                else
-                                {
-                                    readStreamMF = new StreamReader(receiveStreamMF, Encoding.GetEncoding(responseMF.CharacterSet));
-                                }
 
-                                string dataMF = readStreamMF.ReadToEnd();
-
-                                responseMF.Close();
-                                readStreamMF.Close();
-
-                                string comicDLLinkMF = "";
-
-                                HtmlAgilityPack.HtmlDocument docMF = new HtmlAgilityPack.HtmlDocument();
-                                docMF.LoadHtml(dataMF);
-
-                                var htmlNodesMF = docMF.DocumentNode.SelectSingleNode("//a[@id='downloadButton']");
-
-                                string MFLink = "null";
-                                MFLink = htmlNodesMF.Attributes["href"].Value;
-
-                                megaURL = MFLink;
+                                DownloadComic(idCount);
+                                idCount++;
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("There was a problem finding the file, maybe the link has expired. Go to comic's page and try to download manually.");
                             }
 
-
-                            if (lastURL != megaURL)
-                            {
-                                downloadList.Add(megaURL);
-
-                                HtmlNode tn = nodes.ElementAt(lbComics.SelectedIndex);
-                                string tnode = n.InnerHtml;
-                                string[] ta = node.Split('"');
-
-                                string title = replaceASCII(ta[5]);
-
-                                //add item to listview
-                                AddLVItem(idCount.ToString(), title);
-                                //idCount++;
-
-                                titleList.Add(title);
-
-                                lastURL = megaURL;
-                            }
-                                        
                         }
                         else
-                            MessageBox.Show("No download link available. Go to comic's page and download manually.");
+                        {
+                            MessageBox.Show("No download link available. Go to comic's page and try to download manually.");
+                        }
 
-
-                        //if (downloadList.Count > 0 && isDownloading == false)
-                        //{
-                        //    DownloadComic(idCount);
-                        //}
-
-                        DownloadComic(idCount);
-                        idCount++;
+                        
                     }
                 }
             }
@@ -392,7 +356,6 @@ namespace Omnibus
             comicItem.SubItems.Add("");
             comicItem.SubItems.Add(id);
             lvDownloads.Items.Add(comicItem);
-            //lvDownloads.Items.Add(new ListViewItem(new[] { title, "Pending", "", id }));
             Debug.WriteLine("Adding " + title + " to lvDownloads with ID: " + id);
 
             Rectangle r = comicItem.SubItems[2].Bounds;
@@ -409,30 +372,19 @@ namespace Omnibus
             complete = 1;
             status = true;
             String id = idCount.ToString();
-            //String id = lvDownloads.Items[0].SubItems[3].Text;
-            //String url = downloadList[0];
             String url = downloadList[idCount];
 
             Console.WriteLine("id = " + id);
 
             Uri myStringWebResource = new Uri(url);
 
-            ////FOR MEGA CLIENT
-            //try
-            //{
-            //    INodeInfo node = mClient.GetNodeFromLink(myStringWebResource);
-            //}
-            //catch (Exception e)
-            //{
-            //    LogWriter("Exception from mega client: " + e);
-            //}
 
             //string filename = titleList[0];
             string filename = titleList[idCount];
             downloadPath = Properties.Settings.Default.DownloadLocation + "\\" + filename + ".cbr";
 
-            //IProgress<double> progressHandler = new Progress<double>(x => UpdateItemValue(sender, e, id));  //update progressbar with progress
-            //IProgress<double> progressHandler = new Progress<double>(x => Console.WriteLine("{0}%", x)); //write progress to Console
+            int filesize;
+            string contenttype;
 
             Console.WriteLine("Downloading: " + downloadPath);
             LogWriter("Downloading new comic: " + downloadPath);
@@ -440,109 +392,195 @@ namespace Omnibus
 
             cts = new CancellationTokenSource();
 
-            try
+            WebRequest wr = WebRequest.Create(url);
+            wr.Method = "HEAD";
+
+            using (WebResponse wrs = wr.GetResponse())
             {
-                using (WebClient wc = new WebClient())
-                {
-                    wc.DownloadProgressChanged += (sender, e) => UpdateItemValue(sender, e, id);
-                    wc.DownloadFileAsync(new System.Uri(url), downloadPath);
-                }
+                filesize = int.Parse(wrs.Headers.Get("Content-Length"));
+                contenttype = wrs.Headers.Get("Content-Type");
             }
-            catch (OperationCanceledException ex)
+           
+
+            await Task.Factory.StartNew(() =>
             {
-                complete = 0;
-                CancelDownload(downloadPath);
-                isDownloading = false;
-                LogWriter("Download Canceled: " + downloadPath);
-            }
-            catch (IOException io)
-            {
-                if (MessageBox.Show("Would you like to overwrite?", "File already exists", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                try
                 {
-                    if (File.Exists(downloadPath))
+
+                    int bytesProcessed = 0;
+
+                    if (url.Contains("/links.php/"))
                     {
-                        File.Delete(downloadPath);
-                    }
-                    try
-                    {
-                        using (WebClient wc = new WebClient())
+                        WebRequest webrequest = WebRequest.Create(url);
+                        webrequest.Method = "POST";
+                        webrequest.ContentType = contenttype;
+
+                        //if (webrequest != null)
+                        //{
+                        //    WebResponse webresponse = webrequest.GetResponse();
+                        //    if (webresponse != null)
+                        //    {
+                        //        byte[] buffer;
+                        //        buffer = ASCIIEncoding.ASCII.GetBytes("File=" + filename);
+
+                        //        int bytesRead;
+
+                        //        webrequest.ContentLength = buffer.Length;
+                        //        Stream requestStream = webrequest.GetRequestStream();
+                        //        requestStream.Write(buffer, 0, buffer.Length);
+
+                        //        Stream localStream = File.Create(downloadPath);
+
+                        //        do
+                        //        {
+                        //            // Read data (up to 1k) from the stream
+                        //            bytesRead = requestStream.Read(buffer, 0, buffer.Length);
+
+                        //            // Write the data to the local file
+                        //            localStream.Write(buffer, 0, bytesRead);
+
+                        //            // Increment total bytes processed
+                        //            bytesProcessed += bytesRead;
+                        //            //Console.WriteLine("bytes processed: " + bytesProcessed + "/" + filesize);
+
+                        //            UpdateItemValue(bytesProcessed, id, filesize);
+
+                        //        } while (bytesRead > 0);
+                        //    }
+                        //}
+
+                        byte[] buffer;
+                        buffer = ASCIIEncoding.ASCII.GetBytes("File=" + filename);
+
+                        int bytesRead;
+
+                        webrequest.ContentLength = buffer.Length;
+                        Stream requestStream = webrequest.GetRequestStream();
+                        requestStream.Write(buffer, 0, buffer.Length);
+
+                        Stream localStream = File.Create(downloadPath);
+
+                        //get response
+                        using (WebResponse webresponse = webrequest.GetResponse())
                         {
-                            wc.DownloadFileAsync(new System.Uri(url), downloadPath);
+                            using (Stream responseStream = webresponse.GetResponseStream())
+                            {
+                                //using (FileStream fileStream = File.Create(downloadPath))
+                                //{
+                                //    responseStream.CopyTo(fileStream);
+
+                                //}
+
+                                do
+                                { 
+                                    // Read data (up to 1k) from the stream
+                                    bytesRead = responseStream.Read(buffer, 0, buffer.Length);
+
+                                    // Write the data to the local file
+                                    localStream.Write(buffer, 0, bytesRead);
+
+                                    // Increment total bytes processed
+                                    bytesProcessed += bytesRead;
+                                    //Console.WriteLine("bytes processed: " + bytesProcessed + "/" + filesize);
+
+                                    UpdateItemValue(bytesProcessed, id, filesize);
+
+                                } while (bytesRead > 0);
+
+                            }
+                        }
+                        
+
+
+
+                    }
+                    else
+                    {
+                        WebRequest request = WebRequest.Create(url);
+                        if (request != null)
+                        {
+                            WebResponse response = request.GetResponse();
+                            if (response != null)
+                            {
+                                Stream remoteStream = response.GetResponseStream();
+                                Stream localStream = File.Create(downloadPath);
+
+                                byte[] buffer = new byte[1024];
+                                int bytesRead;
+
+                                do
+                                {
+                                    // Read data (up to 1k) from the stream
+                                    bytesRead = remoteStream.Read(buffer, 0, buffer.Length);
+
+                                    // Write the data to the local file
+                                    localStream.Write(buffer, 0, bytesRead);
+
+                                    // Increment total bytes processed
+                                    bytesProcessed += bytesRead;
+                                    //Console.WriteLine("bytes processed: " + bytesProcessed + "/" + filesize);
+
+                                    UpdateItemValue(bytesProcessed, id, filesize);
+
+                                } while (bytesRead > 0);
+
+
+                            }
                         }
                     }
-                    catch (OperationCanceledException ex)
+
+                }
+                catch (OperationCanceledException ex)
+                {
+                    complete = 0;
+                    CancelDownload(downloadPath);
+                    isDownloading = false;
+                    LogWriter("Download Canceled: " + downloadPath);
+                }
+                catch (IOException io)
+                {
+                    if (MessageBox.Show("Would you like to overwrite?", "File already exists", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        if (File.Exists(downloadPath))
+                        {
+                            File.Delete(downloadPath);
+                        }
+                        try
+                        {
+                            using (WebClient wc = new WebClient())
+                            {
+                                wc.DownloadFileAsync(new System.Uri(url), downloadPath);
+                            }
+                        }
+                        catch (OperationCanceledException ex)
+                        {
+                            complete = 0;
+                            isDownloading = false;
+                            CancelDownload(downloadPath);
+                        }
+                    }
+                    else
                     {
                         complete = 0;
                         isDownloading = false;
                         CancelDownload(downloadPath);
                     }
                 }
-                else
+                catch (ArgumentException aex)
                 {
                     complete = 0;
                     isDownloading = false;
                     CancelDownload(downloadPath);
+                    LogWriter(aex.ToString());
+
+                    MessageBox.Show("There was a problem downloading the comic. Try again later or download manually by clicking the Open Link button.\n\nIf this continues to happen try the following:\n1: Close Omnibus\n2: Go to https://getcomics.info in your browser\n3: Search for any comic and click the Mega button\n4: Open Omnibus and attempt the download again.");
                 }
-            }
-            catch (ArgumentException aex)
-            {
-                complete = 0;
-                isDownloading = false;
-                CancelDownload(downloadPath);
-                LogWriter(aex.ToString());
-
-                MessageBox.Show("There was a problem downloading the comic. Try again later or download manually by clicking the Open Link button.\n\nIf this continues to happen try the following:\n1: Close Omnibus\n2: Go to https://getcomics.info in your browser\n3: Search for any comic and click the Mega button\n4: Open Omnibus and attempt the download again.");
-            }
-
-            ////FOR MEGA CLIENT
-            //try
-            //{
-            //    await mClient.DownloadFileAsync(myStringWebResource, downloadPath, progressHandler, cts.Token);
-            //}
-            //catch (OperationCanceledException ex)
-            //{
-            //    complete = 0;
-            //    CancelDownload(downloadPath);
-            //    isDownloading = false;
-            //    LogWriter("Download Canceled: " + downloadPath);
-            //}
-            //catch (IOException io)
-            //{
-            //    if (MessageBox.Show("Would you like to overwrite?", "File already exists", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            //    {
-            //        if (File.Exists(downloadPath))
-            //        {
-            //            File.Delete(downloadPath);
-            //        }
-            //        try
-            //        {
-            //            await mClient.DownloadFileAsync(myStringWebResource, downloadPath, progressHandler, cts.Token);
-            //        }
-            //        catch (OperationCanceledException ex)
-            //        {
-            //            complete = 0;
-            //            isDownloading = false;
-            //            CancelDownload(downloadPath);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        complete = 0;
-            //        isDownloading = false;
-            //        CancelDownload(downloadPath);
-            //    }
-            //}
-            //catch (ArgumentException aex)
-            //{
-            //    complete = 0;
-            //    isDownloading = false;
-            //    CancelDownload(downloadPath);
-            //    LogWriter(aex.ToString());
-
-            //    MessageBox.Show("There was a problem downloading the comic. Try again later or download manually by clicking the Open Link button.\n\nIf this continues to happen try the following:\n1: Close Omnibus\n2: Go to https://getcomics.info in your browser\n3: Search for any comic and click the Mega button\n4: Open Omnibus and attempt the download again.");
-            //}
-
-            //return "complete";
+                catch (WebException wex)
+                {
+                    MessageBox.Show("There was a problem downloading the comic. " + wex);
+                }
+                
+            }, cts.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
         }
 
         private void DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e, string id)
@@ -553,55 +591,44 @@ namespace Omnibus
         // Event to track the progress
         void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e, int id)
         {
-            //progressBar.Value = e.ProgressPercentage;
+
         }
 
-        //private void UpdateItemValue(string id, int value)
-        //{
-        //    ListViewItem lvi = GetLVItemById(id);
-        //    ProgressBar pb = GetPBById(id);
 
-        //    if (lvi != null && pb != null)
-        //    {
-        //        pb.Value = value;
-
-        //        if (value == 1 && status == true)
-        //        {
-        //            lvi.SubItems[1].Text = "Downloading";
-        //            status = false;
-        //            isDownloading = true;
-        //        }
-        //        else if (value >= 100)
-        //        {
-        //            lvi.SubItems[1].Text = "Complete";
-        //            lvDownloads.Controls.Remove(pb);
-        //            complete = 1;
-        //            isDownloading = false;
-        //            DownloadComplete();
-        //        }
-        //    }
-        //}
-
-        private void UpdateItemValue(object sender, DownloadProgressChangedEventArgs e, string id)
+        private void UpdateItemValue(int bytes, string id, int filesize)
         {
             ListViewItem lvi = GetLVItemById(id);
             ProgressBar pb = GetPBById(id);
-            int value = e.ProgressPercentage;
+            float value = ((float)bytes/(float)filesize) * 100;
 
             if (lvi != null && pb != null)
             {
-                pb.Value = value;
-
-                if (value == 1 && status == true)
+                Invoke(new MethodInvoker(delegate
                 {
-                    lvi.SubItems[1].Text = "Downloading";
+                    pb.Value = (int)value;
+                }));
+
+                Console.WriteLine("Downloaded " + bytes + "/" + filesize + ". Value: " + value);
+
+                if (value > 0 && status == true)
+                {
+                    Invoke(new MethodInvoker(delegate
+                    {
+                        lvi.SubItems[1].Text = "Downloading";
+                    }));
+
                     status = false;
                     isDownloading = true;
                 }
-                else if (value >= 100)
+                else if (value >= 100 || value == filesize)
                 {
-                    lvi.SubItems[1].Text = "Complete";
-                    lvDownloads.Controls.Remove(pb);
+                    Invoke(new MethodInvoker(delegate
+                    {
+                        lvi.SubItems[1].Text = "Complete";
+                        lvDownloads.Controls.Remove(pb);
+                    }));
+
+                    
                     complete = 1;
                     isDownloading = false;
                     DownloadComplete();
@@ -939,7 +966,12 @@ namespace Omnibus
 
         private ListViewItem GetLVItemById(string id)
         {
-            ListViewItem lvi = lvDownloads.Items.Cast<ListViewItem>().FirstOrDefault(q => q.SubItems[3].Text == id);
+            ListViewItem lvi = new ListViewItem();
+
+            Invoke(new MethodInvoker(delegate
+            {
+                lvi = lvDownloads.Items.Cast<ListViewItem>().FirstOrDefault(q => q.SubItems[3].Text == id);
+            }));
 
             return lvi;
         }
@@ -958,7 +990,13 @@ namespace Omnibus
 
         private ProgressBar GetPBById(string id)
         {
-            ProgressBar pb = lvDownloads.Controls.OfType<ProgressBar>().FirstOrDefault(q => q.Name == id);
+            
+            ProgressBar pb = new ProgressBar();
+
+            Invoke(new MethodInvoker(delegate
+            {
+                pb = lvDownloads.Controls.OfType<ProgressBar>().FirstOrDefault(q => q.Name == id);
+            }));
 
             return pb;
         }

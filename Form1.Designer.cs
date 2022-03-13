@@ -55,6 +55,7 @@
             this.search = new System.Windows.Forms.ToolStripMenuItem();
             this.validate = new System.Windows.Forms.ToolStripMenuItem();
             this.validateMF = new System.Windows.Forms.ToolStripMenuItem();
+            this.ID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.pbCover)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.cmsComics.SuspendLayout();
@@ -192,7 +193,8 @@
             this.lvDownloads.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Title,
             this.Status,
-            this.Progress});
+            this.Progress,
+            this.ID});
             this.lvDownloads.HideSelection = false;
             this.lvDownloads.Location = new System.Drawing.Point(9, 410);
             this.lvDownloads.Margin = new System.Windows.Forms.Padding(2);
@@ -279,7 +281,7 @@
             this.validate,
             this.validateMF});
             this.cmsComics.Name = "cmsComics";
-            this.cmsComics.Size = new System.Drawing.Size(184, 92);
+            this.cmsComics.Size = new System.Drawing.Size(184, 70);
             this.cmsComics.Opening += new System.ComponentModel.CancelEventHandler(this.cmsComics_Opening);
             this.cmsComics.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.cmsComics_ItemClicked);
             // 
@@ -361,6 +363,7 @@
         private System.Windows.Forms.ToolStripMenuItem search;
         private System.Windows.Forms.ToolStripMenuItem validate;
         private System.Windows.Forms.ToolStripMenuItem validateMF;
+        private System.Windows.Forms.ColumnHeader ID;
     }
 }
 
