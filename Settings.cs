@@ -31,9 +31,9 @@ namespace Omnibus
                 cbLogs.Checked = false;
             }
 
-            tbUserAgent.Text = Properties.Settings.Default.UserAgent;
-            tbCfduid.Text = Properties.Settings.Default.cfduid;
-            tbCfClearance.Text = Properties.Settings.Default.cf_clearance;
+            //tbUserAgent.Text = Properties.Settings.Default.UserAgent;
+            //tbCfduid.Text = Properties.Settings.Default.cfduid;
+            //tbCfClearance.Text = Properties.Settings.Default.cf_clearance;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -44,14 +44,14 @@ namespace Omnibus
             Properties.Settings.Default.LogLocation = tbLLocation.Text;
             Properties.Settings.Default.Save();
 
-            Properties.Settings.Default.UserAgent = tbUserAgent.Text;
-            Properties.Settings.Default.Save();
+            //Properties.Settings.Default.UserAgent = tbUserAgent.Text;
+            //Properties.Settings.Default.Save();
 
-            Properties.Settings.Default.cfduid = tbCfduid.Text;
-            Properties.Settings.Default.Save();
+            //Properties.Settings.Default.cfduid = tbCfduid.Text;
+            //Properties.Settings.Default.Save();
 
-            Properties.Settings.Default.cf_clearance = tbCfClearance.Text;
-            Properties.Settings.Default.Save();
+            //Properties.Settings.Default.cf_clearance = tbCfClearance.Text;
+            //Properties.Settings.Default.Save();
 
             Properties.Settings.Default.Save();
 

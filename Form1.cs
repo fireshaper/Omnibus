@@ -89,11 +89,11 @@ namespace Omnibus
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
 
             //Warn user to get UserAgent string and cookies on first run
-            if (Properties.Settings.Default.UserAgent == "")
-            {
-                MessageBox.Show("Thank you for using Omnibus! Before you can get started, you are going to have to gather a few things. " +
-                    "Read the Setup information on github (https://github.com/fireshaper/Omnibus) for more information.");
-            }
+            //if (Properties.Settings.Default.UserAgent == "")
+            //{
+            //    MessageBox.Show("Thank you for using Omnibus! Before you can get started, you are going to have to gather a few things. " +
+            //        "Read the Setup information on github (https://github.com/fireshaper/Omnibus) for more information.");
+            //}
 
             //Log in to the MEGA client Anonymously
             //mClient.LoginAnonymous();
