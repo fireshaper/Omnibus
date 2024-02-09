@@ -1,4 +1,4 @@
-﻿using CG.Web.MegaApiClient;
+﻿//using CG.Web.MegaApiClient;
 using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
@@ -22,7 +22,7 @@ namespace Omnibus
     public partial class Form1 : Form
     {
 
-        private String version = "1.5";
+        private String version = "1.5.1";
         private String url = "https://getcomics.info/?s=";
         private int cancelled = 0;
         private bool isDownloading = false;
@@ -39,7 +39,7 @@ namespace Omnibus
 
         private System.Net.WebClient client = new System.Net.WebClient();
 
-        private MegaApiClient mClient = new MegaApiClient();
+        //private MegaApiClient mClient = new MegaApiClient();
 
         private List<String> downloadList = new List<String>();
         private List<String> titleList = new List<String>();
@@ -282,14 +282,19 @@ namespace Omnibus
 
                         //// ------- FOR DOWNLOAD NOW BUTTON ------- ////
                         var htmlNodes = doc.DocumentNode.SelectSingleNode("//a[@title='Download Now']");
+                        var htmlNodesUpper = doc.DocumentNode.SelectSingleNode("//a[@title='DOWNLOAD NOW']");
 
-                        if (htmlNodes == null)
+                        if (htmlNodes != null)
                         {
-                            MessageBox.Show("No Download Now button");
+                            comicDLLink = htmlNodes.Attributes["href"].Value;
+                        }
+                        else if (htmlNodesUpper != null)
+                        {
+                            comicDLLink = htmlNodesUpper.Attributes["href"].Value;
                         }
                         else
                         {
-                            comicDLLink = htmlNodes.Attributes["href"].Value;
+                            MessageBox.Show("No Download Now button");
                         }
 
 

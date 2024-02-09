@@ -48,6 +48,10 @@
             Gets the length of the value.
             </summary>
         </member>
+        <member name="P:HtmlAgilityPack.HtmlAttribute.UseOriginalName">
+            <summary>Gets or sets a value indicating whether the attribute should use the original name.</summary>
+            <value>True if the attribute should use the original name, false if not.</value>
+        </member>
         <member name="P:HtmlAgilityPack.HtmlAttribute.Name">
             <summary>
             Gets the qualified name of the attribute.
@@ -71,6 +75,11 @@
         <member name="P:HtmlAgilityPack.HtmlAttribute.QuoteType">
             <summary>
             Specifies what type of quote the data should be wrapped in
+            </summary>
+        </member>
+        <member name="P:HtmlAgilityPack.HtmlAttribute.InternalQuoteType">
+            <summary>
+            Specifies what type of quote the data should be wrapped in (internal to keep backward compatibility)
             </summary>
         </member>
         <member name="P:HtmlAgilityPack.HtmlAttribute.StreamPosition">
@@ -124,6 +133,19 @@
         <member name="F:HtmlAgilityPack.AttributeValueQuote.DoubleQuote">
             <summary>
             A double quote mark "
+            </summary>
+        </member>
+        <member name="F:HtmlAgilityPack.AttributeValueQuote.None">
+            <summary>
+            No quote mark
+            </summary>
+        </member>
+        <member name="F:HtmlAgilityPack.AttributeValueQuote.WithoutValue">
+            <summary>Without the value such as '&lt;span readonly&gt;'</summary>
+        </member>
+        <member name="F:HtmlAgilityPack.AttributeValueQuote.Initial">
+            <summary>
+            The initial value (current value)
             </summary>
         </member>
         <member name="T:HtmlAgilityPack.HtmlAttributeCollection">
@@ -380,6 +402,11 @@
             Defines the default stream encoding to use. Default is System.Text.Encoding.Default.
             </summary>
         </member>
+        <member name="F:HtmlAgilityPack.HtmlDocument.OptionXmlForceOriginalComment">
+            <summary>
+            Force to take the original comment instead of creating it
+            </summary>
+        </member>
         <member name="F:HtmlAgilityPack.HtmlDocument.OptionExtractErrorSourceText">
             <summary>
             Defines if source text must be extracted while parsing errors.
@@ -412,6 +439,9 @@
             Defines if attribute value output must be optimized (not bound with double quotes if it is possible). Default is false.
             </summary>
         </member>
+        <member name="F:HtmlAgilityPack.HtmlDocument.GlobalAttributeValueQuote">
+            <summary>Defines the global attribute value quote. When specified, it will always win.</summary>
+        </member>
         <member name="F:HtmlAgilityPack.HtmlDocument.OptionOutputOriginalCase">
             <summary>
             Defines if name must be output with it's original case. Useful for asp.net tags and attributes. Default is false.
@@ -432,6 +462,11 @@
         <member name="F:HtmlAgilityPack.HtmlDocument.OptionStopperNodeName">
             <summary>
             Defines the name of a node that will throw the StopperNodeException when found as an end node. Default is null.
+            </summary>
+        </member>
+        <member name="F:HtmlAgilityPack.HtmlDocument.OptionDefaultUseOriginalName">
+            <summary>
+            Defines if attributes should use original names by default, rather than lower case. Default is false.
             </summary>
         </member>
         <member name="F:HtmlAgilityPack.HtmlDocument.OptionUseIdAttribute">
@@ -973,6 +1008,11 @@
             Gets the stream position of the area between the opening and closing tag of the node, relative to the start of the document.
             </summary>
         </member>
+        <member name="P:HtmlAgilityPack.HtmlNode.OuterStartIndex">
+            <summary>
+            Gets the stream position of the area of the beginning of the tag, relative to the start of the document.
+            </summary>
+        </member>
         <member name="P:HtmlAgilityPack.HtmlNode.InnerLength">
             <summary>
             Gets the length of the area between the opening and closing tag of the node.
@@ -1050,6 +1090,14 @@
             Creates an HTML node from a string representing literal HTML.
             </summary>
             <param name="html">The HTML text.</param>
+            <returns>The newly created node instance.</returns>
+        </member>
+        <member name="M:HtmlAgilityPack.HtmlNode.CreateNode(System.String,System.Action{HtmlAgilityPack.HtmlDocument})">
+            <summary>
+            Creates an HTML node from a string representing literal HTML.
+            </summary>
+            <param name="html">The HTML text.</param>
+            <param name="htmlDocumentBuilder">The HTML Document builder.</param>
             <returns>The newly created node instance.</returns>
         </member>
         <member name="M:HtmlAgilityPack.HtmlNode.IsCDataElement(System.String)">
@@ -1336,6 +1384,18 @@
             <summary>Removes all id for node described by node.</summary>
             <param name="node">The node.</param>
         </member>
+        <member name="M:HtmlAgilityPack.HtmlNode.MoveChild(HtmlAgilityPack.HtmlNode)">
+            <summary>Move a node already associated and append it to this node instead.</summary>
+            <param name="child">The child node to move.</param>
+        </member>
+        <member name="M:HtmlAgilityPack.HtmlNode.MoveChildren(HtmlAgilityPack.HtmlNodeCollection)">
+            <summary>Move a children collection already associated and append it to this node instead.</summary>
+            <param name="children">The children collection already associated to move to another node.</param>
+        </member>
+        <member name="M:HtmlAgilityPack.HtmlNode.RemoveChildren(HtmlAgilityPack.HtmlNodeCollection)">
+            <summary>Removes the children collection for this node.</summary>
+            <param name="oldChildren">The old children collection to remove.</param>
+        </member>
         <member name="M:HtmlAgilityPack.HtmlNode.RemoveChild(HtmlAgilityPack.HtmlNode)">
             <summary>
             Removes the specified child node.
@@ -1475,13 +1535,14 @@
             <returns>Returns an object of type T including Encapsulated data.</returns>
             <exception cref="T:System.ArgumentException">Why it's thrown.</exception>
             <exception cref="T:System.ArgumentNullException">Why it's thrown.</exception>
-            <exception cref="T:System.MissingMethodException">Why it's thrown.</exception>
-            <exception cref="T:HtmlAgilityPack.MissingXPathException">Why it's thrown.</exception>
-            <exception cref="T:System.Xml.XPath.XPathException">Why it's thrown.</exception>
-            <exception cref="T:HtmlAgilityPack.NodeNotFoundException">Why it's thrown.</exception>
-            <exception cref="T:HtmlAgilityPack.NodeAttributeNotFoundException">Why it's thrown.</exception>
-            <exception cref="T:System.FormatException">Why it's thrown.</exception>                
+            <exception cref="T:System.MissingMethodException"><see cref="T:System.MissingMethodException"/></exception>
+            <exception cref="T:HtmlAgilityPack.MissingXPathException"><see cref="T:HtmlAgilityPack.MissingXPathException"/></exception>
+            <exception cref="T:System.Xml.XPath.XPathException"><see cref="!:XPathExeption"/></exception>
+            <exception cref="T:HtmlAgilityPack.NodeNotFoundException"><see cref="T:HtmlAgilityPack.NodeNotFoundException"/></exception>
+            <exception cref="T:HtmlAgilityPack.NodeAttributeNotFoundException"><see cref="T:HtmlAgilityPack.NodeAttributeNotFoundException"/></exception>
+            <exception cref="T:System.FormatException">Why it's thrown.</exception>
             <exception cref="T:System.Exception">Why it's thrown.</exception>
+            <exception cref="T:HtmlAgilityPack.InvalidNodeReturnTypeException"><see cref="T:HtmlAgilityPack.InvalidNodeReturnTypeException"/></exception>
         </member>
         <member name="M:HtmlAgilityPack.HtmlNode.GetEncapsulatedData``1(HtmlAgilityPack.HtmlDocument)">
             <summary>
@@ -1492,13 +1553,14 @@
             <returns>Returns an object of type T including Encapsulated data.</returns>
             <exception cref="T:System.ArgumentException">Why it's thrown.</exception>
             <exception cref="T:System.ArgumentNullException">Why it's thrown.</exception>
-            <exception cref="T:System.MissingMethodException">Why it's thrown.</exception>
-            <exception cref="T:HtmlAgilityPack.MissingXPathException">Why it's thrown.</exception>
-            <exception cref="T:System.Xml.XPath.XPathException">Why it's thrown.</exception>
-            <exception cref="T:HtmlAgilityPack.NodeNotFoundException">Why it's thrown.</exception>
-            <exception cref="T:HtmlAgilityPack.NodeAttributeNotFoundException">Why it's thrown.</exception>
-            <exception cref="T:System.FormatException">Why it's thrown.</exception>                
+            <exception cref="T:System.MissingMethodException"><see cref="T:System.MissingMethodException"/></exception>
+            <exception cref="T:HtmlAgilityPack.MissingXPathException"><see cref="T:HtmlAgilityPack.MissingXPathException"/></exception>
+            <exception cref="T:System.Xml.XPath.XPathException"><see cref="!:XPathExeption"/></exception>
+            <exception cref="T:HtmlAgilityPack.NodeNotFoundException"><see cref="T:HtmlAgilityPack.NodeNotFoundException"/></exception>
+            <exception cref="T:HtmlAgilityPack.NodeAttributeNotFoundException"><see cref="T:HtmlAgilityPack.NodeAttributeNotFoundException"/></exception>
+            <exception cref="T:System.FormatException">Why it's thrown.</exception>
             <exception cref="T:System.Exception">Why it's thrown.</exception>
+            <exception cref="T:HtmlAgilityPack.InvalidNodeReturnTypeException"><see cref="T:HtmlAgilityPack.InvalidNodeReturnTypeException"/></exception>
         </member>
         <member name="M:HtmlAgilityPack.HtmlNode.GetEncapsulatedData(System.Type,HtmlAgilityPack.HtmlDocument)">
             <summary>
@@ -1509,13 +1571,14 @@
             <returns>Returns an object of type targetType including Encapsulated data.</returns>
             <exception cref="T:System.ArgumentException">Why it's thrown.</exception>
             <exception cref="T:System.ArgumentNullException">Why it's thrown.</exception>
-            <exception cref="T:System.MissingMethodException">Why it's thrown.</exception>
-            <exception cref="T:HtmlAgilityPack.MissingXPathException">Why it's thrown.</exception>
-            <exception cref="T:System.Xml.XPath.XPathException">Why it's thrown.</exception>
-            <exception cref="T:HtmlAgilityPack.NodeNotFoundException">Why it's thrown.</exception>
-            <exception cref="T:HtmlAgilityPack.NodeAttributeNotFoundException">Why it's thrown.</exception>
-            <exception cref="T:System.FormatException">Why it's thrown.</exception>                
+            <exception cref="T:System.MissingMethodException"><see cref="T:System.MissingMethodException"/></exception>
+            <exception cref="T:HtmlAgilityPack.MissingXPathException"><see cref="T:HtmlAgilityPack.MissingXPathException"/></exception>
+            <exception cref="T:System.Xml.XPath.XPathException"><see cref="!:XPathExeption"/></exception>
+            <exception cref="T:HtmlAgilityPack.NodeNotFoundException"><see cref="T:HtmlAgilityPack.NodeNotFoundException"/></exception>
+            <exception cref="T:HtmlAgilityPack.NodeAttributeNotFoundException"><see cref="T:HtmlAgilityPack.NodeAttributeNotFoundException"/></exception>
+            <exception cref="T:System.FormatException">Why it's thrown.</exception>
             <exception cref="T:System.Exception">Why it's thrown.</exception>
+            <exception cref="T:HtmlAgilityPack.InvalidNodeReturnTypeException"><see cref="T:HtmlAgilityPack.InvalidNodeReturnTypeException"/></exception>
         </member>
         <member name="M:HtmlAgilityPack.HtmlNode.CreateNavigator">
             <summary>
@@ -1545,14 +1608,14 @@
         </member>
         <member name="M:HtmlAgilityPack.HtmlNode.SelectSingleNode(System.String)">
             <summary>
-            Selects the first XmlNode that matches the XPath expression.
+            Selects the first XmlNode that matches the <see cref="P:HtmlAgilityPack.HtmlNode.XPath"/> expression.
             </summary>
             <param name="xpath">The XPath expression. May not be null.</param>
             <returns>The first <see cref="T:HtmlAgilityPack.HtmlNode"/> that matches the XPath query or a null reference if no matching node was found.</returns>
         </member>
         <member name="M:HtmlAgilityPack.HtmlNode.SelectSingleNode(System.Xml.XPath.XPathExpression)">
             <summary>
-            Selects a list of nodes matching the <see cref="P:HtmlAgilityPack.HtmlNode.XPath"/> expression.
+            Selects the first XmlNode that matches the <see cref="P:HtmlAgilityPack.HtmlNode.XPath"/> expression.
             </summary>
             <param name="xpath">The XPath expression.</param>
             <returns>An <see cref="T:HtmlAgilityPack.HtmlNodeCollection"/> containing a collection of nodes matching the <see cref="P:HtmlAgilityPack.HtmlNode.XPath"/> query, or <c>null</c> if no node matched the XPath expression.</returns>
@@ -1656,6 +1719,15 @@
             <param name="source"></param>
             <returns></returns>
         </member>
+        <member name="M:HtmlAgilityPack.Tools.GetHtmlForEncapsulation(HtmlAgilityPack.HtmlNode,HtmlAgilityPack.ReturnType)">
+            <summary>
+            Return html part of <see cref="T:HtmlAgilityPack.HtmlNode"/> based on <see cref="T:HtmlAgilityPack.ReturnType"/>
+            </summary>
+            <param name="node">A htmlNode instance.</param>
+            <param name="returnType"><see cref="T:HtmlAgilityPack.ReturnType"/></param>
+            <returns>Html part</returns>
+            <exception cref="T:System.IndexOutOfRangeException">Out of range to the <see cref="T:HtmlAgilityPack.ReturnType"/></exception>
+        </member>
         <member name="T:HtmlAgilityPack.ReturnType">
             <summary>
             Specify which part of <see cref="T:HtmlAgilityPack.HtmlNode"/> is requested.
@@ -1663,7 +1735,7 @@
         </member>
         <member name="F:HtmlAgilityPack.ReturnType.InnerText">
             <summary>
-            The text between the start and end tags of the object.        
+            The text between the start and end tags of the object.
             </summary>
         </member>
         <member name="F:HtmlAgilityPack.ReturnType.InnerHtml">
@@ -1732,22 +1804,22 @@
             </summary>
         </member>
         <member name="M:HtmlAgilityPack.NodeNotFoundException.#ctor">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="M:HtmlAgilityPack.NodeNotFoundException.#ctor(System.String)">
-            <summary>
+             <summary>
             
-            </summary>
-            <param name="message"></param>
+             </summary>
+             <param name="message"></param>
         </member>
         <member name="M:HtmlAgilityPack.NodeNotFoundException.#ctor(System.String,System.Exception)">
-            <summary>
+             <summary>
             
-            </summary>
-            <param name="message"></param>
-            <param name="inner"></param>
+             </summary>
+             <param name="message"></param>
+             <param name="inner"></param>
         </member>
         <member name="T:HtmlAgilityPack.NodeAttributeNotFoundException">
             <summary>
@@ -1755,22 +1827,22 @@
             </summary>
         </member>
         <member name="M:HtmlAgilityPack.NodeAttributeNotFoundException.#ctor">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="M:HtmlAgilityPack.NodeAttributeNotFoundException.#ctor(System.String)">
-            <summary>
+             <summary>
             
-            </summary>
-            <param name="message"></param>
+             </summary>
+             <param name="message"></param>
         </member>
         <member name="M:HtmlAgilityPack.NodeAttributeNotFoundException.#ctor(System.String,System.Exception)">
-            <summary>
+             <summary>
             
-            </summary>
-            <param name="message"></param>
-            <param name="inner"></param>
+             </summary>
+             <param name="message"></param>
+             <param name="inner"></param>
         </member>
         <member name="T:HtmlAgilityPack.MissingXPathException">
             <summary>
@@ -1778,22 +1850,40 @@
             </summary>
         </member>
         <member name="M:HtmlAgilityPack.MissingXPathException.#ctor">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="M:HtmlAgilityPack.MissingXPathException.#ctor(System.String)">
-            <summary>
+             <summary>
             
-            </summary>
-            <param name="message"></param>
+             </summary>
+             <param name="message"></param>
         </member>
         <member name="M:HtmlAgilityPack.MissingXPathException.#ctor(System.String,System.Exception)">
-            <summary>
+             <summary>
             
+             </summary>
+             <param name="message"></param>
+             <param name="inner"></param>
+        </member>
+        <member name="T:HtmlAgilityPack.InvalidNodeReturnTypeException">
+            <summary>
+            Exception that occurs when an XPathAttribute annotation has an invalid ReturnType specified.
             </summary>
-            <param name="message"></param>
-            <param name="inner"></param>
+        </member>
+        <member name="M:HtmlAgilityPack.InvalidNodeReturnTypeException.#ctor(System.String)">
+             <summary>
+            
+             </summary>
+             <param name="message"></param>
+        </member>
+        <member name="M:HtmlAgilityPack.InvalidNodeReturnTypeException.#ctor(System.String,System.Exception)">
+             <summary>
+            
+             </summary>
+             <param name="message"></param>
+             <param name="inner"></param>
         </member>
         <member name="T:HtmlAgilityPack.HtmlNodeCollection">
             <summary>
@@ -1805,6 +1895,9 @@
             Initialize the HtmlNodeCollection with the base parent node
             </summary>
             <param name="parentnode">The base node of the collection</param>
+        </member>
+        <member name="P:HtmlAgilityPack.HtmlNodeCollection.ParentNode">
+            <summary>Gets the parent node associated to the collection.</summary>
         </member>
         <member name="P:HtmlAgilityPack.HtmlNodeCollection.Item(HtmlAgilityPack.HtmlNode)">
             <summary>
@@ -2407,6 +2500,22 @@
         <member name="F:HtmlAgilityPack.HtmlWeb.PreRequest">
             <summary>
             Occurs before an HTTP request is executed.
+            </summary>
+        </member>
+        <member name="P:HtmlAgilityPack.HtmlWeb.AutomaticDecompression">
+            <summary>Gets or sets the automatic decompression.</summary>
+            <value>The automatic decompression.</value>
+        </member>
+        <member name="P:HtmlAgilityPack.HtmlWeb.MaxAutoRedirects">
+            <summary>
+            Maximum number of redirects that will be followed.
+            To disable redirects, do not set the value to 0, please set CaptureRedirect to 'true'.
+            </summary>
+            <value>Must be greater than 0.</value>
+        </member>
+        <member name="P:HtmlAgilityPack.HtmlWeb.Timeout">
+            <summary>
+            Gets or sets the timeout value in milliseconds. Must be greater than zero. A value of -1 sets the timeout to be infinite.
             </summary>
         </member>
         <member name="P:HtmlAgilityPack.HtmlWeb.AutoDetectEncoding">
