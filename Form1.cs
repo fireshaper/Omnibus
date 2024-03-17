@@ -22,7 +22,7 @@ namespace Omnibus
     public partial class Form1 : Form
     {
 
-        private String version = "1.5.1";
+        private String version = "1.5.3.1";
         private String url = "https://getcomics.info/?s=";
         private int cancelled = 0;
         private bool isDownloading = false;
@@ -32,6 +32,8 @@ namespace Omnibus
         private int idCount = 0;
         public int LVCount = 0;
         private int page = 1;
+
+        string userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0";
 
         private object comicIndex;
 
@@ -188,7 +190,9 @@ namespace Omnibus
                     string[] a = node.Split('"');
 
                     HttpWebRequest request = (HttpWebRequest)WebRequest.Create(a[1]);
-                    request.UserAgent = Properties.Settings.Default.UserAgent;
+                    //request.UserAgent = Properties.Settings.Default.UserAgent;
+                    request.UserAgent = userAgent;
+                    request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8";
                     request.Headers.Add(HttpRequestHeader.Cookie,
                                         "__cfduid=" + Properties.Settings.Default.cfduid + ";" +
                                         "cf_clearance=" + Properties.Settings.Default.cf_clearance
@@ -342,6 +346,14 @@ namespace Omnibus
                         }
 
                         
+                    }
+                    else
+                    {
+
+                        var statusCode = response.StatusCode;
+                        var statusDesc = response.StatusDescription;
+
+                        MessageBox.Show("Error: " + statusCode + ": " + statusDesc);
                     }
                 }
             }
@@ -750,7 +762,9 @@ namespace Omnibus
                 string[] a = node.Split('"');
 
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(a[1]);
-                request.UserAgent = Properties.Settings.Default.UserAgent;
+                //request.UserAgent = Properties.Settings.Default.UserAgent;
+                request.UserAgent = userAgent;
+                request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8";
                 request.Headers.Add(HttpRequestHeader.Cookie,
                                     "__cfduid=" + Properties.Settings.Default.cfduid + ";" +
                                     "cf_clearance=" + Properties.Settings.Default.cf_clearance
@@ -850,6 +864,14 @@ namespace Omnibus
                     else
                         MessageBox.Show("No download link available. Go to comic's page and download manually.");
                 }
+                else
+                {
+
+                    var statusCode = response.StatusCode;
+                    var statusDesc = response.StatusDescription;
+
+                    MessageBox.Show("Error: " + statusCode + ": " + statusDesc);
+                }
             }
             if (e.ClickedItem.Name == "validateMF")
             {
@@ -858,7 +880,9 @@ namespace Omnibus
                 string[] a = node.Split('"');
 
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(a[1]);
-                request.UserAgent = Properties.Settings.Default.UserAgent;
+                //request.UserAgent = Properties.Settings.Default.UserAgent;
+                request.UserAgent = userAgent;
+                request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8";
                 request.Headers.Add(HttpRequestHeader.Cookie,
                                     "__cfduid=" + Properties.Settings.Default.cfduid + ";" +
                                     "cf_clearance=" + Properties.Settings.Default.cf_clearance
@@ -957,6 +981,14 @@ namespace Omnibus
                     }
                     else
                         MessageBox.Show("No download link available. Go to comic's page and download manually.");
+                }
+                else
+                {
+
+                    var statusCode = response.StatusCode;
+                    var statusDesc = response.StatusDescription;
+
+                    MessageBox.Show("Error: " + statusCode + ": " + statusDesc);
                 }
             }
         }
@@ -1120,8 +1152,14 @@ namespace Omnibus
             reqCookies.Add(cookieCfClearance);
 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(searchURL);
-            request.UserAgent = Properties.Settings.Default.UserAgent;
+            //request.UserAgent = Properties.Settings.Default.UserAgent;
+            request.UserAgent = userAgent;
             request.CookieContainer = reqCookies;
+            request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8";
+            request.Headers.Add(HttpRequestHeader.Cookie,
+                                "__cfduid=" + Properties.Settings.Default.cfduid + ";" +
+                                "cf_clearance=" + Properties.Settings.Default.cf_clearance
+                                );
 
             //request.Headers.Add(HttpRequestHeader.Cookie,
             //                    "__cfduid=" + Properties.Settings.Default.cfduid + ";" +
