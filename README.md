@@ -1,7 +1,7 @@
 # Omnibus
 Search for and download comics that are added to GetComics.info easily
 
-![Omnibus](https://i.imgur.com/JECdY1G.png)
+![Omnibus](https://i.imgur.com/UohUPuI.png)
 
 ## Installation
 Download the latest release, unzip, and run.
