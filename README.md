@@ -1,5 +1,5 @@
-# Omnibus
-Search for and download comics that are added to GetComics.info easily
+# About
+Omnibus is a Windows program that lets you search for and download comics that are added to GetComics.info easily.
 
 ![Omnibus](https://i.imgur.com/UohUPuI.png)
 
